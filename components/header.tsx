@@ -100,7 +100,7 @@ export default function Header({ lang, changeLang }: Props) {
                         <Github className="max-2xl:w-[22px] cursor-pointer hover:text-secondary transition-colors duration-300 h-[25px] " />
                     </a>
 
-                    <a href="#">
+                    <a href="https://t.me/Meytikhanyan_Hovsep">
                         <Send className="max-2xl:w-[22px] cursor-pointer hover:text-secondary transition-colors duration-300 h-[25px] " />
                     </a>
                     <Globe
