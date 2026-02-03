@@ -26,6 +26,7 @@ const navigation: any = {
     about: "Кто я",
     projects: "Проекты",
     services: "Услуги",
+    reviews: "Отзывы",
     contacts: "Контакты",
 };
 
@@ -40,10 +41,9 @@ export default function Header({ lang, changeLang }: Props) {
     });
     const icons = [
         <House className={iconStyles} />,
-        <FingerprintPattern className={iconStyles} />,
+        <UserRound className={iconStyles} />,
         <Layers className={iconStyles} />,
         <Settings className={iconStyles} />,
-        <UserRound className={iconStyles} />,
     ];
 
     return (
@@ -80,7 +80,7 @@ export default function Header({ lang, changeLang }: Props) {
                                         i == 0 ? "primary" : ""
                                     }`}
                                 >
-                                    {icons[i]}
+                                    {icons[i] || null}
                                     {lang ? e : navigation[e]}
                                 </Link>
                             </li>

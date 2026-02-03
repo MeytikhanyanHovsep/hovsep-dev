@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import HeroTypewriter from "./heroTypewriter";
 import Globe from "./globe";
 import Button from "../button";
@@ -9,11 +9,11 @@ import Image from "next/image";
 type Props = { lang: boolean };
 
 export default function Main({ lang }: Props) {
+    const [text, setText] = useState<string>("View services");
+
     return (
         <>
             <main className="h-screen relative w-full ">
-                <InteractiveGrid />
-
                 <div className="container grid grid-cols-2 h-full">
                     <div className="h-full items-start flex gap-[10px] flex-col max-w-min justify-center z-50 relative ">
                         <p className="text-[25px] mb-[-10px]">
@@ -45,9 +45,20 @@ export default function Main({ lang }: Props) {
                                 ? "I develop websites and web applications with a focus on usability, speed, and clean code."
                                 : "Занимаюсь разработкой сайтов и веб-приложений с упором на удобство, скорость и чистый код."}
                         </p>
-                        <Button>
-                            {lang ? "Contact me" : "Связываться со мной"}
-                        </Button>
+                        <div className="flex gap-5">
+                            <Button filled={true}>
+                                {lang ? "Contact me" : "Связываться со мной"}
+                            </Button>
+                            <Button>
+                                {lang ? "Explore services" : "Изучить услуги"}
+                            </Button>
+                            {/* <Button>{text }</Button> */}
+                        </div>
+                        {/* <input
+                            type="text"
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                        /> */}
                     </div>
 
                     <div className="h-full  max-w-full justify-end relative flex items-center">

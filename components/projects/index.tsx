@@ -9,17 +9,23 @@ export default function Projects({ lang }: Props) {
         {
             img: "/work.png",
             link: "#",
-            name: "Website",
+            name: "Как то красиво расположить лайк и 2 варианта. Октивный и не октивный",
+            likes: 20,
+            isLiked: false,
         },
         {
             img: "/work.png",
             link: "#",
-            name: "Website",
+            name: "Как то красиво расположить лайк",
+            likes: 20,
+            isLiked: true,
         },
         {
             img: "/work.png",
             link: "#",
-            name: "Website",
+            name: "Как то красиво расположить лайк",
+            likes: 20,
+            isLiked: false,
         },
     ];
 

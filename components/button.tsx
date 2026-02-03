@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 type Props = {
+    filled?: boolean;
     children: string;
 };
 
@@ -10,14 +11,11 @@ const CYCLES_PER_LETTER = 2;
 const SHUFFLE_TIME = 50;
 const CHARS = "!@#$%^&*():{};|,.<>/?";
 
-const Button = ({ children }: Props) => {
+const Button = ({ children, filled = false }: Props) => {
     const intervalRef = useRef<any>(null);
 
-    // Инициализируем стейт входящим текстом
     const [text, setText] = useState(children);
 
-    // СИНХРОНИЗАЦИЯ: Если пропс children изменился (например, смена языка),
-    // мы немедленно обновляем отображаемый текст, не дожидаясь hover.
     useEffect(() => {
         setText(children);
     }, [children]);
@@ -52,34 +50,35 @@ const Button = ({ children }: Props) => {
 
     return (
         <motion.button
-            whileHover={{ scale: 1.025 }}
             whileTap={{ scale: 0.975 }}
             onMouseEnter={scramble}
             onMouseLeave={stopScramble}
-            className="group relative overflow-hidden rounded-[20px] py-[15px] px-[30px] border-2 cur-border border-primary text-primary cursor-pointer text-[20px] transition-all duration-300 flex items-center"
+            className={`group relative overflow-hidden  rounded-[30px] py-[15px] px-[30px]  cur-border border-primary cursor-pointer  transition-all duration-300  ${filled ? "text-black bg-primary" : "text-primary border-2 bg-transparent"} ${children.length < 16 ? "min-w-[200px]" : "min-w-[250px]"}`}
         >
-            <div className="relative z-10 flex items-center">
-                <span className="invisible overflow-hidden whitespace-nowrap">
-                    {children}
-                </span>
+            <motion.div className="flex mx-auto items-center w-min">
+                <div className="relative z-10 flex w-min items-center">
+                    <span className="invisible overflow-hidden whitespace-nowrap">
+                        {children}
+                    </span>
 
-                <span className="absolute left-0 whitespace-nowrap">
-                    {text}
-                </span>
-            </div>
+                    <span className="absolute left-0 whitespace-nowrap">
+                        {text}
+                    </span>
+                </div>
 
-            <motion.span
-                initial={{ y: "100%" }}
-                animate={{ y: "-100%" }}
-                transition={{
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    duration: 1,
-                    ease: "linear",
-                }}
-                className="duration-300 absolute inset-0 z-0 scale-125 opacity-0 
-                transition-opacity group-hover:opacity-100 bg-linear-to-t  from-transparent via-white/20 to-transparent"
-            />
+                <motion.span
+                    initial={{ y: "100%" }}
+                    animate={{ y: "-100%" }}
+                    transition={{
+                        repeat: Infinity,
+                        repeatType: "mirror",
+                        duration: 1,
+                        ease: "linear",
+                    }}
+                    className={`duration-300 absolute inset-0 z-0 scale-125 opacity-0 
+                transition-opacity group-hover:opacity-100 bg-linear-to-t  from-transparent  to-transparent hidden group-hover:block ${filled ? "via-black/40" : "via-white/20"}`}
+                />
+            </motion.div>
         </motion.button>
     );
 };

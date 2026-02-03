@@ -1,6 +1,7 @@
 import React from "react";
 import Title from "../title";
 import TechBlock from "./techBlock";
+import Button from "../button";
 
 type Props = { lang: boolean };
 
@@ -42,7 +43,7 @@ export default function About({ lang }: Props) {
         ["State Management", "Управление состоянием"],
     ];
     return (
-        <section className="py-30 -mt-30">
+        <section className="pt-30 -mt-30">
             <div className="container grid grid-cols-2 gap-10 items-center">
                 <div className="relative ml-[50px] h-[200px]">
                     {/* {cubes.map((e, i) => (
@@ -113,6 +114,15 @@ export default function About({ lang }: Props) {
                                 </p>
                             </div>
                         </div>
+                        <div className="flex gap-2">
+                            <Button>
+                                {lang ? "My contacts" : "Мои контакты"}
+                            </Button>
+                            <Button filled={true}>
+                                {lang ? "My contacts" : "Мои контакты"}
+                            </Button>
+                        </div>
+                        <p>"какой кнопка лучше смотрится, тот и оставляем"</p>
                     </div>
                 </div>
             </div>

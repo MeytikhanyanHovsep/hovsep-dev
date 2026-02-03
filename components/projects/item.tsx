@@ -1,15 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ThumbsUp } from "lucide-react";
 
 type Props = {
     img: string;
     link: string;
     name: string;
+    likes: number;
+    isLiked: boolean;
 };
 
-export default function Item({ img, link, name }: Props) {
+export default function Item({ img, link, name, likes, isLiked }: Props) {
     return (
         <Link href={link}>
             <motion.div
@@ -33,6 +35,15 @@ export default function Item({ img, link, name }: Props) {
                     </span>
                 </div>
                 <h3 className="px-3 text-[24px] text-white">{name}</h3>
+                <div>
+                    <ThumbsUp
+                        className={
+                            (isLiked ? "fill-secondary text-white/50 " : "") +
+                            "w-[30px] h-[30px]"
+                        }
+                    />
+                    <span>{likes}</span>
+                </div>
             </motion.div>
         </Link>
     );
