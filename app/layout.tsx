@@ -5,6 +5,10 @@ import Components from "@/components";
 export const metadata: Metadata = {
     title: "Hovsep Meytikhanyan",
     description: "Developing Websites",
+    robots: {
+        index: true,
+        follow: true,
+    },
     icons: {
         icon: [
             { url: "/favicon.ico" },
