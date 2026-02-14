@@ -167,7 +167,7 @@ const Header = memo(function Header({
                             >
                                 <button
                                     onClick={() => handleScroll(e)}
-                                    className={`flex  capitalize primary-hover transition-colors duration-300 ease-in-out px-[15px] py-2 max-2xl:py-[6px] rounded-full text-[12px] hover:text-primary max-2xl:px-[12px]  bg-linear-to-b cursor-pointer items-center  ${
+                                    className={`flex  capitalize primary-hover transition-colors duration-300 ease-in-out px-[15px] py-2 max-2xl:py-[6px] rounded-full text-[12px] hover:text-primary max-2xl:pl-[11px] max-2xl:pr-[13px]  bg-linear-to-b cursor-pointer items-center  ${
                                         i == 0 ? "primary" : ""
                                     } ${
                                         activeSection == e
