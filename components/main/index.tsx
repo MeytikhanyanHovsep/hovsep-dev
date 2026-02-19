@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, memo } from "react";
+import React, { useState, memo, useMemo } from "react";
 import HeroTypewriter from "./heroTypewriter";
 import Button from "../button";
 import FloatingLines from "./bg";
@@ -7,7 +7,20 @@ import FloatingLines from "./bg";
 type Props = { lang: boolean };
 
 const Main = memo(function Main({ lang }: Props) {
-    const [text, setText] = useState<string>("View services");
+    const StaticAnimation = useMemo(() => {
+        return (
+            <FloatingLines
+                linesGradient={["#7effdc", "#36ff9a", "#7effdc"]}
+                enabledWaves={["top", "middle", "bottom"]}
+                lineCount={3}
+                lineDistance={30}
+                bendRadius={100}
+                bendStrength={-0.5}
+                interactive={true}
+                parallax={true}
+            />
+        );
+    }, []);
 
     return (
         <>
@@ -15,16 +28,7 @@ const Main = memo(function Main({ lang }: Props) {
                 id="home"
                 className="h-screen grid place-items-center relative w-full "
             >
-                <FloatingLines
-                    linesGradient={["#7effdc", "#36ff9a", "#7effdc"]}
-                    enabledWaves={["top", "middle", "bottom"]}
-                    lineCount={3}
-                    lineDistance={30}
-                    bendRadius={100}
-                    bendStrength={-0.5}
-                    interactive={true}
-                    parallax={true}
-                />
+                {StaticAnimation}
                 <div className="container flex justify-center">
                     <div className="h-full mx-auto max-w-[900px]  text-balance items-center flex gap-3 flex-col justify-center z-50 relative ">
                         <div className="text-[25px] max-md:text-[18px] max-2xl:text-[20px] flex items-center mb-[-10px]">

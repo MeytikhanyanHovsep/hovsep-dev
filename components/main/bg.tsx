@@ -244,296 +244,316 @@ function hexToVec3(hex: string): Vector3 {
     return new Vector3(r / 255, g / 255, b / 255);
 }
 
-const FloatingLines = memo(function FloatingLines({
-    linesGradient,
-    enabledWaves = ["top", "middle", "bottom"],
-    lineCount = [6],
-    lineDistance = [5],
-    topWavePosition,
-    middleWavePosition,
-    bottomWavePosition = { x: 2.0, y: -0.7, rotate: -1 },
-    animationSpeed = 1,
-    interactive = true,
-    bendRadius = 5.0,
-    bendStrength = -0.5,
-    mouseDamping = 0.05,
-    parallax = true,
-    parallaxStrength = 0.2,
-    mixBlendMode = "screen",
-}: FloatingLinesProps) {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const isInView = useRef(false);
-    const targetMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
-    const currentMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
-    const targetInfluenceRef = useRef<number>(0);
-    const currentInfluenceRef = useRef<number>(0);
-    const targetParallaxRef = useRef<Vector2>(new Vector2(0, 0));
-    const currentParallaxRef = useRef<Vector2>(new Vector2(0, 0));
+const FloatingLines = memo(
+    function FloatingLines({
+        linesGradient,
+        enabledWaves = ["top", "middle", "bottom"],
+        lineCount = [6],
+        lineDistance = [5],
+        topWavePosition,
+        middleWavePosition,
+        bottomWavePosition = { x: 2.0, y: -0.7, rotate: -1 },
+        animationSpeed = 1,
+        interactive = true,
+        bendRadius = 5.0,
+        bendStrength = -0.5,
+        mouseDamping = 0.05,
+        parallax = true,
+        parallaxStrength = 0.2,
+        mixBlendMode = "screen",
+    }: FloatingLinesProps) {
+        const containerRef = useRef<HTMLDivElement | null>(null);
+        const isInView = useRef(false);
+        const targetMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
+        const currentMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
+        const targetInfluenceRef = useRef<number>(0);
+        const currentInfluenceRef = useRef<number>(0);
+        const targetParallaxRef = useRef<Vector2>(new Vector2(0, 0));
+        const currentParallaxRef = useRef<Vector2>(new Vector2(0, 0));
 
-    const getLineCount = (waveType: "top" | "middle" | "bottom"): number => {
-        if (typeof lineCount === "number") return lineCount;
-        if (!enabledWaves.includes(waveType)) return 0;
-        const index = enabledWaves.indexOf(waveType);
-        return lineCount[index] ?? 6;
-    };
-
-    const getLineDistance = (waveType: "top" | "middle" | "bottom"): number => {
-        if (typeof lineDistance === "number") return lineDistance;
-        if (!enabledWaves.includes(waveType)) return 0.1;
-        const index = enabledWaves.indexOf(waveType);
-        return lineDistance[index] ?? 0.1;
-    };
-
-    const topLineCount = enabledWaves.includes("top") ? getLineCount("top") : 0;
-    const middleLineCount = enabledWaves.includes("middle")
-        ? getLineCount("middle")
-        : 0;
-    const bottomLineCount = enabledWaves.includes("bottom")
-        ? getLineCount("bottom")
-        : 0;
-
-    const topLineDistance = enabledWaves.includes("top")
-        ? getLineDistance("top") * 0.01
-        : 0.01;
-    const middleLineDistance = enabledWaves.includes("middle")
-        ? getLineDistance("middle") * 0.01
-        : 0.01;
-    const bottomLineDistance = enabledWaves.includes("bottom")
-        ? getLineDistance("bottom") * 0.01
-        : 0.01;
-
-    useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                isInView.current = entry.isIntersecting;
-            },
-            { threshold: 0.01 },
-        );
-        observer.observe(container);
-
-        const scene = new Scene();
-        const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        camera.position.z = 1;
-
-        const renderer = new WebGLRenderer({ antialias: true, alpha: false });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-        renderer.domElement.style.width = "100%";
-        renderer.domElement.style.height = "100%";
-        container.appendChild(renderer.domElement);
-
-        const uniforms = {
-            iTime: { value: 0 },
-            iResolution: { value: new Vector3(1, 1, 1) },
-            animationSpeed: { value: animationSpeed },
-            enableTop: { value: enabledWaves.includes("top") },
-            enableMiddle: { value: enabledWaves.includes("middle") },
-            enableBottom: { value: enabledWaves.includes("bottom") },
-            topLineCount: { value: topLineCount },
-            middleLineCount: { value: middleLineCount },
-            bottomLineCount: { value: bottomLineCount },
-            topLineDistance: { value: topLineDistance },
-            middleLineDistance: { value: middleLineDistance },
-            bottomLineDistance: { value: bottomLineDistance },
-            topWavePosition: {
-                value: new Vector3(
-                    topWavePosition?.x ?? 10.0,
-                    topWavePosition?.y ?? 0.5,
-                    topWavePosition?.rotate ?? -0.4,
-                ),
-            },
-            middleWavePosition: {
-                value: new Vector3(
-                    middleWavePosition?.x ?? 5.0,
-                    middleWavePosition?.y ?? 0.0,
-                    middleWavePosition?.rotate ?? 0.2,
-                ),
-            },
-            bottomWavePosition: {
-                value: new Vector3(
-                    bottomWavePosition?.x ?? 2.0,
-                    bottomWavePosition?.y ?? -0.7,
-                    bottomWavePosition?.rotate ?? 0.4,
-                ),
-            },
-            iMouse: { value: new Vector2(-1000, -1000) },
-            interactive: { value: interactive },
-            bendRadius: { value: bendRadius },
-            bendStrength: { value: bendStrength },
-            bendInfluence: { value: 0 },
-            parallax: { value: parallax },
-            parallaxStrength: { value: parallaxStrength },
-            parallaxOffset: { value: new Vector2(0, 0) },
-            lineGradient: {
-                value: Array.from(
-                    { length: MAX_GRADIENT_STOPS },
-                    () => new Vector3(1, 1, 1),
-                ),
-            },
-            lineGradientCount: { value: 0 },
+        const getLineCount = (
+            waveType: "top" | "middle" | "bottom",
+        ): number => {
+            if (typeof lineCount === "number") return lineCount;
+            if (!enabledWaves.includes(waveType)) return 0;
+            const index = enabledWaves.indexOf(waveType);
+            return lineCount[index] ?? 6;
         };
 
-        if (linesGradient && linesGradient.length > 0) {
-            const stops = linesGradient.slice(0, MAX_GRADIENT_STOPS);
-            uniforms.lineGradientCount.value = stops.length;
-            stops.forEach((hex, i) => {
-                const color = hexToVec3(hex);
-                uniforms.lineGradient.value[i].set(color.x, color.y, color.z);
+        const getLineDistance = (
+            waveType: "top" | "middle" | "bottom",
+        ): number => {
+            if (typeof lineDistance === "number") return lineDistance;
+            if (!enabledWaves.includes(waveType)) return 0.1;
+            const index = enabledWaves.indexOf(waveType);
+            return lineDistance[index] ?? 0.1;
+        };
+
+        const topLineCount = enabledWaves.includes("top")
+            ? getLineCount("top")
+            : 0;
+        const middleLineCount = enabledWaves.includes("middle")
+            ? getLineCount("middle")
+            : 0;
+        const bottomLineCount = enabledWaves.includes("bottom")
+            ? getLineCount("bottom")
+            : 0;
+
+        const topLineDistance = enabledWaves.includes("top")
+            ? getLineDistance("top") * 0.01
+            : 0.01;
+        const middleLineDistance = enabledWaves.includes("middle")
+            ? getLineDistance("middle") * 0.01
+            : 0.01;
+        const bottomLineDistance = enabledWaves.includes("bottom")
+            ? getLineDistance("bottom") * 0.01
+            : 0.01;
+
+        useEffect(() => {
+            const container = containerRef.current;
+            if (!container) return;
+
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    isInView.current = entry.isIntersecting;
+                },
+                { threshold: 0.01 },
+            );
+            observer.observe(container);
+
+            const scene = new Scene();
+            const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
+            camera.position.z = 1;
+
+            const renderer = new WebGLRenderer({
+                antialias: true,
+                alpha: false,
             });
-        }
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+            renderer.domElement.style.width = "100%";
+            renderer.domElement.style.height = "100%";
+            container.appendChild(renderer.domElement);
 
-        const material = new ShaderMaterial({
-            uniforms,
-            vertexShader,
-            fragmentShader,
-        });
+            const uniforms = {
+                iTime: { value: 0 },
+                iResolution: { value: new Vector3(1, 1, 1) },
+                animationSpeed: { value: animationSpeed },
+                enableTop: { value: enabledWaves.includes("top") },
+                enableMiddle: { value: enabledWaves.includes("middle") },
+                enableBottom: { value: enabledWaves.includes("bottom") },
+                topLineCount: { value: topLineCount },
+                middleLineCount: { value: middleLineCount },
+                bottomLineCount: { value: bottomLineCount },
+                topLineDistance: { value: topLineDistance },
+                middleLineDistance: { value: middleLineDistance },
+                bottomLineDistance: { value: bottomLineDistance },
+                topWavePosition: {
+                    value: new Vector3(
+                        topWavePosition?.x ?? 10.0,
+                        topWavePosition?.y ?? 0.5,
+                        topWavePosition?.rotate ?? -0.4,
+                    ),
+                },
+                middleWavePosition: {
+                    value: new Vector3(
+                        middleWavePosition?.x ?? 5.0,
+                        middleWavePosition?.y ?? 0.0,
+                        middleWavePosition?.rotate ?? 0.2,
+                    ),
+                },
+                bottomWavePosition: {
+                    value: new Vector3(
+                        bottomWavePosition?.x ?? 2.0,
+                        bottomWavePosition?.y ?? -0.7,
+                        bottomWavePosition?.rotate ?? 0.4,
+                    ),
+                },
+                iMouse: { value: new Vector2(-1000, -1000) },
+                interactive: { value: interactive },
+                bendRadius: { value: bendRadius },
+                bendStrength: { value: bendStrength },
+                bendInfluence: { value: 0 },
+                parallax: { value: parallax },
+                parallaxStrength: { value: parallaxStrength },
+                parallaxOffset: { value: new Vector2(0, 0) },
+                lineGradient: {
+                    value: Array.from(
+                        { length: MAX_GRADIENT_STOPS },
+                        () => new Vector3(1, 1, 1),
+                    ),
+                },
+                lineGradientCount: { value: 0 },
+            };
 
-        const geometry = new PlaneGeometry(2, 2);
-        const mesh = new Mesh(geometry, material);
-        scene.add(mesh);
+            if (linesGradient && linesGradient.length > 0) {
+                const stops = linesGradient.slice(0, MAX_GRADIENT_STOPS);
+                uniforms.lineGradientCount.value = stops.length;
+                stops.forEach((hex, i) => {
+                    const color = hexToVec3(hex);
+                    uniforms.lineGradient.value[i].set(
+                        color.x,
+                        color.y,
+                        color.z,
+                    );
+                });
+            }
 
-        const clock = new Clock();
+            const material = new ShaderMaterial({
+                uniforms,
+                vertexShader,
+                fragmentShader,
+            });
 
-        const setSize = () => {
-            if (!containerRef.current) return;
-            const width = containerRef.current.clientWidth || 1;
-            const height = containerRef.current.clientHeight || 1;
-            renderer.setSize(width, height, false);
-            uniforms.iResolution.value.set(
-                renderer.domElement.width,
-                renderer.domElement.height,
-                1,
-            );
-        };
+            const geometry = new PlaneGeometry(2, 2);
+            const mesh = new Mesh(geometry, material);
+            scene.add(mesh);
 
-        setSize();
-        const ro =
-            typeof ResizeObserver !== "undefined"
-                ? new ResizeObserver(() => {
-                      if (containerRef.current) setSize();
-                  })
-                : null;
-        if (ro) ro.observe(container);
+            const clock = new Clock();
 
-        const handlePointerMove = (event: PointerEvent) => {
-            const rect = renderer.domElement.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            const dpr = renderer.getPixelRatio();
-            targetMouseRef.current.set(x * dpr, (rect.height - y) * dpr);
-            targetInfluenceRef.current = 1.0;
-
-            if (parallax) {
-                const offsetX = (x - rect.width / 2) / rect.width;
-                const offsetY = -(y - rect.height / 2) / rect.height;
-                targetParallaxRef.current.set(
-                    offsetX * parallaxStrength,
-                    offsetY * parallaxStrength,
+            const setSize = () => {
+                if (!containerRef.current) return;
+                const width = containerRef.current.clientWidth || 1;
+                const height = containerRef.current.clientHeight || 1;
+                renderer.setSize(width, height, false);
+                uniforms.iResolution.value.set(
+                    renderer.domElement.width,
+                    renderer.domElement.height,
+                    1,
                 );
-            }
-        };
+            };
 
-        const handlePointerLeave = () => {
-            targetInfluenceRef.current = 0.0;
-        };
+            setSize();
+            const ro =
+                typeof ResizeObserver !== "undefined"
+                    ? new ResizeObserver(() => {
+                          if (containerRef.current) setSize();
+                      })
+                    : null;
+            if (ro) ro.observe(container);
 
-        if (interactive) {
-            renderer.domElement.addEventListener(
-                "pointermove",
-                handlePointerMove,
-            );
-            renderer.domElement.addEventListener(
-                "pointerleave",
-                handlePointerLeave,
-            );
-        }
+            const handlePointerMove = (event: PointerEvent) => {
+                const rect = renderer.domElement.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                const dpr = renderer.getPixelRatio();
+                targetMouseRef.current.set(x * dpr, (rect.height - y) * dpr);
+                targetInfluenceRef.current = 1.0;
 
-        let raf = 0;
-        const renderLoop = () => {
-            if (!isInView.current) {
-                raf = requestAnimationFrame(renderLoop);
-                return;
-            }
+                if (parallax) {
+                    const offsetX = (x - rect.width / 2) / rect.width;
+                    const offsetY = -(y - rect.height / 2) / rect.height;
+                    targetParallaxRef.current.set(
+                        offsetX * parallaxStrength,
+                        offsetY * parallaxStrength,
+                    );
+                }
+            };
 
-            uniforms.iTime.value = clock.getElapsedTime();
+            const handlePointerLeave = () => {
+                targetInfluenceRef.current = 0.0;
+            };
+
             if (interactive) {
-                currentMouseRef.current.lerp(
-                    targetMouseRef.current,
-                    mouseDamping,
-                );
-                uniforms.iMouse.value.copy(currentMouseRef.current);
-                currentInfluenceRef.current +=
-                    (targetInfluenceRef.current - currentInfluenceRef.current) *
-                    mouseDamping;
-                uniforms.bendInfluence.value = currentInfluenceRef.current;
-            }
-            if (parallax) {
-                currentParallaxRef.current.lerp(
-                    targetParallaxRef.current,
-                    mouseDamping,
-                );
-                uniforms.parallaxOffset.value.copy(currentParallaxRef.current);
-            }
-
-            renderer.render(scene, camera);
-            raf = requestAnimationFrame(renderLoop);
-        };
-        renderLoop();
-
-        return () => {
-            cancelAnimationFrame(raf);
-            observer.disconnect();
-            if (ro) ro.disconnect();
-            if (interactive) {
-                renderer.domElement.removeEventListener(
+                renderer.domElement.addEventListener(
                     "pointermove",
                     handlePointerMove,
                 );
-                renderer.domElement.removeEventListener(
+                renderer.domElement.addEventListener(
                     "pointerleave",
                     handlePointerLeave,
                 );
             }
-            geometry.dispose();
-            material.dispose();
-            renderer.dispose();
-            if (renderer.domElement.parentElement) {
-                renderer.domElement.parentElement.removeChild(
-                    renderer.domElement,
-                );
-            }
-        };
-    }, [
-        linesGradient,
-        enabledWaves,
-        lineCount,
-        lineDistance,
-        topWavePosition,
-        middleWavePosition,
-        bottomWavePosition,
-        animationSpeed,
-        interactive,
-        bendRadius,
-        bendStrength,
-        mouseDamping,
-        parallax,
-        parallaxStrength,
-    ]);
 
-    return (
-        <div
-            ref={containerRef}
-            className="w-full absolute opacity-40 top-0 left-0 h-full bg-transparent overflow-hidden floating-lines-container"
-            style={{
-                WebkitMaskImage:
-                    "linear-gradient(to top, transparent 0%, black 40%)",
-                maskImage: "linear-gradient(to top, transparent 0%, black 40%)",
-                mixBlendMode: mixBlendMode,
-            }}
-        />
-    );
-});
+            let raf = 0;
+            const renderLoop = () => {
+                if (!isInView.current) {
+                    raf = requestAnimationFrame(renderLoop);
+                    return;
+                }
+
+                uniforms.iTime.value = clock.getElapsedTime();
+                if (interactive) {
+                    currentMouseRef.current.lerp(
+                        targetMouseRef.current,
+                        mouseDamping,
+                    );
+                    uniforms.iMouse.value.copy(currentMouseRef.current);
+                    currentInfluenceRef.current +=
+                        (targetInfluenceRef.current -
+                            currentInfluenceRef.current) *
+                        mouseDamping;
+                    uniforms.bendInfluence.value = currentInfluenceRef.current;
+                }
+                if (parallax) {
+                    currentParallaxRef.current.lerp(
+                        targetParallaxRef.current,
+                        mouseDamping,
+                    );
+                    uniforms.parallaxOffset.value.copy(
+                        currentParallaxRef.current,
+                    );
+                }
+
+                renderer.render(scene, camera);
+                raf = requestAnimationFrame(renderLoop);
+            };
+            renderLoop();
+
+            return () => {
+                cancelAnimationFrame(raf);
+                observer.disconnect();
+                if (ro) ro.disconnect();
+                if (interactive) {
+                    renderer.domElement.removeEventListener(
+                        "pointermove",
+                        handlePointerMove,
+                    );
+                    renderer.domElement.removeEventListener(
+                        "pointerleave",
+                        handlePointerLeave,
+                    );
+                }
+                geometry.dispose();
+                material.dispose();
+                renderer.dispose();
+                if (renderer.domElement.parentElement) {
+                    renderer.domElement.parentElement.removeChild(
+                        renderer.domElement,
+                    );
+                }
+            };
+        }, [
+            linesGradient,
+            enabledWaves,
+            lineCount,
+            lineDistance,
+            topWavePosition,
+            middleWavePosition,
+            bottomWavePosition,
+            animationSpeed,
+            interactive,
+            bendRadius,
+            bendStrength,
+            mouseDamping,
+            parallax,
+            parallaxStrength,
+        ]);
+
+        return (
+            <div
+                ref={containerRef}
+                className="w-full absolute opacity-40 top-0 left-0 h-full bg-transparent overflow-hidden floating-lines-container"
+                style={{
+                    WebkitMaskImage:
+                        "linear-gradient(to top, transparent 0%, black 40%)",
+                    maskImage:
+                        "linear-gradient(to top, transparent 0%, black 40%)",
+                    mixBlendMode: mixBlendMode,
+                }}
+            />
+        );
+    },
+    () => true,
+);
 
 export default FloatingLines;
