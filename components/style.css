@@ -68,3 +68,25 @@
     transform: rotateX(90deg) translateZ(-40px);
     filter: blur(12px);
 }
+
+.typing-cursor {
+    animation: typing 1s infinite;
+}
+
+@keyframes typing {
+    0% {
+        opacity: 0
+    }
+
+    40% {
+        opacity: 100%
+    }
+
+    60% {
+        opacity: 100%
+    }
+
+    100% {
+        opacity: 0
+    }
+}

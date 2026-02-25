@@ -3,6 +3,7 @@ import React from "react";
 import { memo } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { StarIcon } from "@hugeicons/core-free-icons";
+
 type Props = {
     name: string;
     type: string;

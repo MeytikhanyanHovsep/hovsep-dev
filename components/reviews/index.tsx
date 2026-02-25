@@ -90,7 +90,7 @@ const Reviews = memo(function Reviews({ lang }: Props) {
         <>
             <section
                 id="reviews"
-                className="relative  py-30 max-md:py-10 max-2xl:py-20"
+                className="relative pt-30 max-2xl:pt-20 max-md:pt-10 "
             >
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 max-sm:w-[60%] -translate-y-1/2 w-[80%] h-[350px] -rotate-25 bg-radial from-primary/20 rounded-full blur-md via-transparent to-transparent   -z-10 pointer-events-none will-change-transform" />
                 <div className="container z-20">

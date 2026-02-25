@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState, ReactNode, memo } from "react";
+import React, { useState, ReactNode, memo } from "react";
 import Image from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -13,8 +13,10 @@ import {
     StarIcon,
     Call02Icon,
     Globe02Icon,
+    Message01Icon,
+    MenuSquareIcon,
 } from "@hugeicons/core-free-icons";
-import { useMotionValueEvent, useScroll, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 type Props = {
     lang: boolean;
@@ -28,51 +30,43 @@ const navigation: any = {
     projects: "Проекты",
     services: "Услуги",
     reviews: "Отзывы",
+    faq: "Вопросы",
     contacts: "Контакты",
 };
 
 const iconStyles =
-    "w-[20px] max-2xl:h-[18px] max-2xl:mt-[2px] max-lg:w-[22px] max-lg:h-[22px] max-2xl:w-[18px] h-[20px] mb-[3px]";
+    "w-[20px] max-2xl:h-[18px] max-2xl:mt-[2px] max-lg:w-[22px] max-lg:h-[22px] max-2xl:w-[18px] h-[20px] mb-[3px] pointer-events-none";
+const icons: ReactNode[] = [
+    <HugeiconsIcon strokeWidth={2} icon={Home02Icon} className={iconStyles} />,
+    <HugeiconsIcon strokeWidth={2} icon={UserIcon} className={iconStyles} />,
+    <HugeiconsIcon strokeWidth={2} icon={LayerIcon} className={iconStyles} />,
+    <HugeiconsIcon
+        strokeWidth={2}
+        icon={Settings03Icon}
+        className={iconStyles}
+    />,
+    <HugeiconsIcon
+        strokeWidth={2}
+        icon={StarIcon}
+        className={iconStyles + " scale-[0.95]"}
+    />,
+    <HugeiconsIcon
+        strokeWidth={2}
+        icon={Message01Icon}
+        className={iconStyles + " scale-[0.95]"}
+    />,
+    <HugeiconsIcon strokeWidth={2} icon={Call02Icon} className={iconStyles} />,
+];
 
 const Header = memo(function Header({
     lang,
     changeLang,
     activeSection,
 }: Props) {
-    const icons: ReactNode[] = [
-        <HugeiconsIcon
-            strokeWidth={2}
-            icon={Home02Icon}
-            className={iconStyles}
-        />,
-        <HugeiconsIcon
-            strokeWidth={2}
-            icon={UserIcon}
-            className={iconStyles}
-        />,
-        <HugeiconsIcon
-            strokeWidth={2}
-            icon={LayerIcon}
-            className={iconStyles}
-        />,
-        <HugeiconsIcon
-            strokeWidth={2}
-            icon={Settings03Icon}
-            className={iconStyles}
-        />,
-        <HugeiconsIcon
-            strokeWidth={2}
-            icon={StarIcon}
-            className={iconStyles + " scale-[0.95]"}
-        />,
-        <HugeiconsIcon
-            strokeWidth={2}
-            icon={Call02Icon}
-            className={iconStyles}
-        />,
-    ];
+    const [menuToggle, setMenuToggle] = useState<boolean>(false);
 
-    const handleScroll = (id: string): null => {
+    const handleScroll = (id: string): any => {
+        console.log(id);
         const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView({
@@ -82,7 +76,11 @@ const Header = memo(function Header({
 
             window.history.pushState(null, "", window.location.pathname);
         }
-        return null;
+        setTimeout(() => {
+            setMenuToggle(false);
+        }, 300);
+
+        return;
     };
 
     return (
@@ -157,13 +155,44 @@ const Header = memo(function Header({
                 </div>
             </motion.header>
             <nav className=" fixed hidden max-lg:block bottom-[-2px] w-screen z-999 left-0 bg-dark/50 backdrop-blur-md">
+                <motion.ul
+                    initial={{ height: 0, padding: "0 15px" }}
+                    animate={
+                        menuToggle
+                            ? { height: "auto", padding: "8px 15px" }
+                            : { height: 0, padding: "0 15px" }
+                    }
+                    className={`flex w-full max-w-[500px] mx-auto px-[15px] overflow-hidden items-start flex-col  border-b border-white/10 ${menuToggle?"border-t":""}`}
+                >
+                    {Object.keys(navigation)
+                        .slice(4, 8)
+                        .map((e: string, i: number) => (
+                            <li key={i} className="w-full ">
+                                <button
+                                    onClick={() => handleScroll(e)}
+                                    className={`flex  capitalize primary-hover transition-colors duration-300 ease-in-out px-[15px] py-2 max-2xl:py-[6px] rounded-full text-[12px] hover:text-primary max-2xl:pl-[11px] max-2xl:pr-[13px]  bg-linear-to-b cursor-pointer items-center  ${
+                                        i == 0 ? "primary" : ""
+                                    } ${
+                                        activeSection == e
+                                            ? "text-primary from-primary/7 via-primary/10 shadow-md shadow-white/3 to-dark/7"
+                                            : "text-white "
+                                    }`}
+                                >
+                                    {icons[i + 4] || null}
+                                    <span className="pointer-events-none whitespace-nowrap ml-2 inline-block">
+                                        {lang ? e : navigation[e]}
+                                    </span>
+                                </button>
+                            </li>
+                        ))}
+                </motion.ul>
                 <ul className="flex py-3 w-full max-w-[500px] mx-auto px-[15px] justify-between items-center">
                     {Object.keys(navigation)
-                        .slice(0, 5)
+                        .slice(0, 4)
                         .map((e: string, i: number) => (
                             <li
                                 key={i}
-                                className="w-full grid place-items-center"
+                                className="w-full  grid place-items-center"
                             >
                                 <button
                                     onClick={() => handleScroll(e)}
@@ -195,13 +224,31 @@ const Header = memo(function Header({
                                             duration: 0.3,
                                             ease: "easeInOut",
                                         }}
-                                        className="overflow-hidden whitespace-nowrap inline-block"
+                                        className="pointer-events-none overflow-hidden whitespace-nowrap inline-block"
                                     >
                                         {lang ? e : navigation[e]}
                                     </motion.span>
                                 </button>
                             </li>
                         ))}
+                    <li className="w-full grid place-items-center">
+                        <button
+                            onClick={() => setMenuToggle(!menuToggle)}
+                            className={`flex  capitalize primary-hover transition-colors duration-300 ease-in-out p-2 max-2xl:p-[6px] rounded-full text-[12px] hover:text-primary aspect-square!  bg-linear-to-b cursor-pointer items-center         ${
+                                menuToggle
+                                    ? "text-primary from-primary/7 via-primary/10 shadow-md shadow-white/3 to-dark/7"
+                                    : "text-white "
+                            }`}
+                        >
+                            <span className="max-2xl:px-[2px] scale-95">
+                                <HugeiconsIcon
+                                    strokeWidth={2}
+                                    icon={MenuSquareIcon}
+                                    className={iconStyles}
+                                />
+                            </span>
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </>

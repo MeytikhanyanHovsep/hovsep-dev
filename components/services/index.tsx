@@ -97,7 +97,7 @@ const Services = memo(function Services({ lang }: Props) {
             <div className="container">
                 <Title index={3}>{lang ? "Services" : "Услуги"}</Title>
 
-                <div className="grid lg:[&:has(div:hover)>div]:blur-[2px] max-2xl:gap-4 max-md:gap-2 gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid  max-2xl:gap-4 max-md:gap-2 gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {services.map((e: ServiceItem, i) => (
                         <Item
                             name={e.name}

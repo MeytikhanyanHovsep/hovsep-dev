@@ -6,6 +6,7 @@ import About from "./about";
 import Services from "./services";
 import Projects from "./projects";
 import Reviews from "./reviews";
+import Faq from "./faq";
 import Footer from "./footer";
 import Script from "next/script";
 type Props = { children: React.ReactNode };
@@ -80,8 +81,9 @@ export default function Components({ children }: Props) {
             <Projects lang={lang === "eng"} />
             <Services lang={lang === "eng"} />
             <Reviews lang={lang === "eng"} />
+            <Faq lang={lang === "eng"} />
             <Footer lang={lang === "eng"} />
-            <audio ref={audioRef} loop src="/background/back.mp3" />
+            <audio ref={audioRef} loop src="/music/background.mp3" />
 
             <Script
                 src="https://www.googletagmanager.com/gtag/js?id=G-GYFHZNX2S1"

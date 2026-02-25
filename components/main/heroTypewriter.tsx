@@ -49,7 +49,9 @@ const HeroTypewriter = memo(function HeroTypewriter({
             <motion.span className="grotesk whitespace-nowrap max-md:text-[18px] max-2xl:text-[22px] text-[27px] text-primary">
                 {displayText}
             </motion.span>
-
+            <motion.span className="text-[25px] ml-px typing-cursor animate-typing  ">
+                {"|"}
+            </motion.span>
             <motion.span className="text-[30px] w-0 invisible text-shadow-none! text-transparent">
                 {"."}
             </motion.span>

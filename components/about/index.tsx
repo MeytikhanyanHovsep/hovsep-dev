@@ -44,8 +44,20 @@ const About = memo(function About({ lang }: Props) {
     return (
         <section
             id="about"
-            className="pt-30 -mt-30 max-2xl:pt-20 max-2xl:-mt-20 max-md:pt-10 max-md:-mt-10"
+            className="pt-30 relative -mt-30 max-2xl:pt-20 max-2xl:-mt-20 max-md:pt-10 max-md:-mt-10"
         >
+            <div className="grid -z-1 gap-[2px] max-md:top-0 absolute top-[15%] left-[5%] max-w-max grid-cols-2 ">
+                <div className="rounded-[3px] max-md:w-[50px] col-end-3 bg-primary/10 w-[70px] aspect-square"></div>
+                <div className="rounded-[3px] max-md:w-[50px] bg-primary/10 w-[70px] aspect-square"></div>
+            </div>
+            <div className="grid -z-1 gap-[2px] max-md:top-[5%] absolute top-[18%] right-[8%] max-w-max grid-cols-2 ">
+                <div className="rounded-[3px] max-md:w-[50px] bg-primary/10 w-[70px] aspect-square"></div>
+                <div className="rounded-[3px] max-md:w-[50px] row-end-3 col-end-3 bg-primary/10 w-[70px] aspect-square"></div>
+            </div>
+            <div className="grid -z-1 gap-[2px] max-md:right-[7%] max-md:bottom-[15%] absolute bottom-[-10%] right-[15%] max-w-max grid-cols-2 ">
+                <div className="rounded-[3px] max-md:w-[50px] bg-primary/10 col-end-3 w-[70px] aspect-square"></div>
+                <div className="rounded-[3px] max-md:w-[50px] bg-primary/10 w-[70px] aspect-square"></div>
+            </div>
             <div className="container max-lg:grid-cols-1 max-md:gap-5 grid grid-cols-2 gap-10 items-center">
                 <div className="relative max-lg:left-1/2 max-lg:-translate-x-1/2 max-2xl:scale-85 max-md:scale-60 max-[365px]:scale-53 max-md:ml-[2%]  max-[400px]:ml-[-1%]! max-[415px]:ml-[-1%]! max-[365px]:ml-[-5%] max-md:max-w-full max-md:w-full lg:ml-6 max-lg:h-[300px] h-[200px]">
                     {cubes.map((e, i) => (
@@ -71,7 +83,7 @@ const About = memo(function About({ lang }: Props) {
                                 ? "In my work, I focus on logic, performance, and user experience. I try not to complicate solutions unnecessarily and always focus on the task at hand and the result that the client needs."
                                 : "В процессе работы уделяю внимание логике, производительности и удобству пользователя. Стараюсь не усложнять решения без необходимости и всегда ориентируюсь на задачу и результат, который нужен клиенту."}
                         </p>
-                        <div className="flex  flex-wrap gap-x-3 max-md:gap-x-2 max-md:gap-y-3 gap-y-4 ">
+                        <div className="flex  flex-wrap gap-x-3 mt-2 max-md:mt-1 max-md:gap-x-2 max-md:gap-y-3 gap-y-4 ">
                             {tags.map((e, i) => (
                                 <p
                                     key={i}

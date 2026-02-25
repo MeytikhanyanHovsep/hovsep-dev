@@ -36,7 +36,7 @@
   --color-dark: #020e0b;
   --color-primary: #36ff9a;
   --color-secondary: #7effdc;
-  --color-gray: #c9c9c9;
+  --color-gray: #cfcfcf;
   --color-white: #d8f3dD;
   --animate-spin-slow: spin 3s linear infinite;
   --animate-spin-custom: spin 3s linear infinite;
@@ -79,8 +79,8 @@ body {
 .nunito-light {
   font-family: "Nunito-Light", sans-serif;
   font-weight: 300;
-  color: #7effdd;
-  color: #c9c9c9;
+  color: #cfcfcf;
+  color: #e2e2e2;
 }
 
 .text-white,

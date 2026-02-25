@@ -259,7 +259,7 @@ const Footer = memo(function Footer({ lang }: Props) {
                             />
                             <button
                                 type="submit"
-                                className="text-dark max-2xl:px-4 max-2xl:text-[14px] cursor-pointer hover:text-primary grid place-items-center transition-colors duration-300 hover:to-transparent hover:from-transparent  border-2 font-semibold border-primary rounded-[20px] px-5 from-primary to-secondary bg-linear-to-r"
+                                className="text-dark max-2xl:px-4 max-2xl:text-[14px] cursor-pointer hover:text-primary grid place-items-center transition-colors duration-300 hover:to-transparent hover:from-transparent  border-2 font-semibold   outline-0 rounded-[20px] px-5 from-primary to-secondary bg-linear-to-r"
                             >
                                 {lang ? "Send" : "Отправить"}
                             </button>
