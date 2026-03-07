@@ -1,77 +1,62 @@
 "use client";
 import React, { useState, memo, useMemo } from "react";
-import HeroTypewriter from "./heroTypewriter";
-import Button from "../button";
-import FloatingLines from "./bg";
-
+import Button, { ButtonVariant } from "../ui/button";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
 type Props = { lang: boolean };
 
 const Main = memo(function Main({ lang }: Props) {
-    const StaticAnimation = useMemo(() => {
-        return (
-            <FloatingLines
-                linesGradient={["#7effdc", "#36ff9a", "#7effdc"]}
-                enabledWaves={["top", "middle", "bottom"]}
-                lineCount={3}
-                lineDistance={30}
-                bendRadius={100}
-                bendStrength={-0.5}
-                interactive={true}
-                parallax={true}
-            />
-        );
-    }, []);
-
-    return (
-        <>
-            <main
-                id="home"
-                className="h-screen grid place-items-center relative w-full "
-            >
-                {StaticAnimation}
-                <div className="container flex justify-center">
-                    <div className="h-full mx-auto max-w-[900px]  text-balance items-center flex gap-3 flex-col justify-center z-50 relative ">
-                        <div className="text-[25px] max-md:text-[18px] max-2xl:text-[20px] flex items-center mb-[-10px]">
-                            {lang ? "I am" : "Я"}
-                            <span className="invisible">{"-"}</span>
-                            <HeroTypewriter
-                                words={
-                                    lang
-                                        ? [
-                                              "Hovsep Meytikhanyan",
-                                              "FrontEnd-Engineer",
-                                              "UI-Architect",
-                                          ]
-                                        : [
-                                              "Овсеп Мейтиханян",
-                                              "Фронтенд-Инженер",
-                                              "Архитектор-Интерфейсов",
-                                          ]
-                                }
-                            />
-                        </div>
-                        <h2 className="font-black max-md:text-[32px] max-2xl:text-[43px] text-white text-center leading-tight mb-2 max-md:mb-3 text-[50px] block">
-                            {lang
-                                ? "Developing digital solutions to scale your business to the next level."
-                                : "Создаю цифровые продукты, которые масштабируют ваш бизнес"}
-                        </h2>
-                        <p className="text-white/90 max-2xl:text-[14px] max-md:text-[12px] text-center max-w-[700px] text-balance leading-relaxed  mb-10 max-2xl:mb-5 mt-[-10px]">
-                            {lang
-                                ? "From architecture to launch: I build intuitive web applications with a focus on performance and user experience."
-                                : "От архитектуры до запуска: создаю интуитивно понятные веб-приложения с упором на производительность и пользовательский опыт."}
-                        </p>
-                        <div className="flex max-md:gap-3  gap-5">
-                            <Button section="form" filled={true}>
-                                {lang ? "Contact me" : "Связываться со мной"}
-                            </Button>
-                            <Button section="services">
-                                {lang ? "Explore services" : "Изучить услуги"}
-                            </Button>
-                        </div>
-                    </div>
+  return (
+    <>
+      <main id="home" className="pt-23 min-h-screen  relative overflow-hidden">
+        <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-emerald-500/20 rounded-full blur-[120px] -z-10 pointer-events-none opacity-20"></div>
+        <div className="page-section fade-in">
+          <section className="pt-20 max-md:pt-10 pr-6 pb-32 pl-6 relative">
+            <div className="flex flex-col justify-center h-full text-center max-w-4xl mr-auto ml-auto items-center">
+              <div className="flex gap-4 max-xs:gap-2 max-md:gap-3">
+                <div className="inline-flex items-center gap-2 px-3 max-md:px-2.5 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-secondary mb-8">
+                  <span className="px-1.5 max-md:px-0.5 max-md:py-px py-0.5 rounded bg-emerald-500/10 text-emerald-300 max-md:text-xs text-sm font-medium uppercase tracking-wider">
+                    10+
+                  </span>
+                  <span>{lang ? "Clients" : "Клиентов"}</span>
                 </div>
-            </main>
-        </>
-    );
+                <div className="inline-flex items-center gap-2 px-3 max-md:px-2.5 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-secondary mb-8">
+                  <span className="px-1.5 max-md:px-0.5 max-md:py-px py-0.5 rounded bg-emerald-500/10 text-emerald-300 max-md:text-xs text-sm font-medium uppercase tracking-wider">
+                    25+
+                  </span>
+                  <span>{lang ? "Projects" : "Проектов"}</span>
+                </div>
+                <div className="inline-flex items-center gap-2 px-3 max-md:px-2.5 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-secondary mb-8">
+                  <span className="px-1.5 max-md:px-0.5 max-md:py-px py-0.5 rounded bg-emerald-500/10 text-emerald-300 max-md:text-xs text-sm font-medium uppercase tracking-wider">
+                    04+
+                  </span>
+                  <span>{lang ? "Years" : "Лет"}</span>
+                </div>
+              </div>
+
+              <h1 className="leading-[0.9] md:text-7xl lg:text-6xl text-5xl font-medium text-white tracking-tight mb-8 text-balance">
+                <span className="text-gradient bg-linear-to-r from-accent   to-secondary inline-block pb-2">
+                  {lang ? "Digital solutions" : "Цифровые решения"}
+                </span>{" "}
+                {lang ? "for your business growth" : "для роста вашего бизнеса"}
+                <span className="text-gradient bg-linear-to-r from-accent  to-secondary inline-block "></span>
+              </h1>
+
+              <p className="md:text-lg text-balance leading-[1.4] text-lg text-slate-400 max-w-2xl mr-auto mb-10 ml-auto">
+                {lang
+                  ? "From architecture to launch: I build intuitive web applications with a focus on performance and user experience."
+                  : "От архитектуры до запуска: создаю интуитивно веб-приложения с упором на производительность и пользовательский опыт."}
+              </p>
+
+              <Button link="contact" type={ButtonVariant.Primary}>
+                {lang ? "Discuss Project" : "Обсудить проект"}
+                <HugeiconsIcon icon={ArrowDown01Icon} strokeWidth={2} />
+              </Button>
+            </div>
+          </section>
+        </div>
+      </main>
+    </>
+  );
 });
 export default Main;

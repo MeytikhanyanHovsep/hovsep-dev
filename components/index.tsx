@@ -1,102 +1,77 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Header from "./header";
-import Main from "./main";
-import About from "./about";
-import Services from "./services";
-import Projects from "./projects";
-import Reviews from "./reviews";
-import Faq from "./faq";
-import Footer from "./footer";
+import { AppProvider } from "@/context/AppContext";
+import ScrollProgress from "./scrollProgress";
+
 import Script from "next/script";
+import Footer from "./footer";
 type Props = { children: React.ReactNode };
 
 export default function Components({ children }: Props) {
-    const [lang, setLang] = useState<string>("ru");
-    const [activeSection, setActiveSection] = useState<string>("home");
-    const audioRef = useRef(null);
+  const [activeSection, setActiveSection] = useState<string>("home");
 
-    useEffect(() => {
-        const observerOptions = {
-            root: null,
-            rootMargin: "-50% 0px -50% 0px",
-            threshold: 0,
-        };
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-50% 0px -50% 0px",
+      threshold: 0,
+    };
 
-        const observerCallback = (entries: IntersectionObserverEntry[]) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setActiveSection(entry.target.id);
-                }
-            });
-        };
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
 
-        const observer = new IntersectionObserver(
-            observerCallback,
-            observerOptions,
-        );
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions,
+    );
 
-        const sectionIds = [
-            "home",
-            "about",
-            "projects",
-            "services",
-            "reviews",
-            "contacts",
-        ];
-        sectionIds.forEach((id) => {
-            const el = document.getElementById(id);
-            if (el) observer.observe(el);
-        });
+    const sectionIds = [
+      "home",
+      "projects",
+      "about",
+      "services",
+      "reviews",
+      "contact",
+      "faq",
+    ];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
 
-        const handleScroll = () => {
-            const scrolledToBottom =
-                window.innerHeight + window.scrollY >=
-                document.body.offsetHeight - 50;
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
-            if (scrolledToBottom) {
-                setActiveSection("contacts");
-            }
-        };
+  return (
+    <>
+      <ScrollProgress />
+      <AppProvider>
+        <Header activeSection={activeSection} />
+        {children}
+        <Footer />
+      </AppProvider>
 
-        window.addEventListener("scroll", handleScroll, { passive: true });
-
-        return () => {
-            observer.disconnect();
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
-    return (
-        <>
-            <Header
-                activeSection={activeSection}
-                lang={lang === "eng"}
-                changeLang={() =>
-                    setLang((prev) => (prev === "ru" ? "eng" : "ru"))
-                }
-            />
-            <Main lang={lang === "eng"} />
-            <About lang={lang === "eng"} />
-            <Projects lang={lang === "eng"} />
-            <Services lang={lang === "eng"} />
-            <Reviews lang={lang === "eng"} />
-            <Faq lang={lang === "eng"} />
-            <Footer lang={lang === "eng"} />
-            <audio ref={audioRef} loop src="/music/background.mp3" />
-
-            <Script
-                src="https://www.googletagmanager.com/gtag/js?id=G-GYFHZNX2S1"
-                strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-                {`
+      <span className="-z-10 bg-radial from-[#081111] to-[#040505] left-0 top-0 fixed w-screen h-screen"></span>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-GYFHZNX2S1"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-GYFHZNX2S1');
           `}
-            </Script>
-        </>
-    );
+      </Script>
+    </>
+  );
 }

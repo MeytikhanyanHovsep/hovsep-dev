@@ -1,46 +1,28 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Nunito';
-  src: url("/fonts/Nunito/static/Nunito-Regular.ttf") format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
 
-@font-face {
-  font-family: 'Nunito-Light';
-  src: url("/fonts/Nunito/static/Nunito-Light.ttf") format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Grotesk';
-  src: url("/fonts/Grotesk.ttf") format('truetype');
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url("/fonts/satoshi-Regular.otf") format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
 
 @theme {
   --animate-spin-slow: spin 3s linear infinite;
-
   --color-primary-glow: #3b82f6;
-
-
   --color-dark: #020e0b;
-  --color-primary: #36ff9a;
-  --color-secondary: #7effdc;
-  --color-gray: #cfcfcf;
-  --color-white: #d8f3dD;
+  --color-primary: #10b981;
+  --color-accent: #34d399;
+  --color-secondary: #a7f3d0;
+  --color-gray: #94a3b8;
   --animate-spin-slow: spin 3s linear infinite;
   --animate-spin-custom: spin 3s linear infinite;
-  /* --color-mid-green: #1a4d3a; */
+}
+
+::selection {
+  background-color: #10b9818a;
+  color: #ffffffee;
+}
+
+::-moz-selection {
+  background-color: #10b9818a;
+  color: #ffffffee;
+
 }
 
 body::-webkit-scrollbar {
@@ -53,19 +35,15 @@ body::-webkit-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #36ff9b;
+  background: #10b982;
   width: 7px !important;
   border-radius: 7px
 }
 
 html {
   scroll-behavior: smooth;
-  font-family: "Nunito", sans-serif;
 }
 
-.nunito {
-  font-family: "Nunito", sans-serif;
-}
 
 
 
@@ -74,6 +52,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   overflow-y: scroll;
+  background-color: #030505;
 }
 
 .nunito-light {
@@ -83,18 +62,7 @@ body {
   color: #e2e2e2;
 }
 
-.text-white,
-.text-gray {
-  text-shadow: 0 0 2px black;
-}
 
-.satoshi {
-  font-family: "Satoshi", sans-serif;
-}
-
-.grotesk {
-  font-family: "Grotesk", system-ui;
-}
 
 .container {
   max-width: 1440px;
@@ -104,9 +72,20 @@ body {
   padding-right: 70px;
 }
 
+.text-gradient {
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: none;
+
+  display: inline-block;
+}
 
 .animate-spin-custom {
-  animation: spin 3s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 

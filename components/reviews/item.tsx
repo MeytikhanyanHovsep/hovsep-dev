@@ -5,56 +5,53 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { StarIcon } from "@hugeicons/core-free-icons";
 
 type Props = {
-    name: string;
-    type: string;
-    desc: string[];
-    stars: number;
-    img: string;
-    lang: boolean;
+  name: string;
+  type?: string;
+  desc: string;
+  stars?: number;
+  img: string;
+  lang?: boolean;
 };
 
-const Item = memo(function Item({ desc, img, name, type, stars, lang }: Props) {
-    return (
-        <div className=" transition-all z-10 h-full rounded-[16px] flex flex-col duration-300 bg-dark/50 hover:bg-dark/90 backdrop-blur-md p-4 gap-6 cursor-grab">
-            <p className="text-gray max-2xl:text-[14px]">
-                {desc[lang ? 0 : 1]}
-            </p>
-            <div className="flex gap-3 items-center min-w-full">
-                <Image
-                    width={50}
-                    height={50}
-                    src={"/images/reviews/" + img}
-                    className="rounded-full max-2xl:w-[45px] object-cover"
-                    unoptimized
-                    alt="User"
-                />
-                <div className="flex flex-col">
-                    <p className="text-[20px] max-2xl:text-[18px] max-lg:text-[16px] text-white">
-                        {name}
-                    </p>
-                    <p className="capitalize max-2xl:text-[12px] text-[14px] mt-[-3px] text-gray">
-                        {type == "c"
-                            ? lang
-                                ? "Company"
-                                : "Компания"
-                            : lang
-                              ? "Customer"
-                              : "Клиент"}
-                    </p>
-                </div>
-                <div className="gap-1 px-3 py-2 max-2xl:px-2 max-md:gap-[3px] max-md:py-1 max-2xl:py-1 bg-white/5 rounded-[20px] max-w-min ml-auto flex items-center self-end justify-self-center">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                        <HugeiconsIcon
-                            icon={StarIcon}
-                            key={i}
-                            strokeWidth={2}
-                            className={`${i < stars ? "fill-primary" : ""} text-primary max-md:w-[14px] max-2xl:w-[16px] w-[20px]`}
-                        />
-                    ))}
-                </div>
-            </div>
+const Item = memo(function Item({ desc, img, name, stars = 5, lang }: Props) {
+  return (
+    <div className="group relative min-h-full flex flex-col p-6 rounded-2xl min-w-[340px] md:min-w-[380px] bg-[#0A0C10]/60 backdrop-blur-md border border-white/10 hover:border-emerald-500/30 hover:bg-[#0A0C10]/80 w-full transition-all duration-300">
+      <div className="absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
+
+      <div className="relative z-10 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full  bg-slate-800 overflow-hidden ring-2 ring-white/5 shrink-0">
+          <Image
+            src={"/images/reviews/" + img}
+            alt="User"
+            width={70}
+            height={70}
+            className="w-full h-full object-cover"
+          />
         </div>
-    );
+        <div className="h-full flex flex-col justify-center">
+          <div className="text-sm leading-[100%] font-medium text-white">
+            {name}
+          </div>
+          <div className="flex text-emerald-400 gap-0.5 mt-1.5 ">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <HugeiconsIcon
+                key={i}
+                className="fill-emerald-400 h-[12px] w-[12px]"
+                icon={StarIcon}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <p
+        className="relative   z-10 text-sm text-slate-400 leading-relaxed mt-4"
+        style={{}}
+      >
+        {`"${desc}"`}
+      </p>
+    </div>
+  );
 });
 
 export default Item;

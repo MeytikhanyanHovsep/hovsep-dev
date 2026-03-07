@@ -4,254 +4,153 @@ import React, { useState, ReactNode, memo } from "react";
 import Image from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-    Home02Icon,
-    UserIcon,
-    Settings03Icon,
-    LayerIcon,
-    GithubIcon,
-    TelegramIcon,
-    StarIcon,
-    Call02Icon,
-    Globe02Icon,
-    Message01Icon,
-    MenuSquareIcon,
+  Globe02Icon,
+  TelegramIcon,
+  Menu01Icon,
 } from "@hugeicons/core-free-icons";
+import { usePathname } from "next/navigation";
+import { useApp } from "@/context/AppContext";
+import Button, { ButtonVariant } from "./ui/button";
 import { motion } from "framer-motion";
 
 type Props = {
-    lang: boolean;
-    changeLang: any;
-    activeSection: string;
+  activeSection: string;
 };
 
 const navigation: any = {
-    home: "Главная",
-    about: "Кто я",
-    projects: "Проекты",
-    services: "Услуги",
-    reviews: "Отзывы",
-    faq: "Вопросы",
-    contacts: "Контакты",
+  projects: "Проекты",
+  services: "Услуги",
+  about: "Обо мне",
+  reviews: "Отзывы",
+  contact: "Контакт",
 };
 
-const iconStyles =
-    "w-[20px] max-2xl:h-[18px] max-2xl:mt-[2px] max-lg:w-[22px] max-lg:h-[22px] max-2xl:w-[18px] h-[20px] mb-[3px] pointer-events-none";
-const icons: ReactNode[] = [
-    <HugeiconsIcon strokeWidth={2} icon={Home02Icon} className={iconStyles} />,
-    <HugeiconsIcon strokeWidth={2} icon={UserIcon} className={iconStyles} />,
-    <HugeiconsIcon strokeWidth={2} icon={LayerIcon} className={iconStyles} />,
-    <HugeiconsIcon
-        strokeWidth={2}
-        icon={Settings03Icon}
-        className={iconStyles}
-    />,
-    <HugeiconsIcon
-        strokeWidth={2}
-        icon={StarIcon}
-        className={iconStyles + " scale-[0.95]"}
-    />,
-    <HugeiconsIcon
-        strokeWidth={2}
-        icon={Message01Icon}
-        className={iconStyles + " scale-[0.95]"}
-    />,
-    <HugeiconsIcon strokeWidth={2} icon={Call02Icon} className={iconStyles} />,
-];
+const Header = memo(function Header({ activeSection }: Props) {
+  const [menuToggle, setMenuToggle] = useState<boolean>(false);
+  const path = usePathname();
 
-const Header = memo(function Header({
-    lang,
-    changeLang,
-    activeSection,
-}: Props) {
-    const [menuToggle, setMenuToggle] = useState<boolean>(false);
+  const { lang, toggleLang } = useApp();
 
-    const handleScroll = (id: string): any => {
-        console.log(id);
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-            });
+  const handleScroll = (id: string): any => {
+    setMenuToggle(false);
 
-            window.history.pushState(null, "", window.location.pathname);
-        }
-        setTimeout(() => {
-            setMenuToggle(false);
-        }, 300);
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+        window.history.pushState(null, "", window.location.pathname);
+      }
+    }, 10);
+  };
 
-        return;
-    };
+  return (
+    <>
+      <header className="fixed top-0 w-full  z-50 border-b border-white/5 bg-[#050505]/50 backdrop-blur-md">
+        <nav className=" w-full">
+          <div className="flex h-20 max-w-7xl mx-auto px-6 items-center justify-between relative">
+            <Link
+              href="/"
+              className="flex items-center text-white text-[22px] font-medium tracking-tight  group z-10"
+            >
+              HOV
+              <span className="text-emerald-400 ">$</span>
+              EP
+            </Link>
 
-    return (
-        <>
-            <motion.header className="container  z-200 absolute lg:fixed top-0 max-2xl:py-2 py-4 left-1/2 -translate-x-1/2">
-                <div className=" px-10 flex z-20 justify-between max-2xl:px-6 bg-linear-to-t to-black/30 from-white/5 rounded-full gap-[30px] max-2xl:py-[10px] py-[13px] items-center backdrop-blur-lg ">
-                    <Link
-                        href="/"
-                        className="nunito flex items-center capitalize"
+            <div className="max-lg:hidden flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-sm font-medium">
+              {path === "/"
+                ? Object.keys(navigation).map((e, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleScroll(e)}
+                      className={`hover:text-white capitalize text-[#cbd5e1] cursor-pointer transition-colors ${
+                        activeSection == e ? "text-primary" : ""
+                      }`}
                     >
-                        <Image
-                            src="/images/icons/logo.svg"
-                            className="object-contain max-2xl:max-w-[43px] max-w-[60px]"
-                            width={100}
-                            height={50}
-                            alt="Hovsep"
-                        />
+                      {lang ? e : navigation[e]}
+                    </button>
+                  ))
+                : Object.keys(navigation).map((e, i) => (
+                    <Link
+                      key={i}
+                      href="/"
+                      className={`hover:text-white capitalize text-[#cbd5e1] cursor-pointer transition-colors`}
+                    >
+                      {lang ? e : navigation[e]}
                     </Link>
-                    <nav className=" max-lg:hidden">
-                        <ul className="flex justify-between items-center">
-                            {Object.keys(navigation).map(
-                                (e: string, i: number) => (
-                                    <li key={i}>
-                                        <button
-                                            onClick={() => handleScroll(e)}
-                                            className={`flex capitalize primary-hover transition-colors duration-300 ease-in-out px-[15px] py-2 max-2xl:py-[6px] rounded-full max-2xl:text-[14px] hover:text-primary max-2xl:px-[10px]  bg-linear-to-b cursor-pointer items-center gap-[5px] ${
-                                                i == 0 ? "primary" : ""
-                                            } ${
-                                                activeSection == e
-                                                    ? "text-primary from-primary/7 via-primary/10 shadow-md shadow-white/3 to-dark/7"
-                                                    : "text-white "
-                                            }`}
-                                        >
-                                            {icons[i] || null}
-                                            {lang ? e : navigation[e]}
-                                        </button>
-                                    </li>
-                                ),
-                            )}
-                        </ul>
-                    </nav>
+                  ))}
+            </div>
 
-                    <div className="flex max-2xl:gap-[15px] gap-[20px] text transiton-colors duration-300 items-center">
-                        <a
-                            href="https://github.com/MeytikhanyanHovsep"
-                            target="_blank"
-                        >
-                            <HugeiconsIcon
-                                strokeWidth={2}
-                                icon={GithubIcon}
-                                className="max-2xl:w-[20px] cursor-pointer hover:text-secondary transition-colors duration-300 h-[25px] "
-                            />
-                        </a>
+            <div className="flex items-center gap-4 z-10">
+              <a href="https://t.me/Meytikhanyan_Hovsep" target="_blank">
+                <HugeiconsIcon
+                  strokeWidth={2}
+                  icon={TelegramIcon}
+                  className="max-2xl:w-[20px] cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+                />
+              </a>
+              <HugeiconsIcon
+                strokeWidth={2}
+                icon={Globe02Icon}
+                onClick={toggleLang}
+                className="max-2xl:w-[20px] cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+              />
+              <HugeiconsIcon
+                strokeWidth={2}
+                icon={Menu01Icon}
+                onClick={() => setMenuToggle(!menuToggle)}
+                className="lg:hidden cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+              />
 
-                        <a
-                            href="https://t.me/Meytikhanyan_Hovsep"
-                            target="_blank"
-                        >
-                            <HugeiconsIcon
-                                strokeWidth={2}
-                                icon={TelegramIcon}
-                                className="max-2xl:w-[20px] cursor-pointer hover:text-secondary transition-colors duration-300 h-[25px] "
-                            />
-                        </a>
-                        <HugeiconsIcon
-                            strokeWidth={2}
-                            icon={Globe02Icon}
-                            onClick={changeLang}
-                            className="max-2xl:w-[20px] cursor-pointer hover:text-secondary transition-colors duration-300 h-[25px] "
-                        />
-                    </div>
+              <Button type={ButtonVariant.Header} link="contact">
+                <div className="relative">
+                  <span className="absolute inset-[-1000%] z-0 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#10b981_0%,#050505_50%,#10b981_100%)]"></span>
+
+                  <span className="relative z-1 inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-[#050505] px-8 text-sm font-medium text-white transition-colors group-hover:bg-[#050505]/80">
+                    {lang ? "Get Started" : "Начать работу"}
+                  </span>
                 </div>
-            </motion.header>
-            <nav className=" fixed hidden max-lg:block bottom-[-2px] w-screen z-999 left-0 bg-dark/50 backdrop-blur-md">
-                <motion.ul
-                    initial={{ height: 0, padding: "0 15px" }}
-                    animate={
-                        menuToggle
-                            ? { height: "auto", padding: "8px 15px" }
-                            : { height: 0, padding: "0 15px" }
-                    }
-                    className={`flex w-full max-w-[500px] mx-auto px-[15px] overflow-hidden items-start flex-col  border-b border-white/10 ${menuToggle?"border-t":""}`}
+              </Button>
+            </div>
+          </div>
+        </nav>
+        <motion.div
+          initial={{ height: 0, paddingBottom: 0, paddingTop: 0 }}
+          animate={
+            menuToggle
+              ? { height: "auto", paddingBottom: 24, paddingTop: 10 }
+              : { height: 0, paddingBottom: 0, paddingTop: 0 }
+          }
+          transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
+          className="lg:hidden px-6 overflow-hidden text-start flex flex-col gap-8 text-sm font-medium"
+        >
+          {path === "/"
+            ? Object.keys(navigation).map((e, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleScroll(e)}
+                  className={`flex justify-start capitalize text-white cursor-pointer transition-colors ${
+                    activeSection == e ? "text-primary" : ""
+                  }`}
                 >
-                    {Object.keys(navigation)
-                        .slice(4, 8)
-                        .map((e: string, i: number) => (
-                            <li key={i} className="w-full ">
-                                <button
-                                    onClick={() => handleScroll(e)}
-                                    className={`flex  capitalize primary-hover transition-colors duration-300 ease-in-out px-[15px] py-2 max-2xl:py-[6px] rounded-full text-[12px] hover:text-primary max-2xl:pl-[11px] max-2xl:pr-[13px]  bg-linear-to-b cursor-pointer items-center  ${
-                                        i == 0 ? "primary" : ""
-                                    } ${
-                                        activeSection == e
-                                            ? "text-primary from-primary/7 via-primary/10 shadow-md shadow-white/3 to-dark/7"
-                                            : "text-white "
-                                    }`}
-                                >
-                                    {icons[i + 4] || null}
-                                    <span className="pointer-events-none whitespace-nowrap ml-2 inline-block">
-                                        {lang ? e : navigation[e]}
-                                    </span>
-                                </button>
-                            </li>
-                        ))}
-                </motion.ul>
-                <ul className="flex py-3 w-full max-w-[500px] mx-auto px-[15px] justify-between items-center">
-                    {Object.keys(navigation)
-                        .slice(0, 4)
-                        .map((e: string, i: number) => (
-                            <li
-                                key={i}
-                                className="w-full  grid place-items-center"
-                            >
-                                <button
-                                    onClick={() => handleScroll(e)}
-                                    className={`flex  capitalize primary-hover transition-colors duration-300 ease-in-out px-[15px] py-2 max-2xl:py-[6px] rounded-full text-[12px] hover:text-primary max-2xl:pl-[11px] max-2xl:pr-[13px]  bg-linear-to-b cursor-pointer items-center  ${
-                                        i == 0 ? "primary" : ""
-                                    } ${
-                                        activeSection == e
-                                            ? "text-primary from-primary/7 via-primary/10 shadow-md shadow-white/3 to-dark/7"
-                                            : "text-white "
-                                    }`}
-                                >
-                                    {icons[i] || null}
-                                    <motion.span
-                                        initial={{ width: 0, opacity: 0 }}
-                                        animate={
-                                            activeSection === e
-                                                ? {
-                                                      width: "auto",
-                                                      opacity: 1,
-                                                      marginLeft: 5,
-                                                  }
-                                                : {
-                                                      width: 0,
-                                                      opacity: 0,
-                                                      marginLeft: 0,
-                                                  }
-                                        }
-                                        transition={{
-                                            duration: 0.3,
-                                            ease: "easeInOut",
-                                        }}
-                                        className="pointer-events-none overflow-hidden whitespace-nowrap inline-block"
-                                    >
-                                        {lang ? e : navigation[e]}
-                                    </motion.span>
-                                </button>
-                            </li>
-                        ))}
-                    <li className="w-full grid place-items-center">
-                        <button
-                            onClick={() => setMenuToggle(!menuToggle)}
-                            className={`flex  capitalize primary-hover transition-colors duration-300 ease-in-out p-2 max-2xl:p-[6px] rounded-full text-[12px] hover:text-primary aspect-square!  bg-linear-to-b cursor-pointer items-center         ${
-                                menuToggle
-                                    ? "text-primary from-primary/7 via-primary/10 shadow-md shadow-white/3 to-dark/7"
-                                    : "text-white "
-                            }`}
-                        >
-                            <span className="max-2xl:px-[2px] scale-95">
-                                <HugeiconsIcon
-                                    strokeWidth={2}
-                                    icon={MenuSquareIcon}
-                                    className={iconStyles}
-                                />
-                            </span>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </>
-    );
+                  {lang ? e : navigation[e]}
+                </button>
+              ))
+            : Object.keys(navigation).map((e, i) => (
+                <Link
+                  key={i}
+                  href="/"
+                  className={`flex justify-start capitalize text-white cursor-pointer transition-colors`}
+                >
+                  {lang ? e : navigation[e]}
+                </Link>
+              ))}
+        </motion.div>
+      </header>
+    </>
+  );
 });
 export default Header;

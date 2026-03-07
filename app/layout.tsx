@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Components from "@/components";
+import { Inter } from "next/font/google";
+const inter = Inter({
+    subsets: ["latin"],
+    display: "swap",
+});
 
 export const metadata: Metadata = {
     title: "Hovsep Meytikhanyan",
@@ -32,10 +37,19 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html className="dark nunito">
-            <body className="antialiased max-w-screen overflow-hidden bg-dark text-white transition-colors duration-300">
+        <html lang={"ru"} className="dark nunito">
+            <body
+                className={
+                    inter.className +
+                    " antialiased max-w-screen overflow-hidden  text-white transition-colors duration-300"
+                }
+            >
                 <Components>{children}</Components>
             </body>
         </html>
     );
 }
+
+// https://aether-ai-saas-template.aura.build/
+
+/////// bolor section-nery sarqel mi hat komponent !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

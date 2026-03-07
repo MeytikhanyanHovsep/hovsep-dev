@@ -1,0 +1,59 @@
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
+
+type Props = { elements: any[]; title: string; lang: boolean };
+
+export default function Item({ elements, title, lang }: Props) {
+  const path = usePathname();
+
+  const handleScroll = (id: string): any => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      window.history.pushState(null, "", window.location.pathname);
+    }
+
+    return;
+  };
+
+  return (
+    <div>
+      <h4 className="text-white font-medium whitespace-nowrap mb-4">{title}</h4>
+      <ul className="space-y-3 text-sm text-slate-400">
+        {elements.map((e: any, i) => {
+          return (
+            <li key={i}>
+              {e.item[0].includes(" ") ? (
+                <Link
+                  href={"/" + e.item[0].toLowerCase().replaceAll(" ", "-")}
+                  className="hover:text-emerald-400 whitespace-nowrap cursor-pointer capitalize transition-colors"
+                >
+                  {lang ? e.item[0] : e.item[1]}
+                </Link>
+              ) : path == "/" ? (
+                <button
+                  onClick={() => handleScroll(e.item[0])}
+                  className="hover:text-emerald-400 whitespace-nowrap cursor-pointer capitalize transition-colors"
+                >
+                  {lang ? e.item[0] : e.item[1]}
+                </button>
+              ) : (
+                <Link
+                  href={"/"}
+                  className="hover:text-emerald-400 whitespace-nowrap cursor-pointer capitalize transition-colors"
+                >
+                  {lang ? e.item[0] : e.item[1]}
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}

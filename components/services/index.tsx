@@ -1,117 +1,539 @@
 "use client";
 import Image from "next/image";
-import Title from "../title";
+import Title from "../ui/title";
 import Item from "./item";
 import { memo } from "react";
+import { Settings01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 type Props = { lang: boolean };
 
 type ServiceItem = {
-    title: string[];
-    description: string[];
-    name: string;
+  title: string[];
+  description: string[];
+  name: string;
+  item?: any;
 };
+import { motion } from "framer-motion";
+import Container from "../ui/container";
 
 const services: ServiceItem[] = [
-    {
-        title: ["Веб-верстка по дизайну", "Web Layout from Design"],
-        description: [
-            "Адаптивная вёрстка сайтов по макетам Figma. Точное соблюдение структуры, отступов и типографики. Чистый, понятный код с использованием современных технологий.",
-            "Responsive website layout based on Figma designs. Precise structure, spacing, and typography. Clean and readable code using modern technologies.",
-        ],
-        name: "layout",
-    },
-    {
-        title: ["Адаптивность и UI", "Responsive UI/UX"],
-        description: [
-            "Корректное отображение на всех типах устройств. Продуманные интерфейсы, обеспечивающие удобство пользователя на мобильных телефонах, планшетах и десктопах.",
-            "Flawless display across all devices. Thoughtful interfaces ensuring a seamless user experience on mobile, tablet, and desktop screens.",
-        ],
-        name: "responsivity",
-    },
-    {
-        title: ["Frontend-разработка", "Frontend Development"],
-        description: [
-            "Создание динамических приложений на React и Next.js. Использование серверного рендеринга (SSR) и статической генерации для максимальной производительности.",
-            "Building dynamic applications with React and Next.js. Utilizing SSR and Static Generation for top-tier performance and scalability.",
-        ],
-        name: "front",
-    },
-    {
-        title: ["TypeScript и Надежность", "TypeScript & Reliability"],
-        description: [
-            "Разработка на TypeScript для обеспечения стабильности кода. Строгая типизация данных, минимизация ошибок на этапе написания кода и легкая поддержка.",
-            "Development with TypeScript to ensure code stability. Strong typing, minimizing runtime errors, and making the codebase easy to maintain and scale.",
-        ],
-        name: "reliability",
-    },
-    {
-        title: ["Управление состоянием", "State Management"],
-        description: [
-            "Архитектура данных с использованием Redux Toolkit, Zustand или Context API. Эффективная синхронизация состояния между компонентами приложения.",
-            "Data architecture using Redux Toolkit, Zustand, or Context API. Efficient state synchronization across complex application components.",
-        ],
-        name: "control",
-    },
-    {
-        title: ["Интеграция с API", "API Integration"],
-        description: [
-            "Связывание фронтенда с бэкендом и сторонними сервисами. Безопасная работа с данными, обработка запросов и кэширование для мгновенного отклика.",
-            "Connecting frontend with backend and third-party services. Secure data handling, request processing, and caching for instant response.",
-        ],
-        name: "database",
-    },
-    {
-        title: ["Скорость и SEO", "Performance & SEO"],
-        description: [
-            "Оптимизация Core Web Vitals для высоких позиций в поиске. Быстрая загрузка контента, оптимизация изображений и правильная семантическая структура.",
-            "Optimizing Core Web Vitals for high search rankings. Fast content delivery, image optimization, and proper semantic structure.",
-        ],
-        name: "seo",
-    },
-    {
-        title: ["Тестирование и QA", "Testing & QA"],
-        description: [
-            "Проверка работоспособности интерфейса и логики. Написание Unit-тестов и интеграционных тестов для предотвращения багов при обновлении функционала.",
-            "Ensuring interface and logic reliability. Writing Unit and Integration tests to prevent regressions and bugs when adding new features.",
-        ],
-        name: "test",
-    },
-    {
-        title: ["Поддержка и Развитие", "Maintenance & Evolution"],
-        description: [
-            "Аудит и рефакторинг существующего кода. Исправление ошибок, обновление зависимостей и внедрение нового функционала в работающие проекты.",
-            "Auditing and refactoring existing code. Bug fixing, dependency updates, and implementing new features into production projects.",
-        ],
-        name: "evolution",
-    },
+  {
+    title: ["Web Layout & Responsivity", "Верстка и Адаптив"],
+    description: [
+      "Pixel-perfect Figma-to-code conversion that looks flawless on any screen size.",
+      "Точный перенос макетов из Figma в адаптивный код, работающий на всех устройствах.",
+    ],
+    name: "layout",
+    item: (
+      <div className="relative group w-48 h-32 flex items-center justify-center overflow-visible">
+        <div
+          className="relative w-32 h-20 border-2 border-slate-700 rounded-md bg-slate-900/40 
+                transition-all duration-700 ease-in-out
+                group-hover:w-14 group-hover:h-24 group-hover:rounded-xl group-hover:border-emerald-500/50"
+        >
+          <div className="p-1.5 h-full flex flex-col gap-1.5">
+            {/* "Шапка" сайта */}
+            <div className="w-full h-2 bg-emerald-500 rounded-sm transition-colors duration-500" />
+
+            {/* Сетка контента */}
+            <div className="flex flex-1 gap-1.5 transition-all duration-700 group-hover:flex-col">
+              <div className="flex-1 bg-slate-800 rounded-sm border border-slate-700 group-hover:border-emerald-500/20" />
+              <div className="flex-1 bg-slate-800 rounded-sm border border-slate-700 group-hover:border-emerald-500/20" />
+            </div>
+
+            {/* Подставка ноутбука (исчезает в режиме телефона) */}
+            <div
+              className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-36 h-1.5 bg-slate-800 rounded-full 
+                        transition-all duration-500 opacity-100 group-hover:opacity-0 group-hover:scale-x-0"
+            />
+          </div>
+        </div>
+
+        <style>{`
+                .relative {
+                    transform-style: preserve-3d;
+                    perspective: 1000px;
+                }
+            `}</style>
+      </div>
+    ),
+  },
+  {
+    title: ["Frontend Development", "Frontend-разработка"],
+    description: [
+      "High-performance SPA and SSR applications built with React and Next.js.",
+      "Быстрые SPA и SSR приложения на базе React и Next.js.",
+    ],
+    name: "responsivity",
+    item: (
+      <div className="relative">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          width="90"
+          height="90"
+          viewBox="0,0,256,256"
+          className="absolute left-[-55px] top-[-60px]"
+        >
+          <g
+            fill="#1d293d"
+            className="group-hover:fill-[#3a4c66] duration-500 transition-colors"
+            strokeWidth="1"
+          >
+            <g transform="scale(8,8)">
+              <path d="M11.5,0c-1.381,0 -2.5,1.119 -2.5,2.5v1.5h-4c-1.105,0 -2,0.895 -2,2v3c0,0.552 0.448,1 1,1h0.35742c1.308,0 2.49791,0.94119 2.62891,2.24219c0.15,1.497 -1.02033,2.75781 -2.48633,2.75781h-0.5c-0.552,0 -1,0.448 -1,1v3c0,1.105 0.895,2 2,2h3c0.552,0 1,-0.448 1,-1v-0.35742c0,-1.308 0.94119,-2.49791 2.24219,-2.62891c1.497,-0.15 2.75781,1.02033 2.75781,2.48633v0.5c0,0.552 0.448,1 1,1h3c1.105,0 2,-0.895 2,-2v-4h1.5c1.381,0 2.5,-1.119 2.5,-2.5c0,-1.381 -1.119,-2.5 -2.5,-2.5h-1.5v-4c0,-1.105 -0.895,-2 -2,-2h-4v-1.5c0,-1.381 -1.119,-2.5 -2.5,-2.5z"></path>
+            </g>
+          </g>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          width="90"
+          height="90"
+          viewBox="0,0,256,256"
+          className="absolute left-[-55px] bottom-[-80px]"
+        >
+          <g fill="#10b981" strokeWidth="1">
+            <g transform="scale(8,8)">
+              <path d="M11.5,0c-1.381,0 -2.5,1.119 -2.5,2.5v1.5h-4c-1.105,0 -2,0.895 -2,2v3c0,0.552 0.448,1 1,1h0.35742c1.308,0 2.49791,0.94119 2.62891,2.24219c0.15,1.497 -1.02033,2.75781 -2.48633,2.75781h-0.5c-0.552,0 -1,0.448 -1,1v3c0,1.105 0.895,2 2,2h3c0.552,0 1,-0.448 1,-1v-0.35742c0,-1.308 0.94119,-2.49791 2.24219,-2.62891c1.497,-0.15 2.75781,1.02033 2.75781,2.48633v0.5c0,0.552 0.448,1 1,1h3c1.105,0 2,-0.895 2,-2v-4h1.5c1.381,0 2.5,-1.119 2.5,-2.5c0,-1.381 -1.119,-2.5 -2.5,-2.5h-1.5v-4c0,-1.105 -0.895,-2 -2,-2h-4v-1.5c0,-1.381 -1.119,-2.5 -2.5,-2.5z"></path>
+            </g>
+          </g>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          width="90"
+          height="90"
+          viewBox="0,0,256,256"
+          className="absolute left-[-5px] bottom-[-80px]"
+        >
+          <g
+            fill="#1d293d"
+            className="group-hover:fill-[#3a4c66] duration-500 transition-colors"
+            strokeWidth="1"
+          >
+            <g transform="scale(8,8)">
+              <path d="M11.5,0c-1.381,0 -2.5,1.119 -2.5,2.5v1.5h-4c-1.105,0 -2,0.895 -2,2v3c0,0.552 0.448,1 1,1h0.35742c1.308,0 2.49791,0.94119 2.62891,2.24219c0.15,1.497 -1.02033,2.75781 -2.48633,2.75781h-0.5c-0.552,0 -1,0.448 -1,1v3c0,1.105 0.895,2 2,2h3c0.552,0 1,-0.448 1,-1v-0.35742c0,-1.308 0.94119,-2.49791 2.24219,-2.62891c1.497,-0.15 2.75781,1.02033 2.75781,2.48633v0.5c0,0.552 0.448,1 1,1h3c1.105,0 2,-0.895 2,-2v-4h1.5c1.381,0 2.5,-1.119 2.5,-2.5c0,-1.381 -1.119,-2.5 -2.5,-2.5h-1.5v-4c0,-1.105 -0.895,-2 -2,-2h-4v-1.5c0,-1.381 -1.119,-2.5 -2.5,-2.5z"></path>
+            </g>
+          </g>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          width="90"
+          height="90"
+          viewBox="0,0,256,256"
+          className="absolute left-[-5px] opacity-0 group-hover:opacity-100 scale-120 translate-x-[20px] translate-y-[-20px] rotate-45 duration-500 group-hover:scale-100 group-hover:translate-0 group-hover:rotate-0 top-[-60px]"
+        >
+          <g fill="#10b981" strokeWidth="1">
+            <g transform="scale(8,8)">
+              <path d="M11.5,0c-1.381,0 -2.5,1.119 -2.5,2.5v1.5h-4c-1.105,0 -2,0.895 -2,2v3c0,0.552 0.448,1 1,1h0.35742c1.308,0 2.49791,0.94119 2.62891,2.24219c0.15,1.497 -1.02033,2.75781 -2.48633,2.75781h-0.5c-0.552,0 -1,0.448 -1,1v3c0,1.105 0.895,2 2,2h3c0.552,0 1,-0.448 1,-1v-0.35742c0,-1.308 0.94119,-2.49791 2.24219,-2.62891c1.497,-0.15 2.75781,1.02033 2.75781,2.48633v0.5c0,0.552 0.448,1 1,1h3c1.105,0 2,-0.895 2,-2v-4h1.5c1.381,0 2.5,-1.119 2.5,-2.5c0,-1.381 -1.119,-2.5 -2.5,-2.5h-1.5v-4c0,-1.105 -0.895,-2 -2,-2h-4v-1.5c0,-1.381 -1.119,-2.5 -2.5,-2.5z"></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+    ),
+  },
+  {
+    title: ["TypeScript & Reliability", "TypeScript и Надежность"],
+    description: [
+      "Error-free codebases with strict typing to prevent bugs before they happen.",
+      "Стабильный код без ошибок благодаря строгой типизации и защите от багов.",
+    ],
+    name: "test",
+    item: (
+      <div className="relative w-56 h-32 flex items-center justify-center group px-4 overflow-visible">
+        <div className="relative w-24 h-24 flex items-end justify-center overflow-visible">
+          <svg
+            width="100%"
+            height="100%"
+            viewBox="0 0 28 32"
+            fill="none"
+            className="overflow-visible scale-110 translate-y-1"
+          >
+            <path
+              d="M10 8v6M18 8v6"
+              stroke="#475569"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              className="transition-colors group-hover:stroke-slate-500"
+            />
+
+            <rect
+              x="8.5"
+              y="6.5"
+              width="11"
+              height="2"
+              rx="1"
+              stroke="#475569"
+              strokeWidth="1.5"
+              className="transition-colors -translate-y-px group-hover:stroke-emerald-500"
+            />
+
+            <path
+              d="M18 14L24 22C25.5 24 24.5 26.5 22 26.5H6C3.5 26.5 2.5 24 4 22L10 14"
+              stroke="#475569"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-colors group-hover:stroke-slate-500"
+            />
+
+            <g className="mask-flask-liquid translate-1">
+              <path
+                d="M18 14L24 22C25.5 24 24.5 26.5 22 26.5H6C3.5 26.5 2.5 24 4 22L10 14H18Z"
+                className="opacity-30 fill-emerald-500 mask-flask-liquid -translate-1 transition-opacity duration-700 group-hover:opacity-50 -z-1"
+              />
+
+              <circle
+                cx="12"
+                cy="22"
+                r="1"
+                fill="#34d399"
+                className="opacity-0 group-hover:animate-[rise_2.2s_infinite_ease-out_0.1s]"
+              />
+              <circle
+                cx="19"
+                cy="24"
+                r="0.8"
+                fill="#34d399"
+                className="opacity-0 group-hover:animate-[rise_1.6s_infinite_ease-out_0.6s]"
+              />
+              <circle
+                cx="15"
+                cy="20"
+                r="1"
+                fill="#34d399"
+                className="opacity-0 group-hover:animate-[rise_2s_infinite_ease-out_1.2s]"
+              />
+              <circle
+                cx="9"
+                cy="18"
+                r="1"
+                fill="#34d399"
+                className="opacity-0 group-hover:animate-[rise_1.9s_infinite_ease-out_0.3s]"
+              />
+              <circle
+                cx="17"
+                cy="21"
+                r="0.7"
+                fill="#34d399"
+                className="opacity-0 group-hover:animate-[rise_1.7s_infinite_ease-out_0.9s]"
+              />
+              <circle
+                cx="13"
+                cy="17"
+                r="1"
+                fill="#34d399"
+                className="opacity-0 group-hover:animate-[rise_2.1s_infinite_ease-out_1.5s]"
+              />
+              <circle
+                cx="11"
+                cy="23"
+                r="0.6"
+                fill="#34d399"
+                className="opacity-0 group-hover:animate-[rise_1.8s_infinite_ease-out_1.8s]"
+              />
+            </g>
+
+            <defs>
+              <mask id="mask-flask-liquid">
+                <path
+                  d="M18 14L24 22C25.5 24 24.5 26.5 22 26.5H6C3.5 26.5 2.5 24 4 22L10 14H18Z"
+                  fill="white"
+                />
+              </mask>
+            </defs>
+          </svg>
+        </div>
+
+        <style>{`
+            @keyframes rise {
+                0% { transform: translateY(0) scale(0.6); opacity: 0; }
+                10% { opacity: 0.6; }
+                85% { opacity: 0.6; }
+                100% { transform: translateY(-38px) scale(1.1); opacity: 0; }
+            }
+            @keyframes gasOut {
+                0% { transform: translate(-50%, 0) scale(0.3); opacity: 0; }
+                20% { opacity: 1; }
+                80% { opacity: 1; }
+                100% { transform: translate(-50%, -45px) scale(1.8); opacity: 0; }
+            }
+        `}</style>
+      </div>
+    ),
+  },
+  {
+    title: ["Architecture & API", "Архитектура и API"],
+    description: [
+      "Seamless data flow management with secure backend integrations.",
+      "Управление потоками данных и безопасная интеграция с серверными API.",
+    ],
+    name: "database",
+    item: (
+      <div className="relative w-72 h-36 flex items-center justify-center ">
+        <div className="relative z-10">
+          <svg width="70" height="70" viewBox="0 0 24 24" fill="#0A0C10">
+            <path
+              className="stroke-primary transition-colors duration-300"
+              d="M12 3C7.58 3 4 4.34 4 6V18C4 19.66 7.58 21 12 21C16.42 21 20 19.66 20 18V6C20 4.34 16.42 3 12 3Z"
+              strokeWidth="1.5"
+            />
+            <path
+              className="stroke-primary -translate-y-[4px] transition-colors duration-300"
+              d="M4 10C4 11.66 7.58 13 12 13C16.42 13 20 11.66 20 10"
+              strokeWidth="1.5"
+            />
+            <path
+              className="stroke-primary -translate-y-[2px] transition-colors duration-300"
+              d="M4 14C4 15.66 7.58 17 12 17C16.42 17 20 15.66 20 14"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </div>
+
+        <div className="relative -ml-2 inset-0 flex items-center justify-center pointer-events-none">
+          <svg
+            width="60"
+            height="4"
+            viewBox="0 0 100 4"
+            className="overflow-visible"
+          >
+            <line
+              x1="0"
+              y1="2"
+              x2="150"
+              y2="2"
+              stroke="#1e293b"
+              strokeWidth="5"
+              strokeDasharray="15 8"
+            />
+
+            <circle
+              r="5"
+              fill="#10b981"
+              className="opacity-0 scale-150 group-hover:opacity-100 shadow-[0_0_15px_#10b981]"
+            >
+              <animateMotion
+                dur="1.8s"
+                repeatCount="indefinite"
+                path="M 0 2 L 150 2"
+              />
+            </circle>
+
+            <circle
+              r="5"
+              fill="#34d399"
+              className="opacity-0 scale-150 group-hover:opacity-100 shadow-[0_0_15px_#34d399]"
+            >
+              <animateMotion
+                begin="0.9s"
+                dur="1.8s"
+                repeatCount="indefinite"
+                path="M 0 2 L 150 2"
+              />
+            </circle>
+          </svg>
+        </div>
+
+        {/* Сайт */}
+        <div className="relative z-10">
+          <svg width="80" height="70" viewBox="0 0 24 24" fill="#0A0C10">
+            <rect
+              x="2"
+              y="4"
+              width="20"
+              height="16"
+              rx="3"
+              stroke="#475569"
+              strokeWidth="1.5"
+            />
+            <path
+              d="M2 9h20"
+              stroke="#475569"
+              strokeWidth="1.5"
+              className="transition-colors group-hover:stroke-emerald-500"
+            />
+            <rect
+              x="6"
+              y="13"
+              width="12"
+              height="3"
+              rx="1"
+              fill="#1e293b"
+              className="transition-colors group-hover:fill-emerald-500/20"
+            />
+          </svg>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: ["Performance & SEO", "Скорость и SEO"],
+    description: [
+      "Optimizing load speeds and semantic structure for top search rankings.",
+      "Оптимизация скорости загрузки и семантики для высоких позиций в поиске.",
+    ],
+    name: "seo",
+    item: (
+      <svg
+        width="120"
+        height="80"
+        viewBox="0 0 120 80"
+        className="overflow-visible"
+      >
+        <defs>
+          <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#34d399" />
+            <stop offset="100%" stopColor="#10b981" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M10 70 A 50 50 0 0 1 110 70"
+          fill="none"
+          stroke="#1e293b"
+          strokeWidth="8"
+          strokeLinecap="round"
+        />
+        <path
+          d="M10 70 A 50 50 0 0 1 110 70"
+          fill="none"
+          stroke="url(#gauge-gradient)"
+          strokeWidth="8"
+          strokeLinecap="round"
+          strokeDasharray="157"
+          style={{
+            strokeDashoffset: 157 - (157 * 75) / 100,
+            transition: "stroke-dashoffset 1s ease-out",
+          }}
+        />
+        <g
+          className="origin-[60px_70px] transition-transform duration-1000 ease-out 
+             rotate-30 group-hover:rotate-80 
+             max-md:animate-[swing_3s_ease-in-out_infinite]"
+          style={{ transformOrigin: "60px 70px" }}
+        >
+          <rect x="58" y="25" width="4" height="45" rx="2" fill="#e2e8f0" />
+          <circle cx="60" cy="70" r="6" fill="#e2e8f0" />
+
+          <style>{`
+    @keyframes swing {
+     0%, 33% { transform: rotate(30deg); }
+      50% { transform: rotate(80deg); }     
+      60% { transform: rotate(80deg); }     
+      100% { transform: rotate(30deg); }
+    }
+  `}</style>
+        </g>
+      </svg>
+    ),
+  },
+  {
+    title: ["Evolution & Support", "Развитие и Поддержка"],
+    description: [
+      "Continuous feature updates, bug fixes, and long-term project refactoring.",
+      "Обновление функций, исправление багов и поддержка живых проектов.",
+    ],
+    name: "evolution",
+    item: (
+      <div className="relative group w-64 h-40 flex items-center justify-center px-4 overflow-visible">
+        <div className="relative h-[70px]">
+          <HugeiconsIcon
+            className="w-[70px] absolute will-change-transform top-0 left-[-70px] h-[70px] gear-base gear-slow text-slate-500 transition-colors duration-500 group-hover:text-emerald-500"
+            icon={Settings01Icon}
+          />
+
+          <HugeiconsIcon
+            className="w-[55px] h-[55px] absolute will-change-transform top-[-5px] right-[-50px] gear-base gear-medium text-slate-500 transition-colors duration-500 group-hover:text-slate-300"
+            icon={Settings01Icon}
+          />
+
+          <HugeiconsIcon
+            className="w-[40px] h-[40px] absolute will-change-transform top-[45px] right-[-33px] gear-base gear-fast text-emerald-400 transition-colors duration-500 group-hover:text-emerald-400"
+            icon={Settings01Icon}
+          />
+        </div>
+
+        <style>{`
+            .gear-base {
+                transform-origin: center center;
+                will-change: transform;
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                transform: translateZ(0);
+                animation: gear-spin-perfect linear infinite;
+                animation-play-state: paused;
+            }
+
+            .group:hover .gear-base {
+                animation-play-state: running;
+            }
+
+            .gear-slow {
+                animation-duration: 4s;
+            }
+
+            .gear-medium {
+                animation-duration: 4s;
+                animation-direction: reverse;
+            }
+
+            .gear-fast {
+                animation-duration: 4s;
+            }
+
+            @keyframes gear-spin-perfect {
+                0% {
+                    transform: rotate(0deg) translateZ(0);
+                }
+                100% {
+                    transform: rotate(360deg) translateZ(0);
+                }
+            }
+
+           @media screen and (max-width:1024px) {
+           .gear-base {
+                animation-play-state: running;
+            }
+           }
+        `}</style>
+      </div>
+    ),
+  },
 ];
 const Services = memo(function Services({ lang }: Props) {
-    return (
-        <section
-            id="services"
-            className="relative pt-30 max-2xl:pt-20 max-md:pt-10"
-        >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-lg:w-[150px] w-[100px] aspect-square bg-radial max-lg:h-[50%] max-lg:scale-[2] from-primary/20 to-transparent blur-xs scale-[10] -z-1 pointer-events-none will-change-transform" />
+  return (
+    <Container id="services">
+      <Title
+        dir="center"
+        desc={
+          lang
+            ? "I turn complex ideas into elegant solutions."
+            : "Воплощаю сложные идеи в элегантные решения."
+        }
+      >
+        {lang ? "The Art of Clean Code" : "Искусство чистого кода"}
+      </Title>
 
-            <div className="container">
-                <Title index={3}>{lang ? "Services" : "Услуги"}</Title>
-
-                <div className="grid  max-2xl:gap-4 max-md:gap-2 gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {services.map((e: ServiceItem, i) => (
-                        <Item
-                            name={e.name}
-                            key={i}
-                            title={lang ? e.title[1] : e.title[0]}
-                            description={
-                                lang ? e.description[1] : e.description[0]
-                            }
-                        />
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map((e: ServiceItem, i) => (
+          <Item
+            name={e.name}
+            key={i}
+            item={e.item}
+            title={lang ? e.title[0] : e.title[1]}
+            description={lang ? e.description[0] : e.description[1]}
+          />
+        ))}
+      </div>
+    </Container>
+  );
 });
 
 export default Services;

@@ -1,132 +1,121 @@
-import React, { memo } from "react";
-import Title from "../title";
+import React, { memo, useState } from "react";
+import Title from "../ui/title";
 import Item from "./item";
+import Container from "../ui/container";
 
 type Props = {
-    lang: boolean;
+  lang: boolean;
 };
 
 type Item = {
-    title: string[];
-    description: string[];
+  title: string[];
+  description: string[];
 };
 const items: Item[] = [
-    {
-        title: [
-            "Как начинается работа над проектом?",
-            "How does the project process start?",
-        ],
-        description: [
-            "Работа начинается с изучения макета и обсуждения деталей. Уточняются требования, адаптивность, интерактивные элементы и сроки выполнения.",
-            "The process starts with reviewing the design and discussing the details. Requirements, responsiveness, interactive elements, and deadlines are clarified.",
-        ],
-    },
-    {
-        title: [
-            "Работаете ли вы строго по макету?",
-            "Do you follow the design strictly?",
-        ],
-        description: [
-            "Да, верстка выполняется максимально точно по макету с соблюдением отступов, размеров, типографики и поведения элементов на разных экранах.",
-            "Yes, the layout is implemented as close as possible to the design, including spacing, sizes, typography, and responsive behavior.",
-        ],
-    },
-    {
-        title: ["Будет ли сайт адаптивным?", "Will the website be responsive?"],
-        description: [
-            "Все проекты адаптируются под Desktop, Tablet и Mobile. Корректное отображение проверяется на разных разрешениях и устройствах.",
-            "All projects are optimized for Desktop, Tablet, and Mobile devices. Proper display is tested across different screen sizes.",
-        ],
-    },
-    {
-        title: [
-            "Как организован код проекта?",
-            "How is the project code structured?",
-        ],
-        description: [
-            "Код структурируется по компонентам и страницам. Используется SCSS с разделением на базовые стили, компоненты и страницы. Именование классов — на корректном английском языке.",
-            "The code is structured by components and pages. SCSS is organized into base styles, components, and page-specific files. Class naming follows proper English conventions.",
-        ],
-    },
-    {
-        title: [
-            "Можно ли доработать проект после запуска?",
-            "Is it possible to update the project after launch?",
-        ],
-        description: [
-            "Да, возможны доработки, расширение функционала и техническая поддержка после завершения основной разработки.",
-            "Yes, further improvements, feature expansion, and technical support are available after the main development phase.",
-        ],
-    },
-    {
-        title: [
-            "От чего зависит срок выполнения?",
-            "What does the development timeline depend on?",
-        ],
-        description: [
-            "Срок определяется объемом страниц, сложностью интерфейса и наличием интерактивных элементов. Точные сроки обсуждаются после ознакомления с макетом.",
-            "The timeline depends on the number of pages, interface complexity, and required interactive elements. Exact deadlines are discussed after reviewing the design.",
-        ],
-    },
-    {
-        title: [
-            "Предоставляете ли вы поддержку после сдачи проекта?",
-            "Do you provide post-launch support?",
-        ],
-        description: [
-            "После сдачи проекта возможна техническая поддержка, исправление ошибок и небольшие доработки по договоренности.",
-            "After project delivery, technical support, bug fixes, and minor improvements can be provided upon agreement.",
-        ],
-    },
+  {
+    title: ["Как начинается работа?", "How does the process start?"],
+    description: [
+      "Работа начинается с анализа макета и обсуждения логики. Мы уточняем требования к адаптивности и интерактивным элементам для точной оценки сроков.",
+      "The process starts with design analysis and logic discussion. We clarify requirements for responsiveness and interactivity to set precise deadlines.",
+    ],
+  },
+  {
+    title: [
+      "Соблюдается ли точность макета?",
+      "Is the design followed strictly?",
+    ],
+    description: [
+      "Да, гарантирую Pixel Perfect верстку. Все отступы, шрифты и поведение элементов будут в точности соответствовать вашему дизайну в Figma.",
+      "Yes, I guarantee Pixel Perfect implementation. All spacing, typography, and element behavior will strictly match your Figma design.",
+    ],
+  },
+  {
+    title: ["Будет ли сайт адаптивным?", "Will the website be responsive?"],
+    description: [
+      "Все интерфейсы разрабатываются по принципу Mobile-first и корректно отображаются на любых устройствах — от смартфонов до широкоформатных мониторов.",
+      "All interfaces are developed using the Mobile-first approach, ensuring perfect display on everything from smartphones to ultrawide monitors.",
+    ],
+  },
+  {
+    title: ["Как организован код проекта?", "How is the code structured?"],
+    description: [
+      "Использую компонентный подход (React/Next.js) и TypeScript. Код чистый, масштабируемый и типизированный, что исключает большинство ошибок при поддержке.",
+      "I use a component-based approach (React/Next.js) and TypeScript. The code is clean, scalable, and typed, which prevents most maintenance errors.",
+    ],
+  },
+  {
+    title: [
+      "От чего зависит срок выполнения?",
+      "What determines the timeline?",
+    ],
+    description: [
+      "Срок зависит от количества страниц и сложности анимаций. После ознакомления с макетом я называю финальную дату, которой строго придерживаюсь.",
+      "The timeline depends on the number of pages and animation complexity. After reviewing the design, I provide a final deadline that I strictly follow.",
+    ],
+  },
+  {
+    title: [
+      "Обеспечиваете ли вы высокую скорость?",
+      "Do you ensure high performance?",
+    ],
+    description: [
+      "Да, уделяю особое внимание оптимизации. Высокие показатели в Core Web Vitals и быстрая загрузка — приоритет для каждого моего проекта.",
+      "Yes, I pay special attention to optimization. High Core Web Vitals scores and fast loading times are a priority for every project I build.",
+    ],
+  },
+  {
+    title: [
+      "Возможны ли правки после запуска?",
+      "Are updates possible after launch?",
+    ],
+    description: [
+      "Конечно. Я открыт для расширения функционала или внесения изменений в проект даже после того, как основная работа была успешно сдана.",
+      "Of course. I am open to expanding functionality or making changes to the project even after the main work has been successfully delivered.",
+    ],
+  },
+  {
+    title: ["Предоставляете ли вы поддержку?", "Do you provide support?"],
+    description: [
+      "Обеспечиваю техническую поддержку после деплоя: исправление багов и консультации по работе сайта включены в процесс взаимодействия.",
+      "I provide technical support after deployment: bug fixes and consultations on website operation are included in the process.",
+    ],
+  },
 ];
 
 const Faq = memo(function Faq({ lang }: Props) {
-    return (
-        <section id="faq" className="relative py-30 max-md:py-10 max-2xl:py-20">
-            <div className="grid -z-1 gap-[2px] max-md:top-0 absolute bottom-[-10%] left-[5%] max-w-max grid-cols-2 ">
-                <div className="rounded-[3px] max-md:w-[50px]  bg-primary/7 w-[70px] aspect-square"></div>
-                <div className="rounded-[3px] max-md:w-[50px] row-end-3 col-end-3 bg-primary/7 w-[70px] aspect-square"></div>
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  return (
+    <>
+      <Container id="faq">
+        <div className="border border-white/10 bg-[#0A0C10]/60 rounded-3xl overflow-hidden">
+          <div className="grid grid-cols-1 border-b border-white/10">
+            <div className="md:p-10 md:border-b-0 md:border-r border-white/10 border-b pt-8 pr-8 pb-8 pl-8">
+              <h2 className="text-3xl md:text-4xl font-medium text-white mb-4 tracking-tight">
+                {lang ? "Your Questions, Answered" : "Ответы на ваши вопросы"}
+              </h2>
+              <p className="text-slate-400">
+                {lang
+                  ? "Find everything you need to know about development process, support, and tech stack."
+                  : "Все, что вам нужно знать о процессе разработки, поддержке и технологиях."}
+              </p>
             </div>
-            <div className="grid -z-1 gap-[2px] max-md:top-[5%] absolute top-[-5%] right-[8%] max-w-max grid-cols-2 ">
-                <div className="rounded-[3px] max-md:w-[50px] bg-primary/7 w-[70px] aspect-square"></div>
-                <div className="rounded-[3px] max-md:w-[50px] row-end-3 col-end-3 bg-primary/7 w-[70px] aspect-square"></div>
-            </div>
-            <div className="grid -z-1 gap-[2px] max-md:right-[7%] max-md:bottom-[15%] absolute bottom-[-10%] right-[15%] max-w-max grid-cols-2 ">
-                <div className="rounded-[3px] max-md:w-[50px] bg-primary/7 col-end-3 w-[70px] aspect-square"></div>
-                <div className="rounded-[3px] max-md:w-[50px] bg-primary/7 w-[70px] aspect-square"></div>
-            </div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-lg:w-[150px] w-[100px] aspect-square bg-radial max-lg:h-[50%] max-lg:scale-[2] from-primary/15 to-transparent blur-xs scale-[7] -z-1 pointer-events-none will-change-transform" />
-
-            <div className="container">
-                <Title index={3}>{lang ? "FAQ" : "Вопросы"}</Title>
-
-                <div className="grid max-md:grid-cols-1 grid-cols-2 gap-5">
-                    <div className="flex flex-col gap-5">
-                        {items.slice(0, (items.length + 1) / 2).map((e, i) => (
-                            <Item
-                                key={i}
-                                title={lang ? e.title[1] : e.title[0]}
-                                description={
-                                    lang ? e.description[1] : e.description[0]
-                                }
-                            />
-                        ))}
-                    </div>
-                    <div className="flex flex-col gap-5">
-                        {items.slice((items.length + 1) / 2).map((e, i) => (
-                            <Item
-                                key={i}
-                                title={lang ? e.title[1] : e.title[0]}
-                                description={
-                                    lang ? e.description[1] : e.description[0]
-                                }
-                            />
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {items.map((e, i) => (
+              <Item
+                openIndex={openIndex}
+                ind={i}
+                setOpenIndex={setOpenIndex}
+                key={i}
+                title={lang ? e.title[1] : e.title[0]}
+                description={lang ? e.description[1] : e.description[0]}
+              />
+            ))}
+          </div>
+        </div>
+      </Container>
+    </>
+  );
 });
 
 export default Faq;
