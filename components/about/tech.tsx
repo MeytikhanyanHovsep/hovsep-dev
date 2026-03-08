@@ -1,10 +1,20 @@
 import React from "react";
-
+import { motion } from "framer-motion";
 type Props = {};
 
 export default function Tech({}: Props) {
   return (
-    <div className="relative">
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0,
+      }}
+      viewport={{ once: true, margin: "-150px 0px -150px 0px", amount: 0.2 }}
+      className="relative"
+    >
       <div className="grid grid-cols-3 sm:grid-cols-4 transform   rotate-6 scale-110 gap-4">
         {[
           "html",
@@ -38,7 +48,7 @@ export default function Tech({}: Props) {
                     }`}
             >
               <div
-                className={`w-10 h-10 object-contain transition-all duration-300
+                className={`w-10 h-10 max-md:w-8 max-md:h-8 object-contain transition-all duration-300
                         ${
                           isAccent || isColored
                             ? "bg-emerald-500 group-hover:bg-emerald-400"
@@ -59,6 +69,6 @@ export default function Tech({}: Props) {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 }

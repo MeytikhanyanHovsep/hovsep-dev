@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import Container from "../ui/container";
 import Title from "../ui/title";
+import { motion } from "framer-motion";
 
 interface FormData {
   fullName: string;
@@ -57,7 +58,20 @@ function Contact({ lang }: Props) {
           : "Давайте создавать великое вместе."}
       </Title>
 
-      <div className="glass-panel rounded-2xl p-8 md:p-10 border-white/10 bg-[#0A0C10] overflow-hidden hover:border-white/20 backdrop-blur-md border duration-300 transition-colors ">
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 1 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{
+          once: false,
+          margin: "-30px 0px -30px 0px",
+          amount: 0.2,
+        }}
+        transition={{
+          duration: 0.5,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="glass-panel rounded-2xl p-8 max-md:p-6 md:p-10 border-white/10 bg-[#0A0C10] overflow-hidden hover:border-white/20 backdrop-blur-md border duration-300 transition-colors "
+      >
         <h2 className="text-xl font-medium text-white mb-8 tracking-tight">
           {lang ? "Write me a message" : "Напишите мне"}
         </h2>
@@ -156,7 +170,7 @@ function Contact({ lang }: Props) {
                 lang ? "Write your message here" : "Введите ваше сообщение"
               }
               rows={4}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20 transition-all resize-y min-h-[120px]"
+              className="w-full resize-none bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20 transition-all min-h-[120px]"
               required
             ></textarea>
           </div>
@@ -209,7 +223,7 @@ function Contact({ lang }: Props) {
             {lang ? "Get in touch" : "Связаться со мной"}
           </button>
         </form>
-      </div>
+      </motion.div>
     </Container>
   );
 }

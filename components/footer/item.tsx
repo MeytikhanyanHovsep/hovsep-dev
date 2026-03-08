@@ -1,3 +1,4 @@
+import { useApp } from "@/context/AppContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -6,13 +7,14 @@ type Props = { elements: any[]; title: string; lang: boolean };
 
 export default function Item({ elements, title, lang }: Props) {
   const path = usePathname();
+  const { setLang } = useApp();
 
   const handleScroll = (id: string): any => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: elements[0].item[0] == "layout" ? "center" : "start",
       });
 
       window.history.pushState(null, "", window.location.pathname);
@@ -28,16 +30,15 @@ export default function Item({ elements, title, lang }: Props) {
         {elements.map((e: any, i) => {
           return (
             <li key={i}>
-              {e.item[0].includes(" ") ? (
-                <Link
-                  href={"/" + e.item[0].toLowerCase().replaceAll(" ", "-")}
-                  className="hover:text-emerald-400 whitespace-nowrap cursor-pointer capitalize transition-colors"
-                >
-                  {lang ? e.item[0] : e.item[1]}
-                </Link>
-              ) : path == "/" ? (
+              {path == "/" || e.type == "lang" ? (
                 <button
-                  onClick={() => handleScroll(e.item[0])}
+                  onClick={() => {
+                    if (e.type == "lang") {
+                      setLang(!i);
+                    } else {
+                      handleScroll(e.item[0]);
+                    }
+                  }}
                   className="hover:text-emerald-400 whitespace-nowrap cursor-pointer capitalize transition-colors"
                 >
                   {lang ? e.item[0] : e.item[1]}

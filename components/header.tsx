@@ -48,7 +48,16 @@ const Header = memo(function Header({ activeSection }: Props) {
 
   return (
     <>
-      <header className="fixed top-0 w-full  z-50 border-b border-white/5 bg-[#050505]/50 backdrop-blur-md">
+      <motion.header
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.6,
+          ease: [0.22, 1, 0.36, 1],
+          delay: 0,
+        }}
+        className="fixed top-0 w-full  z-50 border-b border-white/5 bg-[#050505]/50 backdrop-blur-md"
+      >
         <nav className=" w-full">
           <div className="flex h-20 max-w-7xl mx-auto px-6 items-center justify-between relative">
             <Link
@@ -84,25 +93,25 @@ const Header = memo(function Header({ activeSection }: Props) {
                   ))}
             </div>
 
-            <div className="flex items-center gap-4 z-10">
+            <div className="flex items-center gap-5 z-10">
               <a href="https://t.me/Meytikhanyan_Hovsep" target="_blank">
                 <HugeiconsIcon
                   strokeWidth={2}
                   icon={TelegramIcon}
-                  className="max-2xl:w-[20px] cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+                  className=" cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
                 />
               </a>
               <HugeiconsIcon
                 strokeWidth={2}
                 icon={Globe02Icon}
                 onClick={toggleLang}
-                className="max-2xl:w-[20px] cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+                className=" cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
               />
               <HugeiconsIcon
                 strokeWidth={2}
                 icon={Menu01Icon}
                 onClick={() => setMenuToggle(!menuToggle)}
-                className="lg:hidden cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+                className="lg:hidden cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-7 w-7"
               />
 
               <Button type={ButtonVariant.Header} link="contact">
@@ -149,7 +158,7 @@ const Header = memo(function Header({ activeSection }: Props) {
                 </Link>
               ))}
         </motion.div>
-      </header>
+      </motion.header>
     </>
   );
 });

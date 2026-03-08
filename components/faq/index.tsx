@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
-import Title from "../ui/title";
 import Item from "./item";
 import Container from "../ui/container";
+import { motion } from "framer-motion";
 
 type Props = {
   lang: boolean;
@@ -87,13 +87,26 @@ const Faq = memo(function Faq({ lang }: Props) {
   return (
     <>
       <Container id="faq">
-        <div className="border border-white/10 bg-[#0A0C10]/60 rounded-3xl overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 1 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{
+            once: false,
+            margin: "-30px 0px -30px 0px",
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.5,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="border border-white/10 bg-[#0A0C10]/60 rounded-3xl overflow-hidden"
+        >
           <div className="grid grid-cols-1 border-b border-white/10">
-            <div className="md:p-10 md:border-b-0 md:border-r border-white/10 border-b pt-8 pr-8 pb-8 pl-8">
-              <h2 className="text-3xl md:text-4xl font-medium text-white mb-4 tracking-tight">
+            <div className="md:p-10 md:border-b-0 md:border-r border-white/10 border-b p-6">
+              <h2 className="text-2xl md:text-4xl font-medium text-white mb-4 tracking-tight">
                 {lang ? "Your Questions, Answered" : "Ответы на ваши вопросы"}
               </h2>
-              <p className="text-slate-400">
+              <p className="text-slate-400 max-md:text-[14px]">
                 {lang
                   ? "Find everything you need to know about development process, support, and tech stack."
                   : "Все, что вам нужно знать о процессе разработки, поддержке и технологиях."}
@@ -112,7 +125,7 @@ const Faq = memo(function Faq({ lang }: Props) {
               />
             ))}
           </div>
-        </div>
+        </motion.div>
       </Container>
     </>
   );

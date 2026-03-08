@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-
+@custom-variant g-active (&:where(.group[data-active="true"] *));
 
 @theme {
   --animate-spin-slow: spin 3s linear infinite;
@@ -12,10 +12,14 @@
   --color-gray: #94a3b8;
   --animate-spin-slow: spin 3s linear infinite;
   --animate-spin-custom: spin 3s linear infinite;
+  --animate-gear-spin: gear-spin 4s linear infinite;
+  --animate-gear-spin-reverse: gear-spin-reverse 4s linear infinite;
+
 }
 
+
 ::selection {
-  background-color: #10b9818a;
+  background-color: #10b9818b;
   color: #ffffffee;
 }
 
@@ -42,6 +46,7 @@ body::-webkit-scrollbar-thumb {
 
 html {
   scroll-behavior: smooth;
+  font-display: swap
 }
 
 
@@ -55,22 +60,8 @@ body {
   background-color: #030505;
 }
 
-.nunito-light {
-  font-family: "Nunito-Light", sans-serif;
-  font-weight: 300;
-  color: #cfcfcf;
-  color: #e2e2e2;
-}
 
 
-
-.container {
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 70px;
-  padding-right: 70px;
-}
 
 .text-gradient {
 
@@ -90,61 +81,6 @@ body {
 
 
 
-.swiper-pagination>.swiper-pagination-bullet {
-  background: #36ff9aa6 !important;
-  width: 24px;
-  margin: 0 6px !important;
-  height: 24px;
-  transition: 0.3s;
-  border-radius: 7px;
-}
-
-.swiper-pagination>.swiper-pagination-bullet-active {
-  background-color: #36ff9a !important;
-  transition: 0.3s;
-  border-radius: 7px;
-  position: relative;
-  overflow: hidden;
-}
-
-.swiper-pagination-bullet::before,
-.swiper-pagination-bullet::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: 0.3s;
-  background: transparent;
-}
-
-.swiper-pagination-bullet-active::before {
-  background: #020e0bd6;
-  width: 80%;
-  border-radius: 5px;
-  z-index: 0;
-  height: 80%;
-  --color-primary: #;
-}
-
-.swiper-pagination-bullet-active::after {
-  z-index: 10;
-  background: #36ff9a;
-  width: 50%;
-  border-radius: 3px;
-  height: 50%;
-}
-
-/* 
-.serv-card:hover {
-  transform: scale(1.1, 1.1);
-}
-
-.serv-card:hover .serv-card:not(:hover) {
-  filter: blur(10px);
-  transform: scale(0.9, 0.9);
-} */
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -152,27 +88,5 @@ body {
 
   to {
     transform: rotate(361deg);
-  }
-}
-
-@media screen and (max-width:1150px) {
-  .container {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
-}
-
-@media screen and (max-width:768px) {
-  .container {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-  }
-
-
-  .swiper-pagination>.swiper-pagination-bullet {
-    width: 20px;
-    margin: 0 4px !important;
-    height: 20px;
-    border-radius: 6px;
   }
 }

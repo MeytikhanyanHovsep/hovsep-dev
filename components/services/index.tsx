@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Title from "../ui/title";
 import Item from "./item";
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { Settings01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
@@ -16,46 +16,43 @@ type ServiceItem = {
 };
 import { motion } from "framer-motion";
 import Container from "../ui/container";
+import { useActiveElement } from "@/hooks/useActiveElement";
 
 const services: ServiceItem[] = [
   {
     title: ["Web Layout & Responsivity", "Верстка и Адаптив"],
     description: [
       "Pixel-perfect Figma-to-code conversion that looks flawless on any screen size.",
-      "Точный перенос макетов из Figma в адаптивный код, работающий на всех устройствах.",
+      "Точный перенос макетов из Figma в адаптивный код. Pixel-Perfect",
     ],
     name: "layout",
     item: (
       <div className="relative group w-48 h-32 flex items-center justify-center overflow-visible">
         <div
           className="relative w-32 h-20 border-2 border-slate-700 rounded-md bg-slate-900/40 
-                transition-all duration-700 ease-in-out
-                group-hover:w-14 group-hover:h-24 group-hover:rounded-xl group-hover:border-emerald-500/50"
+                     transition-all duration-700 ease-in-out
+                     group-hover:w-14 group-hover:h-24 group-hover:rounded-xl group-hover:border-emerald-500/50 max-md:g-active:w-14 max-md:g-active:h-24 max-md:g-active:rounded-xl max-md:g-active:border-emerald-500/50"
         >
           <div className="p-1.5 h-full flex flex-col gap-1.5">
-            {/* "Шапка" сайта */}
             <div className="w-full h-2 bg-emerald-500 rounded-sm transition-colors duration-500" />
-
-            {/* Сетка контента */}
-            <div className="flex flex-1 gap-1.5 transition-all duration-700 group-hover:flex-col">
-              <div className="flex-1 bg-slate-800 rounded-sm border border-slate-700 group-hover:border-emerald-500/20" />
-              <div className="flex-1 bg-slate-800 rounded-sm border border-slate-700 group-hover:border-emerald-500/20" />
+            <div className="flex flex-1 gap-1.5 transition-all duration-700 group-hover:flex-col max-md:g-active:flex-col">
+              <div className="flex-1 bg-slate-800 rounded-sm border border-slate-700 group-hover:border-emerald-500/20 max-md:g-active:border-emerald-500/20" />
+              <div className="flex-1 bg-slate-800 rounded-sm border border-slate-700 group-hover:border-emerald-500/20 max-md:g-active:border-emerald-500/20" />
             </div>
-
-            {/* Подставка ноутбука (исчезает в режиме телефона) */}
             <div
               className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-36 h-1.5 bg-slate-800 rounded-full 
-                        transition-all duration-500 opacity-100 group-hover:opacity-0 group-hover:scale-x-0"
+                         transition-all duration-500 opacity-100 group-hover:opacity-0 group-hover:scale-x-0
+                         max-md:g-active:opacity-0 max-md:g-active:scale-x-0"
             />
           </div>
         </div>
 
         <style>{`
-                .relative {
-                    transform-style: preserve-3d;
-                    perspective: 1000px;
-                }
-            `}</style>
+          .relative {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+          }
+        `}</style>
       </div>
     ),
   },
@@ -65,7 +62,7 @@ const services: ServiceItem[] = [
       "High-performance SPA and SSR applications built with React and Next.js.",
       "Быстрые SPA и SSR приложения на базе React и Next.js.",
     ],
-    name: "responsivity",
+    name: "frontend",
     item: (
       <div className="relative">
         <svg
@@ -75,11 +72,11 @@ const services: ServiceItem[] = [
           width="90"
           height="90"
           viewBox="0,0,256,256"
-          className="absolute left-[-55px] top-[-60px]"
+          className="absolute max-md:w-[80px] left-[-55px] max-md:top-[-55px] top-[-60px]"
         >
           <g
             fill="#1d293d"
-            className="group-hover:fill-[#3a4c66] duration-500 transition-colors"
+            className="group-hover:fill-[#3a4c66] max-md:g-active:fill-[#3a4c66] duration-500 transition-colors"
             strokeWidth="1"
           >
             <g transform="scale(8,8)">
@@ -94,7 +91,7 @@ const services: ServiceItem[] = [
           width="90"
           height="90"
           viewBox="0,0,256,256"
-          className="absolute left-[-55px] bottom-[-80px]"
+          className="absolute max-md:w-[80px] left-[-55px] bottom-[-80px]"
         >
           <g fill="#10b981" strokeWidth="1">
             <g transform="scale(8,8)">
@@ -109,11 +106,11 @@ const services: ServiceItem[] = [
           width="90"
           height="90"
           viewBox="0,0,256,256"
-          className="absolute left-[-5px] bottom-[-80px]"
+          className="absolute max-md:w-[80px] left-[-10px] md:left-[-5px] bottom-[-80px]"
         >
           <g
             fill="#1d293d"
-            className="group-hover:fill-[#3a4c66] duration-500 transition-colors"
+            className="group-hover:fill-[#3a4c66] max-md:g-active:fill-[#3a4c66] duration-500 transition-colors"
             strokeWidth="1"
           >
             <g transform="scale(8,8)">
@@ -128,7 +125,7 @@ const services: ServiceItem[] = [
           width="90"
           height="90"
           viewBox="0,0,256,256"
-          className="absolute left-[-5px] opacity-0 group-hover:opacity-100 scale-120 translate-x-[20px] translate-y-[-20px] rotate-45 duration-500 group-hover:scale-100 group-hover:translate-0 group-hover:rotate-0 top-[-60px]"
+          className="absolute max-md:w-[80px] md:left-[-5px] left-[-10px] opacity-0 max-md:g-active:opacity-100 group-hover:opacity-100 scale-120 translate-x-[20px] translate-y-[-20px] rotate-45 duration-500 max-md:g-active:scale-100 group-hover:scale-100 max-md:g-active:translate-0 group-hover:translate-0 max-md:g-active:rotate-0 group-hover:rotate-0 top-[-60px] max-md:top-[-55px]"
         >
           <g fill="#10b981" strokeWidth="1">
             <g transform="scale(8,8)">
@@ -145,7 +142,7 @@ const services: ServiceItem[] = [
       "Error-free codebases with strict typing to prevent bugs before they happen.",
       "Стабильный код без ошибок благодаря строгой типизации и защите от багов.",
     ],
-    name: "test",
+    name: "typeScript",
     item: (
       <div className="relative w-56 h-32 flex items-center justify-center group px-4 overflow-visible">
         <div className="relative w-24 h-24 flex items-end justify-center overflow-visible">
@@ -161,7 +158,7 @@ const services: ServiceItem[] = [
               stroke="#475569"
               strokeWidth="1.5"
               strokeLinecap="round"
-              className="transition-colors group-hover:stroke-slate-500"
+              className="transition-colors group-hover:stroke-slate-500 max-md:g-active:stroke-slate-500"
             />
 
             <rect
@@ -172,7 +169,7 @@ const services: ServiceItem[] = [
               rx="1"
               stroke="#475569"
               strokeWidth="1.5"
-              className="transition-colors -translate-y-px group-hover:stroke-emerald-500"
+              className="transition-colors -translate-y-px group-hover:stroke-emerald-500 max-md:g-active:stroke-emerald-500"
             />
 
             <path
@@ -181,7 +178,7 @@ const services: ServiceItem[] = [
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="transition-colors group-hover:stroke-slate-500"
+              className="transition-colors group-hover:stroke-slate-500 max-md:g-active:stroke-slate-500"
             />
 
             <g className="mask-flask-liquid translate-1">
@@ -195,49 +192,49 @@ const services: ServiceItem[] = [
                 cy="22"
                 r="1"
                 fill="#34d399"
-                className="opacity-0 group-hover:animate-[rise_2.2s_infinite_ease-out_0.1s]"
+                className="opacity-0 max-md:g-active:animate-[rise_2.2s_infinite_ease-out_0.1s] group-hover:animate-[rise_2.2s_infinite_ease-out_0.1s]"
               />
               <circle
                 cx="19"
                 cy="24"
                 r="0.8"
                 fill="#34d399"
-                className="opacity-0 group-hover:animate-[rise_1.6s_infinite_ease-out_0.6s]"
+                className="opacity-0 max-md:g-active:animate-[rise_1.6s_infinite_ease-out_0.6s] group-hover:animate-[rise_1.6s_infinite_ease-out_0.6s]"
               />
               <circle
                 cx="15"
                 cy="20"
                 r="1"
                 fill="#34d399"
-                className="opacity-0 group-hover:animate-[rise_2s_infinite_ease-out_1.2s]"
+                className="opacity-0 max-md:g-active:animate-[rise_2s_infinite_ease-out_1.2s] group-hover:animate-[rise_2s_infinite_ease-out_1.2s]"
               />
               <circle
                 cx="9"
                 cy="18"
                 r="1"
                 fill="#34d399"
-                className="opacity-0 group-hover:animate-[rise_1.9s_infinite_ease-out_0.3s]"
+                className="opacity-0 max-md:g-active:animate-[rise_1.9s_infinite_ease-out_0.3s] group-hover:animate-[rise_1.9s_infinite_ease-out_0.3s]"
               />
               <circle
                 cx="17"
                 cy="21"
                 r="0.7"
                 fill="#34d399"
-                className="opacity-0 group-hover:animate-[rise_1.7s_infinite_ease-out_0.9s]"
+                className="opacity-0 max-md:g-active:group-hover:animate-[rise_1.7s_infinite_ease-out_0.9s] group-hover:animate-[rise_1.7s_infinite_ease-out_0.9s]"
               />
               <circle
                 cx="13"
                 cy="17"
                 r="1"
                 fill="#34d399"
-                className="opacity-0 group-hover:animate-[rise_2.1s_infinite_ease-out_1.5s]"
+                className="opacity-0 group-hover:animate-[rise_2.1s_infinite_ease-out_1.5s] max-md:g-active:animate-[rise_2.1s_infinite_ease-out_1.5s]"
               />
               <circle
                 cx="11"
                 cy="23"
                 r="0.6"
                 fill="#34d399"
-                className="opacity-0 group-hover:animate-[rise_1.8s_infinite_ease-out_1.8s]"
+                className="opacity-0 group-hover:animate-[rise_1.8s_infinite_ease-out_1.8s] max-md:g-active:animate-[rise_1.8s_infinite_ease-out_1.8s]"
               />
             </g>
 
@@ -275,11 +272,17 @@ const services: ServiceItem[] = [
       "Seamless data flow management with secure backend integrations.",
       "Управление потоками данных и безопасная интеграция с серверными API.",
     ],
-    name: "database",
+    name: "architecture",
     item: (
       <div className="relative w-72 h-36 flex items-center justify-center ">
-        <div className="relative z-10">
-          <svg width="70" height="70" viewBox="0 0 24 24" fill="#0A0C10">
+        <div className="relative z-10 ">
+          <svg
+            width="70"
+            height="70"
+            className=""
+            viewBox="0 0 24 24"
+            fill="#0A0C10"
+          >
             <path
               className="stroke-primary transition-colors duration-300"
               d="M12 3C7.58 3 4 4.34 4 6V18C4 19.66 7.58 21 12 21C16.42 21 20 19.66 20 18V6C20 4.34 16.42 3 12 3Z"
@@ -318,7 +321,7 @@ const services: ServiceItem[] = [
             <circle
               r="5"
               fill="#10b981"
-              className="opacity-0 scale-150 group-hover:opacity-100 shadow-[0_0_15px_#10b981]"
+              className="opacity-0 scale-150 group-hover:opacity-100 max-md:g-active:opacity-100 shadow-[0_0_15px_#10b981]"
             >
               <animateMotion
                 dur="1.8s"
@@ -330,7 +333,7 @@ const services: ServiceItem[] = [
             <circle
               r="5"
               fill="#34d399"
-              className="opacity-0 scale-150 group-hover:opacity-100 shadow-[0_0_15px_#34d399]"
+              className="opacity-0 scale-150 group-hover:opacity-100 max-md:g-active:opacity-100 shadow-[0_0_15px_#34d399]"
             >
               <animateMotion
                 begin="0.9s"
@@ -342,8 +345,7 @@ const services: ServiceItem[] = [
           </svg>
         </div>
 
-        {/* Сайт */}
-        <div className="relative z-10">
+        <div className="relative   z-10">
           <svg width="80" height="70" viewBox="0 0 24 24" fill="#0A0C10">
             <rect
               x="2"
@@ -358,7 +360,7 @@ const services: ServiceItem[] = [
               d="M2 9h20"
               stroke="#475569"
               strokeWidth="1.5"
-              className="transition-colors group-hover:stroke-emerald-500"
+              className="transition-colors max-md:g-active:stroke-emerald-500 group-hover:stroke-emerald-500"
             />
             <rect
               x="6"
@@ -367,7 +369,7 @@ const services: ServiceItem[] = [
               height="3"
               rx="1"
               fill="#1e293b"
-              className="transition-colors group-hover:fill-emerald-500/20"
+              className="transition-colors max-md:g-active:fill-emerald-500/20 group-hover:fill-emerald-500/20"
             />
           </svg>
         </div>
@@ -380,7 +382,7 @@ const services: ServiceItem[] = [
       "Optimizing load speeds and semantic structure for top search rankings.",
       "Оптимизация скорости загрузки и семантики для высоких позиций в поиске.",
     ],
-    name: "seo",
+    name: "optimization",
     item: (
       <svg
         width="120"
@@ -414,22 +416,13 @@ const services: ServiceItem[] = [
           }}
         />
         <g
-          className="origin-[60px_70px] transition-transform duration-1000 ease-out 
-             rotate-30 group-hover:rotate-80 
-             max-md:animate-[swing_3s_ease-in-out_infinite]"
+          className="origin-[60px_70px] transition-transform duration-2000 
+             rotate-30 max-md:g-active:rotate-80 group-hover:rotate-80 
+             "
           style={{ transformOrigin: "60px 70px" }}
         >
           <rect x="58" y="25" width="4" height="45" rx="2" fill="#e2e8f0" />
           <circle cx="60" cy="70" r="6" fill="#e2e8f0" />
-
-          <style>{`
-    @keyframes swing {
-     0%, 33% { transform: rotate(30deg); }
-      50% { transform: rotate(80deg); }     
-      60% { transform: rotate(80deg); }     
-      100% { transform: rotate(30deg); }
-    }
-  `}</style>
         </g>
       </svg>
     ),
@@ -440,7 +433,7 @@ const services: ServiceItem[] = [
       "Continuous feature updates, bug fixes, and long-term project refactoring.",
       "Обновление функций, исправление багов и поддержка живых проектов.",
     ],
-    name: "evolution",
+    name: "support",
     item: (
       <div className="relative group w-64 h-40 flex items-center justify-center px-4 overflow-visible">
         <div className="relative h-[70px]">
@@ -450,7 +443,7 @@ const services: ServiceItem[] = [
           />
 
           <HugeiconsIcon
-            className="w-[55px] h-[55px] absolute will-change-transform top-[-5px] right-[-50px] gear-base gear-medium text-slate-500 transition-colors duration-500 group-hover:text-slate-300"
+            className="w-[55px] h-[55px] absolute will-change-transform top-[-5px] right-[-50px] gear-base gear-medium text-slate-500  transition-colors duration-500 group-hover:text-slate-300"
             icon={Settings01Icon}
           />
 
@@ -475,7 +468,7 @@ const services: ServiceItem[] = [
                 animation-play-state: running;
             }
 
-            .gear-slow {
+            .gear-slow, .gear-fast {
                 animation-duration: 4s;
             }
 
@@ -497,17 +490,22 @@ const services: ServiceItem[] = [
                 }
             }
 
-           @media screen and (max-width:1024px) {
-           .gear-base {
+            @media (max-width:768px){
+            .group[data-active="true"] .gear-base {
                 animation-play-state: running;
             }
-           }
+            }
+
+          
         `}</style>
       </div>
     ),
   },
 ];
 const Services = memo(function Services({ lang }: Props) {
+  const refs = services.map(() => useRef<any>(null));
+  const activeIndex = useActiveElement(refs);
+
   return (
     <Container id="services">
       <Title
@@ -521,9 +519,12 @@ const Services = memo(function Services({ lang }: Props) {
         {lang ? "The Art of Clean Code" : "Искусство чистого кода"}
       </Title>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((e: ServiceItem, i) => (
           <Item
+            ind={i}
+            ref={refs[i]}
+            isActive={i === activeIndex}
             name={e.name}
             key={i}
             item={e.item}
