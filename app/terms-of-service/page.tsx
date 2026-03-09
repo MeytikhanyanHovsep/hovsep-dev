@@ -26,8 +26,8 @@ function TermsOfService() {
       updated="7 марта 2026 г."
     >
       <div className="space-y-4">
-        <h2 className="text-2xl text-white font-medium tracking-tight flex items-center gap-3">
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 text-sm border border-emerald-500/20">
+        <h2 className="text-2xl max-md:text-xl text-white font-medium tracking-tight flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 aspect-square rounded-lg bg-emerald-500/10 text-emerald-400 text-sm border border-emerald-500/20">
             1
           </span>
           {lang ? "Acceptance of Terms" : "Принятие условий"}
@@ -40,8 +40,8 @@ function TermsOfService() {
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl text-white font-medium tracking-tight flex items-center gap-3">
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 text-sm border border-emerald-500/20">
+        <h2 className="text-2xl max-md:text-xl text-white font-medium tracking-tight flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 aspect-square rounded-lg bg-emerald-500/10 text-emerald-400 text-sm border border-emerald-500/20">
             2
           </span>
           {lang ? "Usage Guidelines" : "Правила использования"}
@@ -68,8 +68,8 @@ function TermsOfService() {
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl text-white font-medium tracking-tight flex items-center gap-3">
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 text-sm border border-emerald-500/20">
+        <h2 className="text-2xl max-md:text-xl text-white font-medium tracking-tight flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 aspect-square rounded-lg bg-emerald-500/10 text-emerald-400 text-sm border border-emerald-500/20">
             3
           </span>
           {lang ? "Limitation of Liability" : "Ограничение ответственности"}

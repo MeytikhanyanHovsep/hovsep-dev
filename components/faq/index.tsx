@@ -91,7 +91,7 @@ const Faq = memo(function Faq({ lang }: Props) {
           initial={{ opacity: 0, y: 30, scale: 1 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{
-            once: false,
+            once: true,
             margin: "-30px 0px -30px 0px",
             amount: 0.2,
           }}

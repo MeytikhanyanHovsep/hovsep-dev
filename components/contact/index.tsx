@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import Container from "../ui/container";
 import Title from "../ui/title";
 import { motion } from "framer-motion";
@@ -62,7 +62,7 @@ function Contact({ lang }: Props) {
         initial={{ opacity: 0, y: 30, scale: 1 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{
-          once: false,
+          once: true,
           margin: "-30px 0px -30px 0px",
           amount: 0.2,
         }}

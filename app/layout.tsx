@@ -52,4 +52,4 @@ export default function RootLayout({
 
 // https://aether-ai-saas-template.aura.build/
 
-/////// active for project-items, main-content will be centered for iphone 12,14. fix all bugs of reviews swiper. conect formpress and forms verification
+/////// fix all bugs of reviews swiper. conect formpress and forms verification

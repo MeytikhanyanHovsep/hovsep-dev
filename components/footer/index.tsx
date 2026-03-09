@@ -99,7 +99,7 @@ export default function Footer({}: Props) {
           </div>
 
           <Item
-            title={lang ? "Company" : "Company"}
+            title={lang ? "Navigation" : "Навигация"}
             elements={navigation}
             lang={lang}
           />
