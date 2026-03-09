@@ -60,6 +60,9 @@ body {
   background-color: #030505;
 }
 
+button {
+  cursor: pointer;
+}
 
 
 
