@@ -61,8 +61,8 @@ const Item = memo(
             target="_blank"
             className="cursor-pointer relative group "
           >
-            <img
-              src={`/images/projects/${img}?x=21`}
+            <Image
+              src={`/images/projects/${img}`}
               className=" object-contain w-full p-8 max-md:p-6 pb-0! transtion-transform duration-500 will-change-transform easy-in-out max-md:g-active:scale-[1.05] group-hover:scale-[1.07]"
               width={400}
               height={300}

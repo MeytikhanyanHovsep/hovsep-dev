@@ -10,28 +10,28 @@ type Props = { lang: boolean };
 
 const Main = memo(function Main({ lang }: Props) {
   return (
-    <main id="home" className="min-h-screen h-screen relative overflow-hidden">
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] bg-emerald-500/20 rounded-full blur-[120px]  -z-10 pointer-events-none opacity-20"></div>
+    <main id="home" className="min-h-screen h-screen relative ">
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full bg-radial from-emerald-500/20 to-transparent h-screen rounded-full blur-[30px] -z-10 pointer-events-none opacity-30 transform-gpu"></div>
+
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
-          delay: 0,
         }}
-        className=" min-h-full grid place-items-center"
+        className="min-h-full grid place-items-center will-change-transform"
       >
         <section className="min-h-full flex items-center my-auto max-md:pt-10 px-6 relative">
           <div className="flex flex-col justify-center h-full text-center max-w-4xl mx-auto items-center">
             <div className="flex gap-4 max-xs:gap-2 max-md:gap-3 mb-8">
-              <div className="inline-flex items-center gap-2 px-3 max-md:px-2.5 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-secondary">
+              <div className="inline-flex items-center gap-2 px-3 max-md:px-2.5 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-secondary transform-gpu">
                 <span className="px-1.5 max-md:px-0.5 max-md:py-px py-0.5 rounded bg-emerald-500/10 text-emerald-300 max-md:text-xs text-sm font-medium uppercase tracking-wider">
                   10+
                 </span>
                 <span>{lang ? "Clients" : "Клиентов"}</span>
               </div>
-              <div className="inline-flex items-center gap-2 px-3 max-md:px-2.5 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-secondary">
+              <div className="inline-flex items-center gap-2 px-3 max-md:px-2.5 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-secondary transform-gpu">
                 <span className="px-1.5 max-md:px-0.5 max-md:py-px py-0.5 rounded bg-emerald-500/10 text-emerald-300 max-md:text-xs text-sm font-medium uppercase tracking-wider">
                   25+
                 </span>

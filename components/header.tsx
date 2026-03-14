@@ -1,7 +1,7 @@
 "use client";
+
 import Link from "next/link";
-import React, { useState, ReactNode, memo } from "react";
-import Image from "next/image";
+import React, { useState, memo } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Globe02Icon,
@@ -17,7 +17,7 @@ type Props = {
   activeSection: string;
 };
 
-const navigation: any = {
+const navigation: Record<string, string> = {
   projects: "Проекты",
   services: "Услуги",
   about: "Обо мне",
@@ -28,10 +28,9 @@ const navigation: any = {
 const Header = memo(function Header({ activeSection }: Props) {
   const [menuToggle, setMenuToggle] = useState<boolean>(false);
   const path = usePathname();
-
   const { lang, toggleLang } = useApp();
 
-  const handleScroll = (id: string): any => {
+  const handleScroll = (id: string): void => {
     setMenuToggle(false);
 
     setTimeout(() => {
@@ -54,39 +53,39 @@ const Header = memo(function Header({ activeSection }: Props) {
         transition={{
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
-          delay: 0,
         }}
-        className="fixed top-0 w-full  z-50 border-b border-white/5 bg-[#050505]/50 backdrop-blur-md"
+        className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/50 backdrop-blur-md will-change-transform"
       >
-        <nav className=" w-full">
+        <nav className="w-full">
           <div className="flex h-20 max-w-7xl mx-auto px-6 items-center justify-between relative">
             <Link
               href="/"
-              className="flex items-center text-white text-[22px] font-medium tracking-tight  group z-10"
+              aria-label="Home"
+              className="flex items-center text-white text-[22px] font-medium tracking-tight group z-10"
             >
               HOV
-              <span className="text-emerald-400 ">$</span>
+              <span className="text-emerald-400">$</span>
               EP
             </Link>
 
             <div className="max-lg:hidden flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-sm font-medium">
               {path === "/"
-                ? Object.keys(navigation).map((e, i) => (
+                ? Object.keys(navigation).map((e) => (
                     <button
-                      key={i}
+                      key={e}
                       onClick={() => handleScroll(e)}
                       className={`hover:text-white capitalize text-[#cbd5e1] cursor-pointer transition-colors ${
-                        activeSection == e ? "text-primary" : ""
+                        activeSection === e ? "text-primary" : ""
                       }`}
                     >
                       {lang ? e : navigation[e]}
                     </button>
                   ))
-                : Object.keys(navigation).map((e, i) => (
+                : Object.keys(navigation).map((e) => (
                     <Link
-                      key={i}
+                      key={e}
                       href="/"
-                      className={`hover:text-white capitalize text-[#cbd5e1] cursor-pointer transition-colors`}
+                      className="hover:text-white capitalize text-[#cbd5e1] cursor-pointer transition-colors"
                     >
                       {lang ? e : navigation[e]}
                     </Link>
@@ -94,29 +93,46 @@ const Header = memo(function Header({ activeSection }: Props) {
             </div>
 
             <div className="flex items-center gap-5 z-10">
-              <a href="https://t.me/Meytikhanyan_Hovsep" target="_blank">
+              <a
+                href="https://t.me/Meytikhanyan_Hovsep"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Telegram"
+              >
                 <HugeiconsIcon
                   strokeWidth={2}
                   icon={TelegramIcon}
-                  className=" cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+                  className="cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
                 />
               </a>
-              <HugeiconsIcon
-                strokeWidth={2}
-                icon={Globe02Icon}
+
+              <button
                 onClick={toggleLang}
-                className=" cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
-              />
-              <HugeiconsIcon
-                strokeWidth={2}
-                icon={Menu01Icon}
+                aria-label="Toggle Language"
+                className="flex items-center justify-center"
+              >
+                <HugeiconsIcon
+                  strokeWidth={2}
+                  icon={Globe02Icon}
+                  className="cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+                />
+              </button>
+
+              <button
                 onClick={() => setMenuToggle(!menuToggle)}
-                className="lg:hidden cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-7 w-7"
-              />
+                aria-label="Toggle Mobile Menu"
+                className="lg:hidden flex items-center justify-center"
+              >
+                <HugeiconsIcon
+                  strokeWidth={2}
+                  icon={Menu01Icon}
+                  className="cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-7 w-7"
+                />
+              </button>
 
               <Button type={ButtonVariant.Header} link="contact">
                 <div className="relative">
-                  <span className="absolute inset-[-1000%] z-0 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#10b981_0%,#050505_50%,#10b981_100%)]"></span>
+                  <span className="absolute inset-[-1000%] z-0 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#10b981_0%,#050505_50%,#10b981_100%)] transform-gpu"></span>
 
                   <span className="relative z-1 inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-[#050505] px-8 text-sm font-medium text-white transition-colors group-hover:bg-[#050505]/80">
                     {lang ? "Get Started" : "Начать работу"}
@@ -134,25 +150,25 @@ const Header = memo(function Header({ activeSection }: Props) {
               : { height: 0, paddingBottom: 0, paddingTop: 0 }
           }
           transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-          className="lg:hidden px-6 overflow-hidden text-start flex flex-col gap-8 text-sm font-medium"
+          className="lg:hidden px-6 overflow-hidden text-start flex flex-col gap-8 text-sm font-medium transform-gpu"
         >
           {path === "/"
-            ? Object.keys(navigation).map((e, i) => (
+            ? Object.keys(navigation).map((e) => (
                 <button
-                  key={i}
+                  key={e}
                   onClick={() => handleScroll(e)}
                   className={`flex justify-start capitalize text-white cursor-pointer transition-colors ${
-                    activeSection == e ? "text-primary" : ""
+                    activeSection === e ? "text-primary" : ""
                   }`}
                 >
                   {lang ? e : navigation[e]}
                 </button>
               ))
-            : Object.keys(navigation).map((e, i) => (
+            : Object.keys(navigation).map((e) => (
                 <Link
-                  key={i}
+                  key={e}
                   href="/"
-                  className={`flex justify-start capitalize text-white cursor-pointer transition-colors`}
+                  className="flex justify-start capitalize text-white cursor-pointer transition-colors"
                 >
                   {lang ? e : navigation[e]}
                 </Link>
@@ -162,4 +178,5 @@ const Header = memo(function Header({ activeSection }: Props) {
     </>
   );
 });
+
 export default Header;
