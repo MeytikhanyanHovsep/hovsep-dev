@@ -17,7 +17,7 @@ const Item = memo(function Item({ desc, img, name }: Props) {
     <a
       href="https://kwork.ru/user/hovsep_meytikhanyan"
       target="_blank"
-      className="group max-w-[550px]! [1400px]:max-w-[700px] relative min-h-full flex flex-col p-6 rounded-2xl  bg-[#0A0C10]/60 backdrop-blur-md border border-white/10 hover:border-emerald-500/30 hover:bg-[#0A0C10]/80 w-max transition-all duration-300"
+      className="group  max-w-[550px]! [1400px]:max-w-[700px] relative min-h-full flex flex-col p-6 rounded-2xl  bg-[#0A0C10]/60 backdrop-blur-md border border-white/10 hover:border-emerald-500/30 hover:bg-[#0A0C10]/80 w-max max-sm:max-w-[90vw]! transition-all duration-300"
     >
       <div className="absolute inset-0 bg-linear-to-b from-white/2 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
 

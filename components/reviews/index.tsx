@@ -91,54 +91,56 @@ const Reviews = memo(function Reviews({ lang }: Props) {
           {lang ? "Client Testimonials" : "Отзывы клиентов"}
         </Title>
       </Container>
-      <div className="flex swiper mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-        <div className="flex mr-5 gap-5 will-change-transform reviews-group revers-group">
-          {reviews.slice(0, reviews.length / 2).map((e, i) => (
-            <Item
-              key={i}
-              name={e.name}
-              desc={e.desc[lang ? 0 : 1]}
-              img={e.img}
-            />
-          ))}
+      <div className="max-w-[100vw] overflow-hidden">
+        <div className="flex swiper mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+          <div className="flex mr-6 gap-5 will-change-transform reviews-group revers-group">
+            {reviews.slice(0, reviews.length / 2).map((e, i) => (
+              <Item
+                key={i}
+                name={e.name}
+                desc={e.desc[lang ? 0 : 1]}
+                img={e.img}
+              />
+            ))}
+          </div>
+          <div
+            aria-hidden
+            className="flex gap-5 will-change-transform reviews-group revers-group"
+          >
+            {reviews.slice(0, reviews.length / 2).map((e, i) => (
+              <Item
+                key={i}
+                name={e.name}
+                desc={e.desc[lang ? 0 : 1]}
+                img={e.img}
+              />
+            ))}
+          </div>
         </div>
-        <div
-          aria-hidden
-          className="flex gap-5 will-change-transform reviews-group revers-group"
-        >
-          {reviews.slice(0, reviews.length / 2).map((e, i) => (
-            <Item
-              key={i}
-              name={e.name}
-              desc={e.desc[lang ? 0 : 1]}
-              img={e.img}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="flex mt-5 swiper mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-        <div className="flex mr-5 gap-5 will-change-transform reviews-group">
-          {reviews.slice(reviews.length / 2).map((e, i) => (
-            <Item
-              key={i}
-              name={e.name}
-              desc={e.desc[lang ? 0 : 1]}
-              img={e.img}
-            />
-          ))}
-        </div>
-        <div
-          aria-hidden
-          className="flex gap-5 will-change-transform reviews-group"
-        >
-          {reviews.slice(reviews.length / 2).map((e, i) => (
-            <Item
-              key={i}
-              name={e.name}
-              desc={e.desc[lang ? 0 : 1]}
-              img={e.img}
-            />
-          ))}
+        <div className="flex mt-5 swiper mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+          <div className="flex mr-6 gap-5 will-change-transform reviews-group">
+            {reviews.slice(reviews.length / 2).map((e, i) => (
+              <Item
+                key={i}
+                name={e.name}
+                desc={e.desc[lang ? 0 : 1]}
+                img={e.img}
+              />
+            ))}
+          </div>
+          <div
+            aria-hidden
+            className="flex gap-5 will-change-transform reviews-group"
+          >
+            {reviews.slice(reviews.length / 2).map((e, i) => (
+              <Item
+                key={i}
+                name={e.name}
+                desc={e.desc[lang ? 0 : 1]}
+                img={e.img}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>
