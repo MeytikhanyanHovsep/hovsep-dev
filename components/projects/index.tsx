@@ -11,7 +11,7 @@ type Props = { lang: boolean };
 const projects: TProject[] = [
   {
     url: "https://apexhash.ru/",
-    img: "apexhash.png",
+    img: "apexhash.webp",
     title: ["ApexHash Infrastructure", "Инфраструктура ApexHash"],
     description: [
       "Mining infrastructure aggregator for hardware hosting and management.",
@@ -20,17 +20,18 @@ const projects: TProject[] = [
   },
 
   {
-    url: "https://berikod.ru/",
-    img: "berikodru.png",
-    title: ["BeriKod Savings", "БериКод Скидки"],
+    url: "https://technolabs.uz",
+    img: "technolabs.webp",
+    title: ["Business Automation", "Автоматизация бизнеса"],
     description: [
-      "Coupon aggregator platform with automated promo code distribution.",
-      "Автоматизированная платформа агрегации промокодов.",
+      "Tech agency landing with focus on bots, CRM and web solutions.",
+      "Лендинг тех-агентства: разработка ботов, CRM и веб-решений под ключ.",
     ],
   },
+
   {
     url: "https://andreybolonin.com/",
-    img: "andrey.png",
+    img: "andrey.webp",
     title: ["Portfolio Showcase", "Портфолио Разработчика"],
     description: [
       "Clean, high-performance landing page for a creative professional.",
@@ -38,17 +39,17 @@ const projects: TProject[] = [
     ],
   },
   {
-    url: "https://puti-nn.ru/",
-    img: "putinn.png",
-    title: ["Puti-NN Logistics", "Пути-НН Логистика"],
+    url: "https://berikod.ru",
+    img: "berikodru.webp",
+    title: ["Fullstack E-Shop", "Fullstack Магазин"],
     description: [
-      "Corporate service for medical inspections and driver logistics.",
-      "Корпоративный сервис предрейсовых осмотров и логистики.",
+      "Complex API integration featuring wishlist, cart, and search logic.",
+      "Сложная интеграция с API: вишлист, корзина и логика поиска.",
     ],
   },
   {
     url: "https://thejobgate.com/",
-    img: "jobgate.png",
+    img: "jobgate.webp",
     title: ["TheJobGate Platform", "Платформа TheJobGate"],
     description: [
       "Streamlining recruitment through automated hiring workflows.",
@@ -56,36 +57,18 @@ const projects: TProject[] = [
     ],
   },
   {
-    url: "https://geographicawe.vercel.app/",
-    img: "geographic.png",
-    title: ["Geographica Stone", "Географика Камень"],
+    url: "https://puti-nn.ru/",
+    img: "putinn.webp",
+    title: ["Puti-NN Logistics", "Пути-НН Логистика"],
     description: [
-      "Commercial platform for natural stone extraction and custom products.",
-      "Коммерческая платформа по добыче камня и производству изделий.",
-    ],
-  },
-  {
-    url: "https://спб.санэпидем.рф/dezinsekciya.html",
-    img: "disinfect.png",
-    title: ["SanEpidem Service", "СанЭпидем Служба"],
-    description: [
-      "Booking system for residential and commercial disinfection.",
-      "Система заказа дезинсекции для жилых и коммерческих объектов.",
-    ],
-  },
-  {
-    url: "https://hovsep-meytikhanyan.vercel.app/",
-    img: "restaurant.png",
-    title: ["Fullstack E-Shop", "Fullstack Магазин"],
-    description: [
-      "Complex API integration featuring wishlist, cart, and search logic.",
-      "Сложная интеграция с API: вишлист, корзина и логика поиска.",
+      "Corporate service for medical inspections and driver logistics.",
+      "Корпоративный сервис предрейсовых осмотров и логистики.",
     ],
   },
 ];
 
 export default function Projects({ lang }: Props) {
-  const refs = projects.map(() => useRef<any>(null));
+  const refs = useRef<Array<HTMLDivElement | null>>([]);
   const activeIndex = useActiveElement(refs);
 
   return (
@@ -101,12 +84,14 @@ export default function Projects({ lang }: Props) {
         {lang ? "Client Case Studies" : "Коммерческие проекты"}
       </Title>
 
-      <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((e: TProject, i) => (
           <Item
             key={i}
             ind={i}
-            ref={refs[i]}
+            ref={(el) => {
+              refs.current[i] = el;
+            }}
             isActive={i === activeIndex}
             img={e.img}
             url={e.url}

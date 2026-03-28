@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import { memo } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { StarIcon } from "@hugeicons/core-free-icons";
@@ -13,10 +12,14 @@ type Props = {
   lang?: boolean;
 };
 
-const Item = memo(function Item({ desc, img, name, stars = 5, lang }: Props) {
+const Item = memo(function Item({ desc, img, name }: Props) {
   return (
-    <div className="group relative min-h-full flex flex-col p-6 rounded-2xl min-w-[340px] md:min-w-[380px] bg-[#0A0C10]/60 backdrop-blur-md border border-white/10 hover:border-emerald-500/30 hover:bg-[#0A0C10]/80 w-full transition-all duration-300">
-      <div className="absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
+    <a
+      href="https://kwork.ru/user/hovsep_meytikhanyan"
+      target="_blank"
+      className="group max-w-[550px]! [1400px]:max-w-[700px] relative min-h-full flex flex-col p-6 rounded-2xl  bg-[#0A0C10]/60 backdrop-blur-md border border-white/10 hover:border-emerald-500/30 hover:bg-[#0A0C10]/80 w-max transition-all duration-300"
+    >
+      <div className="absolute inset-0 bg-linear-to-b from-white/2 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
 
       <div className="relative z-10 flex items-center gap-3">
         <div className="w-10 h-10 rounded-full  bg-slate-800 overflow-hidden ring-2 ring-white/5 shrink-0">
@@ -50,7 +53,7 @@ const Item = memo(function Item({ desc, img, name, stars = 5, lang }: Props) {
       >
         {`"${desc}"`}
       </p>
-    </div>
+    </a>
   );
 });
 

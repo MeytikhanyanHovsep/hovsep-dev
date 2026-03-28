@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./header";
 import { AppProvider } from "@/context/AppContext";
 import ScrollProgress from "./scrollProgress";
@@ -59,7 +59,7 @@ export default function Components({ children }: Props) {
         <Footer />
       </AppProvider>
 
-      <span className="-z-10 bg-radial from-[#081111] to-[#040505] left-0 top-0 fixed w-screen h-screen"></span>
+      <span className="-z-10 dark:block hidden bg-radial from-[#081111] to-[#040505] left-0 top-0 fixed w-screen h-screen"></span>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-GYFHZNX2S1"
         strategy="afterInteractive"

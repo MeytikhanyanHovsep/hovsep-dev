@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, memo } from "react";
+import React, { useState, memo, useEffect } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Globe02Icon,
@@ -30,6 +30,8 @@ const Header = memo(function Header({ activeSection }: Props) {
   const path = usePathname();
   const { lang, toggleLang } = useApp();
 
+  useEffect(() => {});
+
   const handleScroll = (id: string): void => {
     setMenuToggle(false);
 
@@ -54,9 +56,9 @@ const Header = memo(function Header({ activeSection }: Props) {
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/50 backdrop-blur-md will-change-transform"
+        className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/50 backdrop-blur-md will-change-transform "
       >
-        <nav className="w-full">
+        <nav className="w-full ">
           <div className="flex h-20 max-w-7xl mx-auto px-6 items-center justify-between relative">
             <Link
               href="/"
@@ -74,8 +76,8 @@ const Header = memo(function Header({ activeSection }: Props) {
                     <button
                       key={e}
                       onClick={() => handleScroll(e)}
-                      className={`hover:text-white capitalize text-[#cbd5e1] cursor-pointer transition-colors ${
-                        activeSection === e ? "text-primary" : ""
+                      className={`hover:text-white tracking-[2%] font-sembold capitalize text-[#cbd5e1] cursor-pointer transition-colors ${
+                        activeSection === e ? "text-emerald-400" : ""
                       }`}
                     >
                       {lang ? e : navigation[e]}
@@ -85,7 +87,7 @@ const Header = memo(function Header({ activeSection }: Props) {
                     <Link
                       key={e}
                       href="/"
-                      className="hover:text-white capitalize text-[#cbd5e1] cursor-pointer transition-colors"
+                      className="hover:text-white tracking-[2%] font-sembold capitalize text-[#cbd5e1] cursor-pointer transition-colors"
                     >
                       {lang ? e : navigation[e]}
                     </Link>
@@ -102,39 +104,38 @@ const Header = memo(function Header({ activeSection }: Props) {
                 <HugeiconsIcon
                   strokeWidth={2}
                   icon={TelegramIcon}
-                  className="cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+                  className="cursor-pointer text-[#cbd5e1] hover:text-emerald-400 transition-colors duration-300 h-[25px]"
                 />
               </a>
 
               <button
-                onClick={toggleLang}
-                aria-label="Toggle Language"
-                className="flex items-center justify-center"
+                onClick={() => toggleLang()}
+                className="flex gap-1  transition-colors text-[#cbd5e1] font-semibold duration-300 group hover:text-emerald-400 text-[15px]  items-center justify-center"
               >
                 <HugeiconsIcon
                   strokeWidth={2}
                   icon={Globe02Icon}
-                  className="cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-[25px]"
+                  className="cursor-pointer text-[#cbd5e1] group-hover:text-emerald-400 transition-colors duration-300 h-[22px] "
                 />
+                <span className="mt-[1px]">{lang ? "EN" : "РУ"}</span>
               </button>
 
               <button
                 onClick={() => setMenuToggle(!menuToggle)}
-                aria-label="Toggle Mobile Menu"
                 className="lg:hidden flex items-center justify-center"
               >
                 <HugeiconsIcon
                   strokeWidth={2}
                   icon={Menu01Icon}
-                  className="cursor-pointer text-[#cbd5e1] hover:text-primary transition-colors duration-300 h-7 w-7"
+                  className="cursor-pointer text-[#cbd5e1] hover:text-emerald-400 transition-colors duration-300 h-7 w-7"
                 />
               </button>
 
               <Button type={ButtonVariant.Header} link="contact">
                 <div className="relative">
-                  <span className="absolute inset-[-1000%] z-0 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#10b981_0%,#050505_50%,#10b981_100%)] transform-gpu"></span>
+                  <span className="absolute inset-[-1000%]  bg-[conic-gradient(from_90deg_at_50%_50%,#10b981_0%,#050505_50%,#10b981_100%)] animate-spin-custom "></span>
 
-                  <span className="relative z-1 inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-[#050505] px-8 text-sm font-medium text-white transition-colors group-hover:bg-[#050505]/80">
+                  <span className="relative z-1 inline-flex h-full w-full cursor-pointer items-center duration-300 justify-center rounded-lg  bg-[#050505] px-8 text-sm font-medium text-white transition-all group-hover:bg-[#050505]/80">
                     {lang ? "Get Started" : "Начать работу"}
                   </span>
                 </div>
@@ -158,7 +159,7 @@ const Header = memo(function Header({ activeSection }: Props) {
                   key={e}
                   onClick={() => handleScroll(e)}
                   className={`flex justify-start capitalize text-white cursor-pointer transition-colors ${
-                    activeSection === e ? "text-primary" : ""
+                    activeSection === e ? "text-emerald-400" : ""
                   }`}
                 >
                   {lang ? e : navigation[e]}

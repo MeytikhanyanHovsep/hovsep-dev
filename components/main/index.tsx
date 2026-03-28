@@ -39,7 +39,7 @@ const Main = memo(function Main({ lang }: Props) {
               </div>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight mb-8 text-balance leading-[1.1] md:leading-[0.9]">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium dark:text-white tracking-tight mb-8 text-balance leading-[1.1] md:leading-[0.9]">
               <span className="text-gradient bg-linear-to-r from-accent to-secondary inline-block lg:pb-2">
                 {lang ? "Digital solutions" : "Цифровые решения"}
               </span>{" "}
@@ -54,7 +54,11 @@ const Main = memo(function Main({ lang }: Props) {
 
             <Button link="contact" type={ButtonVariant.Primary}>
               {lang ? "Discuss Project" : "Обсудить проект"}
-              <HugeiconsIcon icon={ArrowDown01Icon} strokeWidth={2} />
+              <HugeiconsIcon
+                icon={ArrowDown01Icon}
+                strokeWidth={2.5}
+                className="-mb-px"
+              />
             </Button>
           </div>
         </section>

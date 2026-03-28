@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
-export function useActiveElement(refs: React.RefObject<HTMLElement>[]) {
+export function useActiveElement(
+  refs: React.RefObject<(HTMLElement | null)[]>,
+) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -11,9 +13,12 @@ export function useActiveElement(refs: React.RefObject<HTMLElement>[]) {
 
       const threshold = 300;
 
-      refs.forEach((ref, index) => {
-        if (!ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
+      const elements = refs.current;
+      if (!elements) return;
+
+      elements.forEach((el, index) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
         const elementCenter = rect.top + rect.height / 2;
         const distance = Math.abs(windowCenter - elementCenter);
 

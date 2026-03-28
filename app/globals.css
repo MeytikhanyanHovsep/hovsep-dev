@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @custom-variant g-active (&:where(.group[data-active="true"] *));
 
@@ -16,7 +18,6 @@
   --animate-gear-spin-reverse: gear-spin-reverse 4s linear infinite;
 
 }
-
 
 ::selection {
   background-color: #10b9818b;
@@ -49,22 +50,15 @@ html {
   font-display: swap
 }
 
-
-
-
-
 body {
   max-width: 100vw;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #030505;
 }
 
 button {
   cursor: pointer;
 }
-
-
 
 .text-gradient {
 
@@ -82,8 +76,6 @@ button {
   animation: spin 2s linear infinite;
 }
 
-
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -91,5 +83,89 @@ button {
 
   to {
     transform: rotate(361deg);
+  }
+}
+
+.gear-base {
+  transform-origin: center center;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  animation: gear-spin-perfect linear infinite;
+  animation-play-state: paused;
+}
+
+.group:hover .gear-base {
+  animation-play-state: running;
+}
+
+.gear-slow,
+.gear-fast {
+  animation-duration: 4s;
+}
+
+.gear-medium {
+  animation-duration: 4s;
+  animation-direction: reverse;
+}
+
+.gear-fast {
+  animation-duration: 4s;
+}
+
+@keyframes gear-spin-perfect {
+  0% {
+    transform: rotate(0deg) translateZ(0);
+  }
+
+  100% {
+    transform: rotate(360deg) translateZ(0);
+  }
+}
+
+@media (max-width:768px) {
+  .group[data-active="true"] .gear-base {
+    animation-play-state: running;
+  }
+}
+
+
+
+.reviews-group {
+  animation: scrolling 35s linear infinite;
+  flex-shrink: 0;
+  display: flex;
+  gap: 1.25rem;
+  min-width: 100%;
+  will-change: transform;
+}
+
+.revers-group {
+  animation: scrolling-revers 35s linear infinite !important;
+}
+
+.swiper:hover .reviews-group,
+.swiper:hover .revers-group {
+  animation-play-state: paused !important;
+}
+
+@keyframes scrolling {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-100% - 1.25rem));
+  }
+}
+
+@keyframes scrolling-revers {
+  0% {
+    transform: translateX(calc(-100% - 1.25rem));
+  }
+
+  100% {
+    transform: translateX(0);
   }
 }

@@ -1,8 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-type Props = {};
 
-export default function Tech({}: Props) {
+export default function Tech() {
   return (
     <motion.div
       initial={{ opacity: 0, x: 50 }}
@@ -17,21 +16,21 @@ export default function Tech({}: Props) {
     >
       <div className="grid grid-cols-3 sm:grid-cols-4 transform   rotate-6 scale-110 gap-4">
         {[
-          "html",
-          "css",
           "js",
           "ts",
           "tailwind",
+          "vue",
           "react",
           "next",
           "node",
+          "nuxt",
           "nest",
           "docker",
           "github",
           "figma",
         ].map((tech, index) => {
           const isTransparent = [6, 8, 9, 11].includes(index);
-          const isColored = [2, 3].includes(index);
+          const isColored = [2, 7].includes(index);
           const isAccent = index === 5;
 
           return (
@@ -55,8 +54,8 @@ export default function Tech({}: Props) {
                             : "bg-slate-400 group-hover:bg-white"
                         }`}
                 style={{
-                  WebkitMaskImage: `url(/images/techs/${tech}.png)`,
-                  maskImage: `url(/images/techs/${tech}.png)`,
+                  WebkitMaskImage: `url(/images/techs/${tech}.webp)`,
+                  maskImage: `url(/images/techs/${tech}.webp)`,
                   WebkitMaskSize: "contain",
                   maskSize: "contain",
                   WebkitMaskRepeat: "no-repeat",

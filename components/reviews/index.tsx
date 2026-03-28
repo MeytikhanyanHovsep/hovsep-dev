@@ -1,80 +1,82 @@
-import React, { useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useRef } from "react";
 import { memo } from "react";
-import { Autoplay, FreeMode } from "swiper/modules";
 
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/autoplay";
-
-import { Pagination, Navigation } from "swiper/modules";
 import Item from "./item";
 import Title from "../ui/title";
 import Container from "../ui/container";
 type Props = { lang: boolean };
 
+const reviews = [
+  {
+    name: "Mikhail",
+    desc: [
+      "Excellent contractor! Did everything quickly and with high quality, took all my wishes into account, fixed the website revisions promptly, and was always in touch. Definitely recommend this contractor!",
+      "Отличный исполнитель! Сделал все быстро и качественно, все мои пожелания учел, доработки по сайту исправил быстро, всегда был на связи. Однозначно рекомендую данного исполнителя! !",
+    ],
+    img: "mikhail.webp",
+  },
+
+  {
+    name: "Alex",
+    desc: [
+      "Great experience! Revisions were completed quickly, and I highly recommend this developer. I will definitely be working with him again!",
+      "Отлично сработались правки выполнил быстро советую данного исполнителя, не первый раз буду обращаться!",
+    ],
+    img: "alex.webp",
+  },
+  {
+    name: "Innovatix",
+    desc: [
+      "Highly satisfied with the cooperation: all revisions were implemented quickly and professionally. Great communication throughout.",
+      "Полностью довольны сотрудничеством: все правки внесены оперативно и качественно. Отличная коммуникация на всех этапах.",
+    ],
+    img: "innovatixdev.webp",
+  },
+  {
+    name: "Mher",
+    desc: [
+      "The task was to code a fairly complex website layout. The developer did a great job — everything was clear, precise, and fast! I really liked the final result, and the responsiveness works perfectly.",
+      "Была задача создать вёрстку достаточно сложного сайта. хороший исполнитель, сделал все четко и быстро! Очень понравился макет, и адаптивность работает отлично.",
+    ],
+    img: "mher.webp",
+  },
+  {
+    name: "Vladislav",
+    desc: [
+      "Excellent work! All revisions were completed quickly. Highly recommend this developer, and I will definitely be reaching out again!",
+      "Отлично сработались! Все правки выполнены быстро. Советую данного исполнителя и определенно буду обращаться еще не раз!",
+    ],
+    img: "vladislav.webp",
+  },
+
+  {
+    name: "Alexander",
+    desc: [
+      "The contractor approached the task responsibly, refined the website, and made their own positive adjustments in agreement with me! Definitely recommend working with them, and I’ll be reaching out to them again!",
+      "Исполнитель ответсвенно отнесся к задаче, доработал сайт и внес свои положительные корректировки согласовав со мной! Однозначно рекомендую к сотрудничеству, и сам еще ни раз обращусь к нему!",
+    ],
+    img: "alexander.webp",
+  },
+
+  {
+    name: "Ivan",
+    desc: [
+      "The work was done perfectly! Even as a picky client, I have no complaints. Great developer with a professional attitude — he handled all revisions until the very end and never let me down. Highly recommended!",
+      "Работа выполнена на отлично! Придраться не к чему, хотя я придирчивый. Спасибо исполнителю за труд и отношение — внес все правки до победного и не подвел. Всем рекомендую, не прогадаете!",
+    ],
+    img: "ivan.webp",
+  },
+  {
+    name: "Andrey Bolonin",
+    desc: [
+      "1) The task was to lay out a landing page according to the design \n 2) The contractor was always in touch \n 3) Promptly made all revisions — thank you! We’ll reach out again",
+      "1) была задача сверстать лендинг по макету \n  2) исполнитель всегда был на связи \n 3) оперативно вносил все правки спасибо! будем обращаться",
+    ],
+    img: "andreybolinin.webp",
+  },
+];
+
 const Reviews = memo(function Reviews({ lang }: Props) {
-  const reviews = [
-    {
-      name: "Mikhail",
-      desc: [
-        "Excellent contractor! Did everything quickly and with high quality, took all my wishes into account, fixed the website revisions promptly, and was always in touch. Definitely recommend this contractor!",
-        "Отличный исполнитель! Сделал все быстро и качественно, все мои пожелания учел, доработки по сайту исправил быстро, всегда был на связи. Однозначно рекомендую данного исполнителя! !",
-      ],
-      img: "mikhail.webp",
-    },
-    {
-      name: "Alexander",
-      desc: [
-        "The contractor approached the task responsibly, refined the website, and made their own positive adjustments in agreement with me! Definitely recommend working with them, and I’ll be reaching out to them again myself!",
-        "Исполнитель ответсвенно отнесся к задаче, доработал сайт и внес свои положительные корректировки согласовав со мной! Однозначно рекомендую к сотрудничеству, и сам еще ни раз обращусь к нему!",
-      ],
-      img: "alexander.webp",
-    },
-    {
-      name: "Innovatix",
-      desc: [
-        "Satisfied with the cooperation, revisions were made promptly, thanks)",
-        "Довольны с сотрудничеством, правки были сделаны оперативно, спасибо)",
-      ],
-      img: "innovatixdev.webp",
-    },
-
-    {
-      name: "Alex",
-      desc: [
-        "Laid out a large project very quickly. All comments were promptly fixed.",
-        "Разверстал большой проект очень быстро. Все замечания оперативно правились.",
-      ],
-      img: "alex.webp",
-    },
-    {
-      name: "Andrey",
-      desc: [
-        "Fast, high quality, on time — the order was well done.",
-        "Быстро, качественно, в сроки, хорошо выполнен заказ",
-      ],
-      img: "andrey.webp",
-    },
-    {
-      name: "Andrey Bolonin",
-      desc: [
-        "1) The task was to lay out a landing page according to the design \n 2) The contractor was always in touch \n 3) Promptly made all revisions — thank you! We’ll reach out again",
-        "1) была задача сверстать лендинг по макету \n  2) исполнитель всегда был на связи \n 3) оперативно вносил все правки спасибо! будем обращаться",
-      ],
-      img: "andreybolinin.webp",
-    },
-
-    {
-      name: "Mher",
-      desc: [
-        "The specialist did everything well, responds quickly to all questions, and explains everything clearly. I really liked it — I’ll continue working with this freelancer.",
-        "Специалист выполнил все хорошо, отвечает оперативно по всем вопросам отвечает понятным языком. Все очень понравилось, буду и дальше сотрудничать с этим фрилансером.",
-      ],
-      img: "mher.webp",
-    },
-  ];
-  const swiperRef = useRef<any>(null);
   return (
     <>
       <Container id="reviews">
@@ -88,38 +90,57 @@ const Reviews = memo(function Reviews({ lang }: Props) {
         >
           {lang ? "Client Testimonials" : "Отзывы клиентов"}
         </Title>
-        <Swiper
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          onMouseEnter={() => swiperRef.current?.autoplay.stop()}
-          onMouseLeave={() => swiperRef.current?.autoplay.start()}
-          modules={[Autoplay, FreeMode]}
-          slidesPerView={1}
-          breakpoints={{
-            768: {
-              slidesPerView: 2,
-              speed: 3000,
-            },
-          }}
-          spaceBetween={30}
-          loop={true}
-          freeMode={true}
-          speed={5000}
-          autoplay={{
-            delay: 0,
-            disableOnInteraction: false,
-          }}
-          allowTouchMove={true}
-          className="mySwiper"
-        >
-          {reviews.map((e, i) => (
-            <SwiperSlide key={i} className="h-full">
-              <Item name={e.name} desc={e.desc[lang ? 0 : 1]} img={e.img} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
       </Container>
+      <div className="flex swiper mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+        <div className="flex mr-5 gap-5 will-change-transform reviews-group revers-group">
+          {reviews.slice(0, reviews.length / 2).map((e, i) => (
+            <Item
+              key={i}
+              name={e.name}
+              desc={e.desc[lang ? 0 : 1]}
+              img={e.img}
+            />
+          ))}
+        </div>
+        <div
+          aria-hidden
+          className="flex gap-5 will-change-transform reviews-group revers-group"
+        >
+          {reviews.slice(0, reviews.length / 2).map((e, i) => (
+            <Item
+              key={i}
+              name={e.name}
+              desc={e.desc[lang ? 0 : 1]}
+              img={e.img}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="flex mt-5 swiper mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+        <div className="flex mr-5 gap-5 will-change-transform reviews-group">
+          {reviews.slice(reviews.length / 2).map((e, i) => (
+            <Item
+              key={i}
+              name={e.name}
+              desc={e.desc[lang ? 0 : 1]}
+              img={e.img}
+            />
+          ))}
+        </div>
+        <div
+          aria-hidden
+          className="flex gap-5 will-change-transform reviews-group"
+        >
+          {reviews.slice(reviews.length / 2).map((e, i) => (
+            <Item
+              key={i}
+              name={e.name}
+              desc={e.desc[lang ? 0 : 1]}
+              img={e.img}
+            />
+          ))}
+        </div>
+      </div>
     </>
   );
 });

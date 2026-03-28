@@ -35,12 +35,16 @@ const About = memo(function About({ lang }: Props) {
           </Title>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 10, scale: 1 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{
+              once: true,
+              margin: "-150px 0px -150px 0px",
+              amount: 0.2,
+            }}
             transition={{
-              duration: 0.6,
+              duration: 0.5,
               ease: [0.22, 1, 0.36, 1],
-              delay: 0,
             }}
             className="leading-relaxed text-md  first-letter:font-bold text-balance text-slate-400 max-w-lg mb-6  md:-mt-10"
           >
@@ -49,12 +53,16 @@ const About = memo(function About({ lang }: Props) {
               : "Веб-разработчик, специализируюсь на Frontend-части приложений. Создаю адаптивные интерфейсы, уделяя особое внимание чистоте кода и архитектуре проекта."}
           </motion.p>
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 10, scale: 1 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{
+              once: true,
+              margin: "-150px 0px -150px 0px",
+              amount: 0.2,
+            }}
             transition={{
-              duration: 0.6,
+              duration: 0.5,
               ease: [0.22, 1, 0.36, 1],
-              delay: 0,
             }}
             className="leading-relaxed  first-letter:font-bold text-md text-balance text-slate-400 max-w-lg md:mb-10 mb-5"
           >

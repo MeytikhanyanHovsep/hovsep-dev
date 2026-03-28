@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Components from "@/components";
+import Components from "@/components/index";
 import { Inter } from "next/font/google";
-const inter = Inter({
+
+const font = Inter({
   subsets: ["latin"],
   display: "swap",
 });
@@ -37,11 +38,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={"ru"} className="dark nunito">
+    <html>
       <body
         className={
-          inter.className +
-          " antialiased max-w-screen overflow-hidden  text-white transition-colors duration-300"
+          font.className +
+          " antialiased max-w-screen bg-[#030505] overflow-hidden  text-white transition-colors duration-300"
         }
       >
         <Components>{children}</Components>
@@ -52,4 +53,4 @@ export default function RootLayout({
 
 // https://aether-ai-saas-template.aura.build/
 
-/////// fix all bugs of reviews swiper. conect formpress and forms verification
+/////// fix all bugs of reviews swiper.

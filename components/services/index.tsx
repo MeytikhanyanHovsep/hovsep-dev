@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Title from "../ui/title";
 import Item from "./item";
 import { memo, useRef } from "react";
@@ -12,9 +11,8 @@ type ServiceItem = {
   title: string[];
   description: string[];
   name: string;
-  item?: any;
+  item?: React.ReactNode;
 };
-import { motion } from "framer-motion";
 import Container from "../ui/container";
 import { useActiveElement } from "@/hooks/useActiveElement";
 
@@ -59,8 +57,8 @@ const services: ServiceItem[] = [
   {
     title: ["Frontend Development", "Frontend-разработка"],
     description: [
-      "High-performance SPA and SSR applications built with React and Next.js.",
-      "Быстрые SPA и SSR приложения на базе React и Next.js.",
+      "High-performance SPA and SSR applications built with React / Vue and Next.js / Nuxt.js.",
+      "Быстрые SPA и SSR приложения на базе React / Vue и Next.js / Nuxt.js.",
     ],
     name: "frontend",
     item: (
@@ -452,58 +450,12 @@ const services: ServiceItem[] = [
             icon={Settings01Icon}
           />
         </div>
-
-        <style>{`
-            .gear-base {
-                transform-origin: center center;
-                will-change: transform;
-                backface-visibility: hidden;
-                -webkit-backface-visibility: hidden;
-                transform: translateZ(0);
-                animation: gear-spin-perfect linear infinite;
-                animation-play-state: paused;
-            }
-
-            .group:hover .gear-base {
-                animation-play-state: running;
-            }
-
-            .gear-slow, .gear-fast {
-                animation-duration: 4s;
-            }
-
-            .gear-medium {
-                animation-duration: 4s;
-                animation-direction: reverse;
-            }
-
-            .gear-fast {
-                animation-duration: 4s;
-            }
-
-            @keyframes gear-spin-perfect {
-                0% {
-                    transform: rotate(0deg) translateZ(0);
-                }
-                100% {
-                    transform: rotate(360deg) translateZ(0);
-                }
-            }
-
-            @media (max-width:768px){
-            .group[data-active="true"] .gear-base {
-                animation-play-state: running;
-            }
-            }
-
-          
-        `}</style>
       </div>
     ),
   },
 ];
 const Services = memo(function Services({ lang }: Props) {
-  const refs = services.map(() => useRef<any>(null));
+  const refs = useRef<Array<HTMLDivElement | null>>([]);
   const activeIndex = useActiveElement(refs);
 
   return (
@@ -523,7 +475,9 @@ const Services = memo(function Services({ lang }: Props) {
         {services.map((e: ServiceItem, i) => (
           <Item
             ind={i}
-            ref={refs[i]}
+            ref={(el) => {
+              refs.current[i] = el;
+            }}
             isActive={i === activeIndex}
             name={e.name}
             key={i}

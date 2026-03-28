@@ -63,7 +63,8 @@ const Item = memo(
           >
             <Image
               src={`/images/projects/${img}`}
-              className=" object-contain w-full p-8 max-md:p-6 pb-0! transtion-transform duration-500 will-change-transform easy-in-out max-md:g-active:scale-[1.05] group-hover:scale-[1.07]"
+              loading="lazy"
+              className=" object-contain w-full p-8 max-md:p-6 pb-0! transtion-transform duration-500 will-change-transform max-md:g-active:scale-[1.05] group-hover:scale-[1.07]"
               width={400}
               height={300}
               alt="Preview"
