@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap --config next-sitemap.config.ts"
   },
   "dependencies": {
     "@hugeicons/core-free-icons": "^3.1.1",
