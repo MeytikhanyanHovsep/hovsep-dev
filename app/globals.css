@@ -16,11 +16,10 @@
   --animate-spin-custom: spin 3s linear infinite;
   --animate-gear-spin: gear-spin 4s linear infinite;
   --animate-gear-spin-reverse: gear-spin-reverse 4s linear infinite;
-
 }
 
 ::selection {
-  background-color: #10b9818b;
+  background-color: #10b9818a;
   color: #ffffffee;
 }
 

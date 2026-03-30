@@ -22,6 +22,7 @@ export default function Components({ children }: Props) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveSection(entry.target.id);
+          console.log(activeSection);
         }
       });
     };

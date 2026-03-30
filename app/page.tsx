@@ -1,6 +1,4 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
 import Main from "@/components/main";
 import About from "@/components/about";
 import Services from "@/components/services";
@@ -23,7 +21,7 @@ export default function Home() {
       <Reviews lang={lang} />
       <Faq lang={lang} />
 
-      <Contact lang={lang} />
+      {/* <Contact lang={lang} /> */}
     </>
   );
 }

@@ -30,7 +30,9 @@ const Header = memo(function Header({ activeSection }: Props) {
   const path = usePathname();
   const { lang, toggleLang } = useApp();
 
-  useEffect(() => {});
+  useEffect(() => {
+    console.log(activeSection);
+  }, [activeSection]);
 
   const handleScroll = (id: string): void => {
     setMenuToggle(false);
@@ -95,18 +97,7 @@ const Header = memo(function Header({ activeSection }: Props) {
             </div>
 
             <div className="flex items-center gap-5 z-10">
-              <a
-                href="https://t.me/Meytikhanyan_Hovsep"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Telegram"
-              >
-                <HugeiconsIcon
-                  strokeWidth={2}
-                  icon={TelegramIcon}
-                  className="cursor-pointer text-[#cbd5e1] hover:text-emerald-400 transition-colors duration-300 h-[25px]"
-                />
-              </a>
+              
 
               <button
                 onClick={() => toggleLang()}
@@ -117,7 +108,7 @@ const Header = memo(function Header({ activeSection }: Props) {
                   icon={Globe02Icon}
                   className="cursor-pointer text-[#cbd5e1] group-hover:text-emerald-400 transition-colors duration-300 h-[22px] "
                 />
-                <span className="mt-[1px]">{lang ? "EN" : "РУ"}</span>
+                <span className="mt-px">{lang ? "EN" : "РУ"}</span>
               </button>
 
               <button

@@ -4,15 +4,14 @@ import { useApp } from "@/context/AppContext";
 import Link from "next/link";
 import Image from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { GithubIcon, TelegramIcon } from "@hugeicons/core-free-icons";
-type Props = {};
+import { GithubIcon } from "@hugeicons/core-free-icons";
 
 type FooterLink = {
   item: [string, string];
-  type?: any;
+  type?: string;
 };
 
-export default function Footer({}: Props) {
+export default function Footer() {
   const { lang, setLang } = useApp();
 
   const navigation: FooterLink[] = [
@@ -81,13 +80,7 @@ export default function Footer({}: Props) {
                   src="/images/icons/kwork.png"
                 />
               </a>
-              <a href="https://t.me/Meytikhanyan_Hovsep" target="_blank">
-                <HugeiconsIcon
-                  strokeWidth={2}
-                  icon={TelegramIcon}
-                  className=" cursor-pointer w-7 max-md:w-6 max-md:h-6 h-7 text-white hover:text-primary transition-colors duration-300 "
-                />
-              </a>
+
               <a href="https://github.com/meytikhanyanhovsep" target="_blank">
                 <HugeiconsIcon
                   strokeWidth={2}

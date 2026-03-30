@@ -1,7 +1,5 @@
 import React from "react";
 
-type Props = {};
-
-export default function NotFound({}: Props) {
-    return <div className="mt-20 text-[100px]">NotFound</div>;
+export default function NotFound() {
+  return <div className="mt-20 text-[100px]">NotFound</div>;
 }
