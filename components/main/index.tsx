@@ -52,14 +52,14 @@ const Main = memo(function Main({ lang }: Props) {
                 : "От архитектуры до запуска: создаю интуитивно веб-приложения с упором на производительность и пользовательский опыт."}
             </p>
 
-            <Button link="contact" type={ButtonVariant.Primary}>
+            {/* <Button link="contact" type={ButtonVariant.Primary}>
               {lang ? "Discuss Project" : "Обсудить проект"}
               <HugeiconsIcon
                 icon={ArrowDown01Icon}
                 strokeWidth={2.5}
                 className="-mb-px"
               />
-            </Button>
+            </Button> */}
           </div>
         </section>
       </motion.div>

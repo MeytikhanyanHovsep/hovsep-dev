@@ -22,7 +22,6 @@ const navigation: Record<string, string> = {
   services: "Услуги",
   about: "Обо мне",
   reviews: "Отзывы",
-  contact: "Контакт",
 };
 
 const Header = memo(function Header({ activeSection }: Props) {
