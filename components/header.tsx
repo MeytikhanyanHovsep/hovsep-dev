@@ -96,8 +96,6 @@ const Header = memo(function Header({ activeSection }: Props) {
             </div>
 
             <div className="flex items-center gap-5 z-10">
-              
-
               <button
                 onClick={() => toggleLang()}
                 className="flex gap-1  transition-colors text-[#cbd5e1] font-semibold duration-300 group hover:text-emerald-400 text-[15px]  items-center justify-center"
@@ -121,7 +119,10 @@ const Header = memo(function Header({ activeSection }: Props) {
                 />
               </button>
 
-              <Button type={ButtonVariant.Header} link="contact">
+              <Button
+                type={ButtonVariant.Header}
+                link="https://kwork.ru/user/hovsep_meytikhanyan"
+              >
                 <div className="relative">
                   <span className="absolute inset-[-1000%]  bg-[conic-gradient(from_90deg_at_50%_50%,#10b981_0%,#050505_50%,#10b981_100%)] animate-spin-custom "></span>
 
