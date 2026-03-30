@@ -19,7 +19,6 @@ export default function Footer() {
     { item: ["about", "Обо мне"] },
     { item: ["reviews", "Отзывы"] },
     { item: ["faq", "Вопросы"] },
-    { item: ["contact", "Контакт"] },
   ];
 
   const services: FooterLink[] = [
