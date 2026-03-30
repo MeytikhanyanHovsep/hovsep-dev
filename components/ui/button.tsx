@@ -27,7 +27,22 @@ export default function Button({ type, children, link }: Props) {
     return null;
   };
 
-  return (
+  return link.includes("http") ? (
+    <motion.a
+      initial={{ opacity: 0, y: 20, scale: 1 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "0px 0px 0px 0px", amount: 0.2 }}
+      transition={{
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      href={link}
+      target="_blank"
+      className={type}
+    >
+      {children}
+    </motion.a>
+  ) : (
     <motion.button
       initial={{ opacity: 0, y: 20, scale: 1 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
