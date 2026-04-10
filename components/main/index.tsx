@@ -9,40 +9,18 @@ import { motion, useScroll, useTransform } from "framer-motion";
 type Props = { lang: boolean };
 
 const Main = memo(function Main({ lang }: Props) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const scaleAnim = useTransform(
-    scrollYProgress,
-    [0, 0.15, 0.85, 1],
-    [1, 0.95, 0.9, 0.9],
-  );
-  const yAnim = useTransform(
-    scrollYProgress,
-    [0, 0.15, 0.85, 1],
-    [0, -50, -100, -100],
-  );
   return (
-    <main
-      id="home"
-      ref={containerRef}
-      className="min-h-screen h-[140vh] relative "
-    >
+    <main id="home" className="min-h-screen relative ">
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full bg-radial from-emerald-500/20 to-transparent h-full rounded-full blur-[30px] -z-10 pointer-events-none opacity-30 transform-gpu"></div>
 
       <motion.div
-        style={{ scale: scaleAnim, y: yAnim }}
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="h-screen grid sticky top-0 place-items-center will-change-transform"
+        className="h-screen grid place-items-center will-change-transform"
       >
         <section className="min-h-full flex items-center my-auto max-md:pt-10 px-6 relative">
           <div className="flex flex-col justify-center h-full text-center max-w-4xl mx-auto items-center">
