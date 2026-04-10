@@ -4,6 +4,7 @@ type Props = {
   children: React.ReactNode;
   id: string;
   style?: string;
+  ref?: HTMLDivElement;
 };
 
 export default function Container({ children, id, style = "" }: Props) {

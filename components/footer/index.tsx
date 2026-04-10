@@ -6,7 +6,7 @@ import Image from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { GithubIcon } from "@hugeicons/core-free-icons";
 
-type FooterLink = {
+export type FooterLink = {
   item: [string, string];
   type?: string;
 };
@@ -16,6 +16,7 @@ export default function Footer() {
 
   const navigation: FooterLink[] = [
     { item: ["projects", "Проекты"] },
+    { item: ["services", "Услуги"] },
     { item: ["about", "Обо мне"] },
     { item: ["reviews", "Отзывы"] },
     { item: ["faq", "Вопросы"] },
@@ -47,7 +48,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-white/5 from-[#020617] to-[#0206172a] bg-linear-to-t pt-16 pb-8">
+    <footer className="border-t mt-20 border-white/5 from-[#020617] to-[#0206172a] bg-linear-to-t pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-16">
           <div className="col-span-2 lg:col-span-2">
@@ -79,14 +80,6 @@ export default function Footer() {
                   src="/images/icons/kwork.png"
                 />
               </a>
-
-              <a href="https://github.com/meytikhanyanhovsep" target="_blank">
-                <HugeiconsIcon
-                  strokeWidth={2}
-                  icon={GithubIcon}
-                  className=" cursor-pointer w-7 max-md:w-6 max-md:h-6 h-7 text-white hover:text-primary transition-colors duration-300 "
-                />
-              </a>
             </div>
           </div>
 
@@ -114,18 +107,6 @@ export default function Footer() {
           >
             © 2026 Hovsep Meytikhanyan. All rights reserved.
           </p>
-          <Link
-            href={"/privacy-policy"}
-            className="text-slate-500 hover:text-white duration-300  text-xs"
-          >
-            {lang ? legal[0].item[0] : legal[0].item[1]}
-          </Link>
-          <Link
-            href={"/terms-of-service"}
-            className="text-slate-500 hover:text-white duration-300  text-xs"
-          >
-            {lang ? legal[1].item[0] : legal[1].item[1]}
-          </Link>
         </div>
       </div>
     </footer>

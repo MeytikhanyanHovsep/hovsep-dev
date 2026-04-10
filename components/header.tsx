@@ -3,11 +3,7 @@
 import Link from "next/link";
 import React, { useState, memo, useEffect } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  Globe02Icon,
-  TelegramIcon,
-  Menu01Icon,
-} from "@hugeicons/core-free-icons";
+import { Globe02Icon, Menu01Icon } from "@hugeicons/core-free-icons";
 import { usePathname } from "next/navigation";
 import { useApp } from "@/context/AppContext";
 import Button, { ButtonVariant } from "./ui/button";
@@ -22,6 +18,7 @@ const navigation: Record<string, string> = {
   services: "Услуги",
   about: "Обо мне",
   reviews: "Отзывы",
+  faq: "Вопросы",
 };
 
 const Header = memo(function Header({ activeSection }: Props) {
@@ -77,8 +74,10 @@ const Header = memo(function Header({ activeSection }: Props) {
                     <button
                       key={e}
                       onClick={() => handleScroll(e)}
-                      className={`hover:text-white tracking-[2%] font-sembold capitalize text-[#cbd5e1] cursor-pointer transition-colors ${
-                        activeSection === e ? "text-emerald-400" : ""
+                      className={` tracking-[2%] duration-300 font-sembold capitalize  cursor-pointer transition-colors ${
+                        activeSection === e
+                          ? "text-emerald-400 hover:text-emerald-300"
+                          : "hover:text-white text-[#cbd5e1]  "
                       }`}
                     >
                       {lang ? e : navigation[e]}

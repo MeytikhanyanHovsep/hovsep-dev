@@ -1,26 +1,48 @@
 "use client";
 
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
 import Button, { ButtonVariant } from "../ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 type Props = { lang: boolean };
 
 const Main = memo(function Main({ lang }: Props) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const scaleAnim = useTransform(
+    scrollYProgress,
+    [0, 0.15, 0.85, 1],
+    [1, 0.95, 0.9, 0.9],
+  );
+  const yAnim = useTransform(
+    scrollYProgress,
+    [0, 0.15, 0.85, 1],
+    [0, -50, -100, -100],
+  );
   return (
-    <main id="home" className="min-h-screen h-screen relative ">
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full bg-radial from-emerald-500/20 to-transparent h-screen rounded-full blur-[30px] -z-10 pointer-events-none opacity-30 transform-gpu"></div>
+    <main
+      id="home"
+      ref={containerRef}
+      className="min-h-screen h-[140vh] relative "
+    >
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full bg-radial from-emerald-500/20 to-transparent h-full rounded-full blur-[30px] -z-10 pointer-events-none opacity-30 transform-gpu"></div>
 
       <motion.div
+        style={{ scale: scaleAnim, y: yAnim }}
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="min-h-full grid place-items-center will-change-transform"
+        className="h-screen grid sticky top-0 place-items-center will-change-transform"
       >
         <section className="min-h-full flex items-center my-auto max-md:pt-10 px-6 relative">
           <div className="flex flex-col justify-center h-full text-center max-w-4xl mx-auto items-center">
@@ -52,14 +74,17 @@ const Main = memo(function Main({ lang }: Props) {
                 : "От архитектуры до запуска: создаю интуитивно веб-приложения с упором на производительность и пользовательский опыт."}
             </p>
 
-            {/* <Button link="contact" type={ButtonVariant.Primary}>
+            <Button
+              link="https://kwork.ru/user/hovsep_meytikhanyan"
+              type={ButtonVariant.Primary}
+            >
               {lang ? "Discuss Project" : "Обсудить проект"}
               <HugeiconsIcon
                 icon={ArrowDown01Icon}
                 strokeWidth={2.5}
                 className="-mb-px"
               />
-            </Button> */}
+            </Button>
           </div>
         </section>
       </motion.div>

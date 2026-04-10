@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import Header from "./header";
 import { AppProvider } from "@/context/AppContext";
 import ScrollProgress from "./scrollProgress";
-
 import Script from "next/script";
 import Footer from "./footer";
+import { ReactLenis } from "lenis/react";
+import Lenis from "lenis";
 type Props = { children: React.ReactNode };
 
 export default function Components({ children }: Props) {
@@ -49,18 +50,27 @@ export default function Components({ children }: Props) {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  });
 
   return (
     <>
       <ScrollProgress />
-      <AppProvider>
-        <Header activeSection={activeSection} />
-        {children}
-        <Footer />
-      </AppProvider>
+      <ReactLenis
+        root
+        options={{
+          lerp: 0.1,
+          duration: 1.5,
+          smoothWheel: true,
+        }}
+      >
+        <AppProvider>
+          <Header activeSection={activeSection} />
+          {children}
+          <Footer />
+        </AppProvider>
+      </ReactLenis>
 
-      <span className="-z-10 dark:block hidden bg-radial from-[#081111] to-[#040505] left-0 top-0 fixed w-screen h-screen"></span>
+      <span className="-z-10 dark:block hidden bg-radial from-[#060e0e] to-[#040505] left-0 top-0 fixed w-screen h-screen"></span>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-GYFHZNX2S1"
         strategy="afterInteractive"

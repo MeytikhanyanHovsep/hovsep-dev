@@ -5,7 +5,6 @@ import Services from "@/components/services";
 import Projects from "@/components/projects";
 import Reviews from "@/components/reviews";
 import Faq from "@/components/faq";
-import Contact from "@/components/contact";
 
 import { useApp } from "@/context/AppContext";
 
@@ -20,8 +19,6 @@ export default function Home() {
       <About lang={lang} />
       <Reviews lang={lang} />
       <Faq lang={lang} />
-
-      {/* <Contact lang={lang} /> */}
     </>
   );
 }

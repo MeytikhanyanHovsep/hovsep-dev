@@ -25,7 +25,7 @@ export default function ScrollProgress() {
   return (
     <div
       style={{ transform: `translateX(${completion - 100}%)` }}
-      className="fixed top-0 left-0 h-1 rounded-r-md w-full bg-primary z-[100] transition-transform duration-150 ease-out"
+      className="fixed top-0 left-0 h-1 rounded-r-md w-full bg-primary z-[100] transition-transform duration-200 "
     />
   );
 }

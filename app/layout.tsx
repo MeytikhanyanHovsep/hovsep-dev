@@ -42,7 +42,7 @@ export default function RootLayout({
       <body
         className={
           font.className +
-          " antialiased max-w-screen bg-[#030505] overflow-hidden  text-white transition-colors duration-300"
+          " antialiased flex flex-col justify-between min-h-screen max-w-screen bg-[#030505] overflow-hidden  text-white transition-colors duration-300"
         }
       >
         <Components>{children}</Components>

@@ -1,3 +1,4 @@
+"use client";
 import { memo } from "react";
 import Title from "../ui/title";
 import Button, { ButtonVariant } from "../ui/button";
@@ -7,23 +8,6 @@ import { motion } from "framer-motion";
 type Props = { lang: boolean };
 
 const About = memo(function About({ lang }: Props) {
-  const cubes = [
-    { logo: "github", color: "#ffffff", x: 2, y: 0, z: 0, ind: 9 },
-    { logo: "docker", color: "#0033CC", x: 2, y: 1, z: 0, ind: 7 },
-    { logo: "bootstrap", color: "#4B0082", x: 1, y: 1, z: 0, ind: 8 },
-    { logo: "tailwind", color: "#005F87", x: 0, y: 2, z: 0, ind: 7 },
-    { logo: "figma", color: "#991F00", x: 1, y: 2, z: 0, ind: 6 },
-    { logo: "framer", color: "#000000", x: 2, y: 2, z: 0, ind: 4 },
-    { logo: "nest", color: "#8B0000", x: 3, y: 2, z: 0, ind: 2 },
-    { logo: "node", color: "#1A4D1A", x: 2, y: 2, z: 1, ind: 4 },
-    { logo: "react", color: "#007A99", x: 3, y: 1, z: 3, ind: 4 },
-    { logo: "next", color: "#000", x: 3, y: 2, z: 3, ind: 3 },
-    { logo: "js", color: "#998500", x: 0, y: 2, z: 3, ind: 4 },
-    { logo: "html", color: "#992E00", x: 0, y: 2, z: 2, ind: 3 },
-    { logo: "css", color: "#002BB8", x: 1, y: 2, z: 3, ind: 3 },
-    { logo: "ts", color: "#004B99", x: 3, y: 2, z: 2, ind: 2 },
-  ];
-
   return (
     <Container id="about" style=" max-xl:overflow-x-clip">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
