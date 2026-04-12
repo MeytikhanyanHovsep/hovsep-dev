@@ -91,7 +91,7 @@ const Item = memo(
             <h3 className="text-xl font-medium text-white mb-3 tracking-tight">
               {title}
             </h3>
-            <p className="text-slate-400 leading-relaxed">{description}</p>
+            <p className="text-slate-400 text-balance">{description}</p>
           </div>
         </div>
       </motion.div>

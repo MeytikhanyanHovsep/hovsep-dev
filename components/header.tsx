@@ -17,6 +17,7 @@ const navigation: Record<string, string> = {
   projects: "Проекты",
   services: "Услуги",
   about: "Обо мне",
+  process: "Процесс",
   reviews: "Отзывы",
   faq: "Вопросы",
 };

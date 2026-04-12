@@ -1,10 +1,10 @@
 "use client";
 
-import React, { memo, useRef } from "react";
+import React, { memo } from "react";
 import Button, { ButtonVariant } from "../ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 type Props = { lang: boolean };
 

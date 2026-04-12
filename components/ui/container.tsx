@@ -2,12 +2,12 @@ import React from "react";
 
 type Props = {
   children: React.ReactNode;
-  id: string;
+  id?: string;
   style?: string;
   ref?: HTMLDivElement;
 };
 
-export default function Container({ children, id, style = "" }: Props) {
+export default function Container({ children, id = "", style = "" }: Props) {
   return (
     <section
       id={id}

@@ -8,6 +8,9 @@ import { useActiveElement } from "@/hooks/useActiveElement";
 
 type Props = { lang: boolean };
 
+//https://deviceframes.com/
+// w-1515
+// x 150
 const projects: TProject[] = [
   {
     url: "https://apexhash.ru/",
@@ -30,12 +33,12 @@ const projects: TProject[] = [
   },
 
   {
-    url: "https://andreybolonin.com/",
-    img: "andrey.webp",
-    title: ["Portfolio Showcase", "Портфолио Разработчика"],
+    url: "https://business-stream.vercel.app/",
+    img: "business-stream.webp",
+    title: ["Video Agency & CMS", "Видео-агентство и CMS"],
     description: [
-      "Clean, high-performance landing page for a creative professional.",
-      "Минималистичный лендинг для презентации творческих работ.",
+      "Sleek video landing with optimized UX and custom admin panel.",
+      "Стильный видео-лендинг с оптимизированным UI и админ-панелью.",
     ],
   },
   {

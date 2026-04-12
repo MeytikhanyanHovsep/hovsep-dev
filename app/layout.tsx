@@ -52,5 +52,3 @@ export default function RootLayout({
 }
 
 // https://aether-ai-saas-template.aura.build/
-
-/////// fix all bugs of reviews swiper.

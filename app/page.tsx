@@ -7,6 +7,7 @@ import Reviews from "@/components/reviews";
 import Faq from "@/components/faq";
 
 import { useApp } from "@/context/AppContext";
+import Steps from "@/components/steps";
 
 export default function Home() {
   const { lang } = useApp();
@@ -17,6 +18,7 @@ export default function Home() {
       <Projects lang={lang} />
       <Services lang={lang} />
       <About lang={lang} />
+      <Steps lang={lang} />
       <Reviews lang={lang} />
       <Faq lang={lang} />
     </>

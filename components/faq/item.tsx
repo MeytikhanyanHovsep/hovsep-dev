@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { PlusSignIcon } from "@hugeicons/core-free-icons";
 import { motion } from "framer-motion";
@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 type Props = {
   title: string;
   description: string;
-  setOpenIndex: any;
+  setOpenIndex: React.Dispatch<React.SetStateAction<number | null>>;
   ind: number;
   openIndex: number | null;
 };

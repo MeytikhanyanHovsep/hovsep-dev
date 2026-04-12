@@ -6,7 +6,6 @@ import ScrollProgress from "./scrollProgress";
 import Script from "next/script";
 import Footer from "./footer";
 import { ReactLenis } from "lenis/react";
-import Lenis from "lenis";
 type Props = { children: React.ReactNode };
 
 export default function Components({ children }: Props) {

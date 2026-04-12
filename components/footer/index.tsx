@@ -18,6 +18,7 @@ export default function Footer() {
     { item: ["projects", "Проекты"] },
     { item: ["services", "Услуги"] },
     { item: ["about", "Обо мне"] },
+    { item: ["process", "Процесс"] },
     { item: ["reviews", "Отзывы"] },
     { item: ["faq", "Вопросы"] },
   ];
