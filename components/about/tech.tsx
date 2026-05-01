@@ -1,0 +1,73 @@
+import React from "react";
+import { motion } from "framer-motion";
+
+export default function Tech() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0,
+      }}
+      viewport={{ once: true, margin: "-150px 0px -150px 0px", amount: 0.2 }}
+      className="relative"
+    >
+      <div className="grid grid-cols-3 sm:grid-cols-4 transform   rotate-6 scale-110 gap-4">
+        {[
+          "js",
+          "ts",
+          "tailwind",
+          "vue",
+          "react",
+          "next",
+          "node",
+          "nuxt",
+          "nest",
+          "docker",
+          "github",
+          "figma",
+        ].map((tech, index) => {
+          const isTransparent = [6, 8, 9, 11].includes(index);
+          const isColored = [2, 7].includes(index);
+          const isAccent = index === 5;
+
+          return (
+            <div
+              key={tech}
+              className={`aspect-square border rounded-2xl flex items-center justify-center transition-all duration-300 group cursor-default
+                    ${isTransparent ? "bg-transparent border-white/5" : ""}
+                    ${
+                      isAccent
+                        ? "bg-emerald-500/10 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:bg-emerald-500/20"
+                        : isTransparent
+                          ? " hover:bg-white/[0.1] hover:border-emerald-500/30"
+                          : "bg-white/[0.03] border-white/5 hover:bg-white/[0.1] hover:border-emerald-500/30"
+                    }`}
+            >
+              <div
+                className={`w-10 h-10 max-md:w-8 max-md:h-8 object-contain transition-all duration-300
+                        ${
+                          isAccent || isColored
+                            ? "bg-emerald-500 group-hover:bg-emerald-400"
+                            : "bg-slate-400 group-hover:bg-white"
+                        }`}
+                style={{
+                  WebkitMaskImage: `url(/images/techs/${tech}.webp)`,
+                  maskImage: `url(/images/techs/${tech}.webp)`,
+                  WebkitMaskSize: "contain",
+                  maskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                  maskPosition: "center",
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
