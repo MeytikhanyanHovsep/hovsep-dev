@@ -29,7 +29,7 @@ const projects: TProject[] = [
     ],
   },
   {
-    url: "https://business-stream.vercel.app/",
+    url: "https://bzstream.ru/",
     img: "business-stream.webp",
     title: ["Video Agency & CMS", "Видео-агентство и CMS"],
     description: [
